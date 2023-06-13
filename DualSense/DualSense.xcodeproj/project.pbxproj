@@ -1,0 +1,582 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 56;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		F9B745D52A38B56100A31413 /* DualSenseApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9B745D42A38B56100A31413 /* DualSenseApp.swift */; };
+		F9B745D72A38B56100A31413 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9B745D62A38B56100A31413 /* ContentView.swift */; };
+		F9B745D92A38B56200A31413 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F9B745D82A38B56200A31413 /* Assets.xcassets */; };
+		F9B745DC2A38B56200A31413 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F9B745DB2A38B56200A31413 /* Preview Assets.xcassets */; };
+		F9B745E62A38B56200A31413 /* DualSenseTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9B745E52A38B56200A31413 /* DualSenseTests.swift */; };
+		F9B745F02A38B56200A31413 /* DualSenseUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9B745EF2A38B56200A31413 /* DualSenseUITests.swift */; };
+		F9B745F22A38B56200A31413 /* DualSenseUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9B745F12A38B56200A31413 /* DualSenseUITestsLaunchTests.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		F9B745E22A38B56200A31413 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F9B745C92A38B56100A31413 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = F9B745D02A38B56100A31413;
+			remoteInfo = DualSense;
+		};
+		F9B745EC2A38B56200A31413 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F9B745C92A38B56100A31413 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = F9B745D02A38B56100A31413;
+			remoteInfo = DualSense;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		F9B745D12A38B56100A31413 /* DualSense.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DualSense.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		F9B745D42A38B56100A31413 /* DualSenseApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DualSenseApp.swift; sourceTree = "<group>"; };
+		F9B745D62A38B56100A31413 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		F9B745D82A38B56200A31413 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		F9B745DB2A38B56200A31413 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		F9B745E12A38B56200A31413 /* DualSenseTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DualSenseTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		F9B745E52A38B56200A31413 /* DualSenseTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DualSenseTests.swift; sourceTree = "<group>"; };
+		F9B745EB2A38B56200A31413 /* DualSenseUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DualSenseUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		F9B745EF2A38B56200A31413 /* DualSenseUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DualSenseUITests.swift; sourceTree = "<group>"; };
+		F9B745F12A38B56200A31413 /* DualSenseUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DualSenseUITestsLaunchTests.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		F9B745CE2A38B56100A31413 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F9B745DE2A38B56200A31413 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F9B745E82A38B56200A31413 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		F9B745C82A38B56100A31413 = {
+			isa = PBXGroup;
+			children = (
+				F9B745D32A38B56100A31413 /* DualSense */,
+				F9B745E42A38B56200A31413 /* DualSenseTests */,
+				F9B745EE2A38B56200A31413 /* DualSenseUITests */,
+				F9B745D22A38B56100A31413 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		F9B745D22A38B56100A31413 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				F9B745D12A38B56100A31413 /* DualSense.app */,
+				F9B745E12A38B56200A31413 /* DualSenseTests.xctest */,
+				F9B745EB2A38B56200A31413 /* DualSenseUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		F9B745D32A38B56100A31413 /* DualSense */ = {
+			isa = PBXGroup;
+			children = (
+				F9B745D42A38B56100A31413 /* DualSenseApp.swift */,
+				F9B745D62A38B56100A31413 /* ContentView.swift */,
+				F9B745D82A38B56200A31413 /* Assets.xcassets */,
+				F9B745DA2A38B56200A31413 /* Preview Content */,
+			);
+			path = DualSense;
+			sourceTree = "<group>";
+		};
+		F9B745DA2A38B56200A31413 /* Preview Content */ = {
+			isa = PBXGroup;
+			children = (
+				F9B745DB2A38B56200A31413 /* Preview Assets.xcassets */,
+			);
+			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		F9B745E42A38B56200A31413 /* DualSenseTests */ = {
+			isa = PBXGroup;
+			children = (
+				F9B745E52A38B56200A31413 /* DualSenseTests.swift */,
+			);
+			path = DualSenseTests;
+			sourceTree = "<group>";
+		};
+		F9B745EE2A38B56200A31413 /* DualSenseUITests */ = {
+			isa = PBXGroup;
+			children = (
+				F9B745EF2A38B56200A31413 /* DualSenseUITests.swift */,
+				F9B745F12A38B56200A31413 /* DualSenseUITestsLaunchTests.swift */,
+			);
+			path = DualSenseUITests;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		F9B745D02A38B56100A31413 /* DualSense */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = F9B745F52A38B56200A31413 /* Build configuration list for PBXNativeTarget "DualSense" */;
+			buildPhases = (
+				F9B745CD2A38B56100A31413 /* Sources */,
+				F9B745CE2A38B56100A31413 /* Frameworks */,
+				F9B745CF2A38B56100A31413 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = DualSense;
+			productName = DualSense;
+			productReference = F9B745D12A38B56100A31413 /* DualSense.app */;
+			productType = "com.apple.product-type.application";
+		};
+		F9B745E02A38B56200A31413 /* DualSenseTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = F9B745F82A38B56200A31413 /* Build configuration list for PBXNativeTarget "DualSenseTests" */;
+			buildPhases = (
+				F9B745DD2A38B56200A31413 /* Sources */,
+				F9B745DE2A38B56200A31413 /* Frameworks */,
+				F9B745DF2A38B56200A31413 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				F9B745E32A38B56200A31413 /* PBXTargetDependency */,
+			);
+			name = DualSenseTests;
+			productName = DualSenseTests;
+			productReference = F9B745E12A38B56200A31413 /* DualSenseTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		F9B745EA2A38B56200A31413 /* DualSenseUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = F9B745FB2A38B56200A31413 /* Build configuration list for PBXNativeTarget "DualSenseUITests" */;
+			buildPhases = (
+				F9B745E72A38B56200A31413 /* Sources */,
+				F9B745E82A38B56200A31413 /* Frameworks */,
+				F9B745E92A38B56200A31413 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				F9B745ED2A38B56200A31413 /* PBXTargetDependency */,
+			);
+			name = DualSenseUITests;
+			productName = DualSenseUITests;
+			productReference = F9B745EB2A38B56200A31413 /* DualSenseUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		F9B745C92A38B56100A31413 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 1430;
+				LastUpgradeCheck = 1430;
+				TargetAttributes = {
+					F9B745D02A38B56100A31413 = {
+						CreatedOnToolsVersion = 14.3.1;
+					};
+					F9B745E02A38B56200A31413 = {
+						CreatedOnToolsVersion = 14.3.1;
+						TestTargetID = F9B745D02A38B56100A31413;
+					};
+					F9B745EA2A38B56200A31413 = {
+						CreatedOnToolsVersion = 14.3.1;
+						TestTargetID = F9B745D02A38B56100A31413;
+					};
+				};
+			};
+			buildConfigurationList = F9B745CC2A38B56100A31413 /* Build configuration list for PBXProject "DualSense" */;
+			compatibilityVersion = "Xcode 14.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = F9B745C82A38B56100A31413;
+			productRefGroup = F9B745D22A38B56100A31413 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				F9B745D02A38B56100A31413 /* DualSense */,
+				F9B745E02A38B56200A31413 /* DualSenseTests */,
+				F9B745EA2A38B56200A31413 /* DualSenseUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		F9B745CF2A38B56100A31413 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F9B745DC2A38B56200A31413 /* Preview Assets.xcassets in Resources */,
+				F9B745D92A38B56200A31413 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F9B745DF2A38B56200A31413 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F9B745E92A38B56200A31413 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		F9B745CD2A38B56100A31413 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F9B745D72A38B56100A31413 /* ContentView.swift in Sources */,
+				F9B745D52A38B56100A31413 /* DualSenseApp.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F9B745DD2A38B56200A31413 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F9B745E62A38B56200A31413 /* DualSenseTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F9B745E72A38B56200A31413 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F9B745F02A38B56200A31413 /* DualSenseUITests.swift in Sources */,
+				F9B745F22A38B56200A31413 /* DualSenseUITestsLaunchTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		F9B745E32A38B56200A31413 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = F9B745D02A38B56100A31413 /* DualSense */;
+			targetProxy = F9B745E22A38B56200A31413 /* PBXContainerItemProxy */;
+		};
+		F9B745ED2A38B56200A31413 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = F9B745D02A38B56100A31413 /* DualSense */;
+			targetProxy = F9B745EC2A38B56200A31413 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		F9B745F32A38B56200A31413 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.4;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		F9B745F42A38B56200A31413 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.4;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		F9B745F62A38B56200A31413 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"DualSense/Preview Content\"";
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.SignLanguage.DualSense;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		F9B745F72A38B56200A31413 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"DualSense/Preview Content\"";
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.SignLanguage.DualSense;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		F9B745F92A38B56200A31413 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.4;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.SignLanguage.DualSenseTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/DualSense.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/DualSense";
+			};
+			name = Debug;
+		};
+		F9B745FA2A38B56200A31413 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.4;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.SignLanguage.DualSenseTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/DualSense.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/DualSense";
+			};
+			name = Release;
+		};
+		F9B745FC2A38B56200A31413 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.SignLanguage.DualSenseUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = DualSense;
+			};
+			name = Debug;
+		};
+		F9B745FD2A38B56200A31413 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.SignLanguage.DualSenseUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = DualSense;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		F9B745CC2A38B56100A31413 /* Build configuration list for PBXProject "DualSense" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F9B745F32A38B56200A31413 /* Debug */,
+				F9B745F42A38B56200A31413 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		F9B745F52A38B56200A31413 /* Build configuration list for PBXNativeTarget "DualSense" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F9B745F62A38B56200A31413 /* Debug */,
+				F9B745F72A38B56200A31413 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		F9B745F82A38B56200A31413 /* Build configuration list for PBXNativeTarget "DualSenseTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F9B745F92A38B56200A31413 /* Debug */,
+				F9B745FA2A38B56200A31413 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		F9B745FB2A38B56200A31413 /* Build configuration list for PBXNativeTarget "DualSenseUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F9B745FC2A38B56200A31413 /* Debug */,
+				F9B745FD2A38B56200A31413 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = F9B745C92A38B56100A31413 /* Project object */;
+}
