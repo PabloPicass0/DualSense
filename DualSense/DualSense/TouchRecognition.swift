@@ -18,20 +18,28 @@ struct TouchData : Codable {
 
 // Creates touchRecognizer to capture touch events
 class TouchRecognizer: UIGestureRecognizer {
+    
+    // Stores gestures only if true
+    var isRecording = false
+    
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent) {
+        guard isRecording else { return }
         appendTouchData(touches: touches)
     }
     
     override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent) {
+        guard isRecording else { return }
         appendTouchData(touches: touches)
     }
     
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent) {
+        guard isRecording else { return }
         appendTouchData(touches: touches)
         safeAndClearArray()
     }
     
     override func touchesCancelled(_ touches: Set<UITouch>, with event: UIEvent) {
+        guard isRecording else { return }
         appendTouchData(touches: touches)
         safeAndClearArray()
     }
@@ -58,53 +66,12 @@ class TouchRecognizer: UIGestureRecognizer {
             if let path = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first {
                 let filePath = path.appendingPathComponent("TouchData.json")
                 try? data.write(to: filePath)
+                // For debugging and seeing where the files end up
                 print("File Path: \(filePath)")
             }
         }
         
         // Clears array for next gesture
         touchDataArray.removeAll()
-    }
-}
-
-    
-// Creates TouchView to capture complex touch gestures; Struct conforming to UIViewRepresentable, allowing SwiftUI to work with UIKit's UIView
-struct TouchView: UIViewRepresentable {
-        
-    // Defines a nested class called Coordinator; needed to manage touch events for specific TouchView instance
-    class Coordinator: NSObject {
-        // Reference to the parent TouchView instance with a member
-        var touchView: TouchView
-            
-        // Constructor to initialise member
-        init(_ touchView: TouchView) {
-            self.touchView = touchView
-        }
-            
-        // Function that will be called when touch gesture is detected; not yet implemented because no gesture is defined
-        @objc func touchDetected(gesture: TouchRecognizer) {
-            print("Touch detected")
-        }
-    }
-        
-    // Required by UIViewRepresentable protocol; creates a Coordinator for TouchView instance
-    func makeCoordinator() -> Coordinator {
-        Coordinator(self)
-    }
-        
-    // Required by UIViewRepresentable protocol; creates and returns UIView
-    func makeUIView(context: Context) -> UIView {
-        // Creates a UIView instance as constant (assigned variable cannot be changed)
-        let view = UIView()
-            
-        // Creates a TouchRecognizer and adds it to the view
-        let gesture = TouchRecognizer(target: context.coordinator, action: #selector(Coordinator.touchDetected))
-        view.addGestureRecognizer(gesture)
-        return view
-    }
-        
-    // Required by UIViewRepresentable protocol; updates the view when the state changes
-    func updateUIView(_ uiView: UIView, context: Context) {
-        // Code here to update view when SwiftUI view state changes
     }
 }

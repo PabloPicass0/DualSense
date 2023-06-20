@@ -9,8 +9,14 @@ import SwiftUI
 
 
 struct ContentView: View {
+    @State private var isRecording = false
+    
     var body: some View {
-        TouchView()
+        VStack {
+            Spacer()
+            HandGraphic(isRecording: $isRecording)
+            RecordButton(isRecording: $isRecording)
+        }
     }
 }
 
