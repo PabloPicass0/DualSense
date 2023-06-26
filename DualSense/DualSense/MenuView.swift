@@ -7,12 +7,13 @@
 
 import SwiftUI
 
+// This uses NavigationView elements which is deprecated; may need to be updated
 struct MenuView: View {
     var body: some View {
-        NavigationView {
+        NavigationStack {
             VStack {
                 // Creates button that navigates to new view when pressed
-                NavigationLink(destination: HandGraphic(isRecording: .constant(false))) {
+                NavigationLink(destination: GestureDetectionView()) {
                     Text("Record")
                         .font(.title)
                         .padding()

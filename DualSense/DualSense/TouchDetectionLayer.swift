@@ -9,7 +9,7 @@ import SwiftUI
 import UIKit
 
 // Creates TouchView to capture complex touch gestures; Struct conforming to UIViewRepresentable, allowing SwiftUI to work with UIKit's UIView
-struct TouchView: UIViewRepresentable {
+struct TouchDetectionLayer: UIViewRepresentable {
     
     // Binding property for the recording state; @Binding makes it reference the source of truth
     @Binding var isRecording: Bool
@@ -20,10 +20,10 @@ struct TouchView: UIViewRepresentable {
     // Defines a nested class called Coordinator; needed to manage touch events for specific TouchView instance
     class Coordinator: NSObject {
         // Reference to the parent TouchView instance with a member
-        var touchView: TouchView
+        var touchView: TouchDetectionLayer
             
         // Constructor to initialise member
-        init(_ touchView: TouchView) {
+        init(_ touchView: TouchDetectionLayer) {
             self.touchView = touchView
         }
             
@@ -52,12 +52,12 @@ struct TouchView: UIViewRepresentable {
     }
         
     // Required by UIViewRepresentable protocol; updates the recording state when the SwiftUI state changes
-        func updateUIView(_ uiView: UIView, context: Context) {
-            for gesture in uiView.gestureRecognizers ?? [] {
-                // Casts gesture to TouchRecognizer because loop returns base class UIGestureRecognizer
-                if let touchRecognizer = gesture as? TouchRecognizer {
-                    touchRecognizer.isRecording = isRecording
-                }
+    func updateUIView(_ uiView: UIView, context: Context) {
+        for gesture in uiView.gestureRecognizers ?? [] {
+            // Casts gesture to TouchRecognizer because loop returns base class UIGestureRecognizer
+            if let touchRecognizer = gesture as? TouchRecognizer {
+                touchRecognizer.isRecording = isRecording
             }
         }
+    }
 }

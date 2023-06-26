@@ -27,7 +27,7 @@ struct HandGraphic: View {
                 .padding(.bottom, 100)
             
             // Touch View layer on top of hand image
-            TouchView(isRecording: $isRecording, touchDelegate: self)
+            TouchDetectionLayer(isRecording: $isRecording, touchDelegate: self)
             
             // Colours touch locations on view
             ForEach(touchPoints.indices, id: \.self) { index in
