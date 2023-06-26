@@ -8,13 +8,16 @@
 import SwiftUI
 import UIKit
 
-
 // Creates a data structure that holds touch data
 struct TouchData : Codable {
     var location: CGPoint
     var timestamp: TimeInterval
 }
 
+// Creates delegate to communicate touch points back to view
+protocol TouchRecognizerDelegate {
+    func touchPointsUpdated(_ touchPoints: [CGPoint])
+}
 
 // Creates touchRecognizer to capture touch events
 class TouchRecognizer: UIGestureRecognizer {
@@ -22,30 +25,38 @@ class TouchRecognizer: UIGestureRecognizer {
     // Stores gestures only if true
     var isRecording = false
     
+    // Creates a data array for touch data
+    var touchDataArray = [TouchData]()
+    
+    // Optional delegate to communicate touch points to view
+    var touchDelegate: TouchRecognizerDelegate?
+    
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent) {
         guard isRecording else { return }
         appendTouchData(touches: touches)
+        touchDelegate?.touchPointsUpdated(touchDataArray.map { $0.location })
     }
     
     override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent) {
         guard isRecording else { return }
         appendTouchData(touches: touches)
+        touchDelegate?.touchPointsUpdated(touchDataArray.map { $0.location })
     }
     
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent) {
         guard isRecording else { return }
         appendTouchData(touches: touches)
+        touchDelegate?.touchPointsUpdated(touchDataArray.map { $0.location })
         safeAndClearArray()
     }
     
     override func touchesCancelled(_ touches: Set<UITouch>, with event: UIEvent) {
         guard isRecording else { return }
         appendTouchData(touches: touches)
+        touchDelegate?.touchPointsUpdated(touchDataArray.map { $0.location })
         safeAndClearArray()
     }
     
-    // Creates a data array for touch data
-    var touchDataArray = [TouchData]()
     
     // Stores touch data in file in array
     private func appendTouchData(touches: Set<UITouch>) {
@@ -62,13 +73,20 @@ class TouchRecognizer: UIGestureRecognizer {
     private func safeAndClearArray() {
         // Safes array to JSON file
         let encoder = JSONEncoder()
-        if let data = try? encoder.encode(touchDataArray) {
-            if let path = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first {
-                let filePath = path.appendingPathComponent("TouchData.json")
-                try? data.write(to: filePath)
-                // For debugging and seeing where the files end up
-                print("File Path: \(filePath)")
-            }
+        do {
+            let data = try encoder.encode(touchDataArray)
+                if let path = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first {
+                    let filePath = path.appendingPathComponent("TouchData.json")
+                    do {
+                        try data.write(to: filePath)
+                        // For debugging and seeing where the files end up
+                        print("File Path: \(filePath)")
+                    } catch {
+                        print("An error occurred while writing to file: \(error)")
+                    }
+                }
+        } catch {
+            print("An error occurred while encoding: \(error)")
         }
         
         // Clears array for next gesture

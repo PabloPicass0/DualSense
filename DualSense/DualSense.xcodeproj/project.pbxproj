@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		F9355B4A2A49A0B700F573AA /* MenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9355B492A49A0B700F573AA /* MenuView.swift */; };
 		F9B745D52A38B56100A31413 /* DualSenseApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9B745D42A38B56100A31413 /* DualSenseApp.swift */; };
 		F9B745D72A38B56100A31413 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9B745D62A38B56100A31413 /* ContentView.swift */; };
 		F9B745D92A38B56200A31413 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F9B745D82A38B56200A31413 /* Assets.xcassets */; };
@@ -38,6 +39,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		F9355B492A49A0B700F573AA /* MenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuView.swift; sourceTree = "<group>"; };
 		F9B745D12A38B56100A31413 /* DualSense.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DualSense.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F9B745D42A38B56100A31413 /* DualSenseApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DualSenseApp.swift; sourceTree = "<group>"; };
 		F9B745D62A38B56100A31413 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -103,6 +105,7 @@
 			isa = PBXGroup;
 			children = (
 				F9B745D42A38B56100A31413 /* DualSenseApp.swift */,
+				F9355B492A49A0B700F573AA /* MenuView.swift */,
 				F9B745D62A38B56100A31413 /* ContentView.swift */,
 				F9B745D82A38B56200A31413 /* Assets.xcassets */,
 				F9B745DA2A38B56200A31413 /* Preview Content */,
@@ -269,6 +272,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F9355B4A2A49A0B700F573AA /* MenuView.swift in Sources */,
 				F9E98E522A40CF29004561D7 /* TouchView.swift in Sources */,
 				F9E98E542A40D098004561D7 /* RecordButton.swift in Sources */,
 				F9B746032A38DDA000A31413 /* TouchRecognition.swift in Sources */,
@@ -433,6 +437,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"DualSense/Preview Content\"";
+				DEVELOPMENT_TEAM = 4JNBZ2D34N;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
@@ -461,6 +466,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"DualSense/Preview Content\"";
+				DEVELOPMENT_TEAM = 4JNBZ2D34N;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
@@ -488,6 +494,7 @@
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 4JNBZ2D34N;
 				GENERATE_INFOPLIST_FILE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 16.4;
 				MARKETING_VERSION = 1.0;
@@ -507,6 +514,7 @@
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 4JNBZ2D34N;
 				GENERATE_INFOPLIST_FILE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 16.4;
 				MARKETING_VERSION = 1.0;
@@ -525,6 +533,7 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 4JNBZ2D34N;
 				GENERATE_INFOPLIST_FILE = YES;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.SignLanguage.DualSenseUITests;
@@ -542,6 +551,7 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 4JNBZ2D34N;
 				GENERATE_INFOPLIST_FILE = YES;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.SignLanguage.DualSenseUITests;

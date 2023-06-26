@@ -11,8 +11,11 @@ import UIKit
 // Creates TouchView to capture complex touch gestures; Struct conforming to UIViewRepresentable, allowing SwiftUI to work with UIKit's UIView
 struct TouchView: UIViewRepresentable {
     
-    //Binding property for the recording state; @Binding makes it reference the source of truth
+    // Binding property for the recording state; @Binding makes it reference the source of truth
     @Binding var isRecording: Bool
+    
+    // Optional delegate for updating the view and colourize touch points
+    var touchDelegate: TouchRecognizerDelegate?
         
     // Defines a nested class called Coordinator; needed to manage touch events for specific TouchView instance
     class Coordinator: NSObject {
@@ -41,9 +44,10 @@ struct TouchView: UIViewRepresentable {
         let view = UIView()
             
         // Creates a TouchRecognizer and adds it to the view
-        let gesture = TouchRecognizer(target: context.coordinator, action: #selector(Coordinator.touchDetected))
-        gesture.isRecording = isRecording
-        view.addGestureRecognizer(gesture)
+        let touchRecognizer = TouchRecognizer(target: context.coordinator, action: #selector(Coordinator.touchDetected))
+        touchRecognizer.touchDelegate = touchDelegate
+        touchRecognizer.isRecording = isRecording
+        view.addGestureRecognizer(touchRecognizer)
         return view
     }
         
