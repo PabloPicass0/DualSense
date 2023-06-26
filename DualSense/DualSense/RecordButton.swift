@@ -16,6 +16,7 @@ struct RecordButton: View {
     var body: some View {
         Button(action: {
             self.isRecording.toggle()
+            // prints state of bool; for debugging purposes
             print(isRecording)
         }) {
             Text("Record Gesture")

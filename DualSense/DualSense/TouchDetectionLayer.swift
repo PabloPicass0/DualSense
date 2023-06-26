@@ -14,7 +14,10 @@ struct TouchDetectionLayer: UIViewRepresentable {
     // Binding property for the recording state; @Binding makes it reference the source of truth
     @Binding var isRecording: Bool
     
-    // Optional delegate for updating the view and colourize touch points
+    // if true, data is sent to backend
+    var isRecognising: Bool
+    
+    // Optional delegate for updating the view and colourise touch points
     var touchDelegate: TouchRecognizerDelegate?
         
     // Defines a nested class called Coordinator; needed to manage touch events for specific TouchView instance
@@ -47,6 +50,7 @@ struct TouchDetectionLayer: UIViewRepresentable {
         let touchRecognizer = TouchRecognizer(target: context.coordinator, action: #selector(Coordinator.touchDetected))
         touchRecognizer.touchDelegate = touchDelegate
         touchRecognizer.isRecording = isRecording
+        touchRecognizer.isRecognising = isRecognising
         view.addGestureRecognizer(touchRecognizer)
         return view
     }

@@ -7,12 +7,12 @@
 
 import SwiftUI
 
-// This uses NavigationView elements which is deprecated; may need to be updated
+// Creates a menu view with several links to different views (one for each sign)
 struct MenuView: View {
     var body: some View {
         NavigationStack {
             VStack {
-                // Creates button that navigates to new view when pressed
+                // Creates button that navigates to the gesture recording view
                 NavigationLink(destination: GestureDetectionView()) {
                     Text("Record")
                         .font(.title)
@@ -21,6 +21,16 @@ struct MenuView: View {
                         .foregroundColor(.white)
                         .cornerRadius(10)
                 }
+                // Creates button that navigates to Aview
+                NavigationLink(destination: Aview()) {
+                    Text("A")
+                        .font(.title)
+                        .padding()
+                        .background(Color.blue)
+                        .foregroundColor(.white)
+                        .cornerRadius(10)
+                }
+                
                 // Add more buttons here
             }
         }
