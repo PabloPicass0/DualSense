@@ -104,8 +104,8 @@ class TouchRecognizer: UIGestureRecognizer {
     
     // Sends data to backend if flag isRecognising is set
     private func sendToBackend(_ jsonData: Data) {
-        // Creates a URL request with a specific URL string
-        var request = URLRequest(url: URL(string: "https://your-backend-endpoint")!)
+        // Creates a URL request with a specific URL string, including IP address --> may needs to be updated
+        var request = URLRequest(url: URL(string: "http://146.169.156.124:5000/receive_json")!)
         // Specifies the HTTP method for the request as POST
         request.httpMethod = "POST"
         // Adds the JSON data to the request body
@@ -118,11 +118,16 @@ class TouchRecognizer: UIGestureRecognizer {
             if let error = error {
                 print("Error occurred: \(error)")
             }
-            // If there's no error, handle the returned data
-            else if let data = data {
-                // Use the data returned from server
-                let responseStr = String(data: data, encoding: .utf8)
-                print("Received data:\n\(responseStr ?? "")")
+            // If there's no error, print the response and handle the returned data
+            else {
+                if let response = response {
+                        print("Response: \(response)")
+                }
+                if let data = data {
+                    // Use the data returned from server
+                    let responseStr = String(data: data, encoding: .utf8)
+                    print("Received data:\n\(responseStr ?? "")")
+                }
             }
         }
         task.resume()
