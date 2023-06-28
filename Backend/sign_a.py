@@ -37,10 +37,6 @@ def location_inside_circle(locations: List[List[float]]) -> bool:
         x, y = location
         # Calculates square of distance between point and center and applying Pythagorean theorem
         if not ((x - XC) ** 2 + (y - YC) ** 2 <= R ** 2):
-            print(x)
-            print(y)
-            result = ((x - XC) ** 2 + (y - YC) ** 2)
-            print(result)
             return False
     return True
 
