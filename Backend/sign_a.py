@@ -2,10 +2,10 @@
 Sign 'A' is a tap with the fist on the hand of the recipient.
 The touchscreen has difficulty detecting the whole area, but rather
 detects only individual points. Therefore, a circle is defined within
-which the tap needs to occur
+which the tap needs to occur.
 """
 
-# Circle template for sign "A" in pixels
+# Circle template parameters for sign "A" in pixels
 # Circle center x-coordinate
 XC = 477.5
 # Circle center y-coordinate
@@ -26,7 +26,7 @@ def timestamp_duration_valid(timestamps: List[float]) -> bool:
     return timestamps[-1] - timestamps[0] <= 3
 
 
-def location_inside_circle(locations: List[List[float]]) -> bool:
+def locations_inside_circle(locations: List[List[float]]) -> bool:
     """
     Checks whether each location is within the defined circle.
 
@@ -43,16 +43,23 @@ def location_inside_circle(locations: List[List[float]]) -> bool:
 
 def is_sign_a(timestamps: List[float], locations: List[List[float]]) -> bool:
     """
-    Checks whether a touch event is within the circle and the duration is not more than 3 seconds.
+    Checks whether a touch event is within the circle, the number of taps is below 10
+    and the duration is not more than 3 seconds.
 
     :param timestamps: List of timestamps
     :param locations: List of locations where each location is a list of x and y coordinates
-    :return: True if the gesture satisfies both conditions, False otherwise
+    :return: True if the gesture satisfies all three conditions, False otherwise
     """
-    if not timestamp_duration_valid(timestamps):
+    if len(timestamps) > 15:
+        print("Too many touch points")
         return False
 
-    if not location_inside_circle(locations):
+    if not timestamp_duration_valid(timestamps):
+        print("Duration too long")
+        return False
+
+    if not locations_inside_circle(locations):
+        print("Location not inside circle")
         return False
 
     return True

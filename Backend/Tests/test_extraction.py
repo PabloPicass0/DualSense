@@ -1,5 +1,5 @@
 import pytest
-from extraction import *
+from ..extraction import *
 
 
 def test_extract_timestamps_and_locations():

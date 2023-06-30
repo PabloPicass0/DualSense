@@ -30,7 +30,15 @@ struct MenuView: View {
                         .foregroundColor(.white)
                         .cornerRadius(10)
                 }
-                
+                // Creates button that navigates to Bview
+                NavigationLink(destination: Bview()) {
+                    Text("B")
+                        .font(.title)
+                        .padding()
+                        .background(Color.blue)
+                        .foregroundColor(.white)
+                        .cornerRadius(10)
+                }
                 // Add more buttons here
             }
         }

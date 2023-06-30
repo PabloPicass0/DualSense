@@ -23,16 +23,33 @@ protocol TouchRecognizerDelegate {
 class TouchRecognizer: UIGestureRecognizer {
     
     // Stores gestures only if true
-    var isRecording = false
-    
+    var isRecording: Bool
+        
     // Sends to backend only if true
-    var isRecognising = false
+    var isRecognising: Bool
+        
+    // Indicator for backend to select recogniser
+    let sign: String
     
     // Creates a data array for touch data
     var touchDataArray = [TouchData]()
     
     // Optional delegate to communicate touch points to view
     var touchDelegate: TouchRecognizerDelegate?
+        
+    // Custom initializer
+    init(target: Any?, action: Selector?, isRecording: Bool, isRecognising: Bool, sign: String) {
+        self.isRecording = isRecording
+        self.isRecognising = isRecognising
+        self.sign = sign
+        super.init(target: target, action: action)
+    }
+    
+    // Not needed; minimal implementation provided
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent) {
         guard isRecording else { return }
@@ -83,7 +100,7 @@ class TouchRecognizer: UIGestureRecognizer {
 
         if isRecognising {
             // Send JSON data to backend
-            sendToBackend(jsonData)
+            sendToBackend(jsonData: jsonData, sign: sign)
         } else {
             // Write JSON data to file
             if let path = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first {
@@ -103,11 +120,13 @@ class TouchRecognizer: UIGestureRecognizer {
     }
     
     // Sends data to backend if flag isRecognising is set
-    private func sendToBackend(_ jsonData: Data) {
+    private func sendToBackend(jsonData: Data, sign: String) {
         // Creates a URL request with a specific URL string, including IP address --> may needs to be updated
-        var request = URLRequest(url: URL(string: "http://192.168.1.77:5000/receive_json")!)
+        var request = URLRequest(url: URL(string: "http://146.169.154.105:5000/receive_json")!)
         // Specifies the HTTP method for the request as POST
         request.httpMethod = "POST"
+        // Sets HTTP header with information about sign (for backend to select recogniser)
+        request.setValue(sign, forHTTPHeaderField: "Sign")
         // Adds the JSON data to the request body
         request.httpBody = jsonData
         // Sets the content type of the HTTP request to JSON

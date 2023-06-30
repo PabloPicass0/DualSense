@@ -12,11 +12,12 @@ import SwiftUI
 struct GestureDetectionView: View {
     @State private var isRecording = false
     private var isRecognising = false
+    private var sign: String = "None"
     
     var body: some View {
         VStack {
             Spacer()
-            HandGraphic(isRecording: $isRecording, isRecognising: isRecognising)
+            HandGraphic(isRecording: $isRecording, isRecognising: isRecognising, sign: sign)
             RecordButton(isRecording: $isRecording)
         }
     }

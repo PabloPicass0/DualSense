@@ -10,14 +10,17 @@ import SwiftUI
 // Creates view with hand template for gesture performance
 struct HandGraphic: View {
     
-    // Needed to pass into the TouchRecogniser; detects if data is stored or send to backend
+    // Needed to pass into the TouchRecogniser; if true, touch data is recorded; toggled by button
     @Binding var isRecording: Bool
     
-    // if true, data detected is sent to backend
+    // if true, data detected is sent to backend instead of being stored on device
     var isRecognising: Bool
     
     // Needed to store the touchpoints which will be rendered
     @State private var touchPoints: [CGPoint] = []
+    
+    // Recognition string for backend to select appropriate recogniser
+    var sign: String
     
     var body: some View {
         // ZStack stacks layers on top of each other
@@ -30,7 +33,7 @@ struct HandGraphic: View {
                 .padding(.bottom, 100)
             
             // Touch View layer on top of hand image
-            TouchDetectionLayer(isRecording: $isRecording, isRecognising: isRecognising, touchDelegate: self)
+            TouchDetectionLayer(isRecording: $isRecording, isRecognising: isRecognising, sign: sign, touchDelegate: self)
             
             // Colours touch locations on view
             ForEach(touchPoints.indices, id: \.self) { index in

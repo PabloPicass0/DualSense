@@ -17,6 +17,9 @@ struct TouchDetectionLayer: UIViewRepresentable {
     // if true, data is sent to backend
     var isRecognising: Bool
     
+    // Recognition string for backend to select appropriate recogniser
+    var sign: String
+    
     // Optional delegate for updating the view and colourise touch points
     var touchDelegate: TouchRecognizerDelegate?
         
@@ -46,11 +49,13 @@ struct TouchDetectionLayer: UIViewRepresentable {
         // Creates a UIView instance as constant (assigned variable cannot be changed)
         let view = UIView()
             
-        // Creates a TouchRecognizer and adds it to the view
-        let touchRecognizer = TouchRecognizer(target: context.coordinator, action: #selector(Coordinator.touchDetected))
+        // Creates a TouchRecognizer using the initializer and adds it to the view
+        let touchRecognizer = TouchRecognizer(target: context.coordinator,
+                                              action: #selector(Coordinator.touchDetected),
+                                              isRecording: isRecording,
+                                              isRecognising: isRecognising,
+                                              sign: sign)
         touchRecognizer.touchDelegate = touchDelegate
-        touchRecognizer.isRecording = isRecording
-        touchRecognizer.isRecognising = isRecognising
         view.addGestureRecognizer(touchRecognizer)
         return view
     }
