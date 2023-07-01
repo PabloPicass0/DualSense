@@ -1,3 +1,5 @@
+import json
+
 from flask import Flask, request, jsonify, Response
 from flask_cors import CORS
 from extraction import *
@@ -25,11 +27,15 @@ def receive_json() -> Tuple[Response, int]:
     data: Union[List[Dict[str, Union[float, List[float]]]], None] = request.get_json()
     # for parametrisation purposes
     print(sign)
-    print(data)
+
     # if data is none, returns error message
     if not data:
         print("not data")
         return jsonify({"message": "No JSON received"}), 400
+
+    # saves touch data into JSON file into backend
+    with open('data.json', 'w') as file:
+        json.dump(data, file)
 
     # gives json into recogniser
     response: Tuple[Response, int] = recogniser_function(sign, data)
