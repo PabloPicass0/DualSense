@@ -62,7 +62,7 @@ def recogniser_function(sign: string, data: List[Dict[str, Union[float, List[flo
         return jsonify({"message": "Sign A correct"}), 200
     elif sign == 'B' and is_sign_b(timestamps, locations):
         return jsonify({"message": "Sign B correct"}), 200
-    # elif sign == 'C' and is_sign_c(timestamps, locations):
+    # elif sign == 'CH' and is_sign_c(timestamps, locations):
     #     return jsonify({"message": "Sign B correct"}), 200
 
     # return statement

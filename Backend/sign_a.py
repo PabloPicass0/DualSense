@@ -23,7 +23,7 @@ def timestamp_duration_valid(timestamps: List[float]) -> bool:
     :param timestamps: List of timestamps
     :return: True if the duration is less than or equal to 3 seconds, False otherwise
     """
-    return timestamps[-1] - timestamps[0] <= 3
+    return timestamps[-1] - timestamps[0] <= 2
 
 
 def locations_inside_circle(locations: List[List[float]]) -> bool:
