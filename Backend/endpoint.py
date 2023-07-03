@@ -8,6 +8,8 @@ from sign_b import is_sign_b
 from sign_ch.sign_ch import is_sign_ch
 import string
 
+from sign_g.sign_g import is_sign_g
+
 # Creates basic flask application
 app = Flask(__name__)
 # Cross-Origin Resource Sharing enabled for all routes
@@ -65,6 +67,8 @@ def recogniser_function(sign: string, data: List[Dict[str, Union[float, List[flo
         return jsonify({"message": "Sign B correct"}), 200
     elif sign == 'CH' and is_sign_ch(timestamps, locations):
         return jsonify({"message": "Sign CH correct"}), 200
+    elif sign == 'G' and is_sign_g(timestamps, locations):
+        return jsonify({"message": "Sign G correct"}), 200
 
     # otherwise false
     return jsonify({"message": "Sign not correct"}), 200

@@ -2,6 +2,7 @@
 __pycache__/
 *.py[cod]
 *$py.class
+*.pyc
 
 # C extensions
 *.so
@@ -136,8 +137,10 @@ dmypy.json
 #
 # gitignore contributors: remember to update Global/Xcode.gitignore, Objective-C.gitignore & Swift.gitignore
 
+*.pbxproj
+
+
 ## Build generated
-build/
 DerivedData/
 
 ## Various settings
