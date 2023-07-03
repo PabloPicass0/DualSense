@@ -39,6 +39,15 @@ struct MenuView: View {
                         .foregroundColor(.white)
                         .cornerRadius(10)
                 }
+                // Creates button that navigates to CHview
+                NavigationLink(destination: CHview()) {
+                    Text("CH")
+                        .font(.title)
+                        .padding()
+                        .background(Color.blue)
+                        .foregroundColor(.white)
+                        .cornerRadius(10)
+                }
                 // Add more buttons here
             }
         }

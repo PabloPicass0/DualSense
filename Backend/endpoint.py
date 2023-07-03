@@ -5,6 +5,7 @@ from flask_cors import CORS
 from extraction import *
 from sign_a import is_sign_a
 from sign_b import is_sign_b
+from sign_ch.sign_ch import is_sign_ch
 import string
 
 # Creates basic flask application
@@ -62,10 +63,10 @@ def recogniser_function(sign: string, data: List[Dict[str, Union[float, List[flo
         return jsonify({"message": "Sign A correct"}), 200
     elif sign == 'B' and is_sign_b(timestamps, locations):
         return jsonify({"message": "Sign B correct"}), 200
-    # elif sign == 'CH' and is_sign_c(timestamps, locations):
-    #     return jsonify({"message": "Sign B correct"}), 200
+    elif sign == 'CH' and is_sign_ch(timestamps, locations):
+        return jsonify({"message": "Sign CH correct"}), 200
 
-    # return statement
+    # otherwise false
     return jsonify({"message": "Sign not correct"}), 200
 
 

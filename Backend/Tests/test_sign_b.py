@@ -1,4 +1,6 @@
-from sign_b import *
+import pytest
+
+from Backend.sign_b import *
 
 
 def test_locations_inside_rectangle():
@@ -15,3 +17,7 @@ def test_is_sign_b():
     assert not is_sign_b([1.0, 2.0, 3.0] * 10, [[200.0, 600.0], [300.0, 700.0], [400.0, 800.0]] * 10)
     # invalid sign B (duration too long)
     assert not is_sign_b(list(range(1, 6, 4)), [[200.0, 600.0], [300.0, 700.0], [400.0, 800.0]])
+
+
+if __name__ == '__main__':
+    pytest.main()

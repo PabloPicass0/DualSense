@@ -1,5 +1,6 @@
 import pytest
-from ..extraction import *
+
+from Backend.extraction import extract_timestamps_and_locations
 
 
 def test_extract_timestamps_and_locations():
@@ -13,3 +14,7 @@ def test_extract_timestamps_and_locations():
 
     assert timestamps == expected_timestamps
     assert locations == expected_locations
+
+
+if __name__ == '__main__':
+    pytest.main()

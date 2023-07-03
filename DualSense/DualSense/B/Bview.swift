@@ -8,7 +8,7 @@
 import SwiftUI
 
 
-// View for detection and recognition of an A
+// View for detection and recognition of a 'B'
 struct Bview: View {
     // Indicates whether touch data is detected and processed; toggled by button
     @State private var isRecording = false

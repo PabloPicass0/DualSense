@@ -1,6 +1,6 @@
 """
-Sign 'CH' is a multi-touch gesture, where the index and middle-finger draw a line, each, on the palm of the
-recipient. For recognition, each line is fitted into a Bezier curve, so that user-performed gestures can be
+Sign 'CH' is a multitouch gesture, where the index and middle-finger draw a line, each, on the palm of the
+recipient. For recognition, each line is fitted into a Bézier curve, so that user-performed gestures can be
 compared to the curve to determine accuracy.
 """
 import os
@@ -9,9 +9,11 @@ import math
 import numpy as np
 from typing import List, Tuple
 import matplotlib.pyplot as plt
+from fastdtw import fastdtw
+from scipy.spatial.distance import euclidean
 
-from ..extraction import extract_timestamps_and_locations
-from ..sign_a import timestamp_duration_valid
+from Backend.extraction import extract_timestamps_and_locations
+from Backend.sign_a import timestamp_duration_valid
 
 
 def linear_bezier_curve(p0: np.ndarray, p1: np.ndarray, t: np.ndarray) -> np.ndarray:
@@ -27,18 +29,27 @@ def linear_bezier_curve(p0: np.ndarray, p1: np.ndarray, t: np.ndarray) -> np.nda
     return (1 - t)[:, None] * p0 + t[:, None] * p1
 
 
-def euclidean_distance(point1, point2):
+def euclidean_distance(point1: Tuple[float, float], point2: Tuple[float, float]) -> float:
     """
-        Add docstring
-        :return:
+    Calculates the Euclidean distance between two points in 2D.
+
+    :param point1: The first point as a tuple of two floats representing x and y coordinates.
+    :param point2: The second point as a tuple of two floats representing x and y coordinates.
+
+    :return: The Euclidean distance between the two points.
     """
     return math.sqrt((point1[0] - point2[0]) ** 2 + (point1[1] - point2[1]) ** 2)
 
 
-def split_touch_locations(locations):
+def split_touch_locations(locations: List[Tuple[float, float]]) -> Tuple[
+    List[Tuple[float, float]], List[Tuple[float, float]]]:
     """
-        Add docstring
-        :return:
+    Splits the provided locations into two curves based on a distance threshold.
+
+    :param locations: A list of tuples, each representing the (x, y) coordinates of a point.
+
+    :return: Two lists of tuples, each list represents a curve and each tuple within the list represents a point on the
+    curve.
     """
     curve1 = []
     curve2 = []
@@ -46,7 +57,7 @@ def split_touch_locations(locations):
     # starts by putting the first point in curve1
     curve1.append(locations[0])
     for i in range(1, len(locations)):
-        # assigns point to 
+        # assigns point to either curve1 or curve2 depending on distance
         if euclidean_distance(locations[i], curve1[-1]) <= 10:
             curve1.append(locations[i])
         else:
@@ -57,7 +68,7 @@ def split_touch_locations(locations):
 
 def generate_two_linear_beziers(locations: List[List[float]]) -> Tuple[np.ndarray, np.ndarray]:
     """
-    Generate two linear Bézier curves given a list of touch locations.
+    Generates two linear Bézier curves given a list of touch locations.
 
     :param locations: The list of touch locations, where each location is a tuple of x and y coordinates.
     :return: Two numpy arrays, each representing a linear Bézier curve.
@@ -65,6 +76,10 @@ def generate_two_linear_beziers(locations: List[List[float]]) -> Tuple[np.ndarra
 
     # splits touch locations into individual curves
     curve1, curve2 = split_touch_locations(locations)
+
+    # raises error if curve2 is empty
+    if not curve2:
+        raise ValueError("Curve2 is empty.")
 
     # fits curves into linear Bézier curves
     # control points for curve1
@@ -90,6 +105,7 @@ def generate_two_linear_beziers(locations: List[List[float]]) -> Tuple[np.ndarra
 def fit_bezier_for_ch():
     """
     This function fits two Bézier curves to the given data and saves them as templates for later comparison.
+    Used only once for saving templates of the sign.
     """
     # defines filepath; function needs to be run from root directory
     current_dir = os.path.dirname(os.path.abspath(__file__))
@@ -116,47 +132,75 @@ def fit_bezier_for_ch():
     # P1_curve1[0]], [P0_curve1[1], P1_curve1[1]], color='red')  # control points for curve1
     plt.plot(bezier2[:, 0], bezier2[:, 1], color='green')  # curve2 # plt.scatter([P0_curve2[0], P1_curve2[0]],
     # [P0_curve2[1], P1_curve2[1]], color='red')  # control points for curve2
-    #
+
     plt.show()
+
+
+def compare_sequences(seq1: np.ndarray, seq2: np.ndarray) -> float:
+    """
+    Compares two sequences using Dynamic Time Warping.
+
+    :param seq1: The first sequence. It is a numpy array.
+    :param seq2: The second sequence. It is a numpy array.
+    :return: The Dynamic Time Warping distance between the sequences as a float.
+    """
+    distance, _ = fastdtw(seq1, seq2, dist=euclidean)
+
+    return distance
 
 
 def is_sign_ch(timestamps: List[float], locations: List[List[float]]) -> bool:
     """
-    Add docstring
-    :return:
+    This function takes a list of timestamps and a list of touch locations as input.
+    It checks whether the gesture represented by these data points matches the gesture of "CH"
+    according to a predefined template of the gesture.
+    If the performed gesture deviates from the template by more than a certain threshold,
+    the function returns False. Otherwise, it returns True.
+
+    :param timestamps: A list of timestamps.
+    :param locations: A list of touch locations, where each location is a list of x and y coordinates.
+    :return: True if the gesture matches the template, False otherwise.
     """
     # checks if time frame is valid
     if not timestamp_duration_valid(timestamps):
         print("Duration too long")
         return False
 
-    # splits location points into respective curves
-    generate_two_linear_beziers(locations)
+    try:
+        # splits location points into respective curves
+        user_curve_1, user_curve_2 = generate_two_linear_beziers(locations)
+    except ValueError:
+        print("\nCurve2 is empty")
+        return False
 
-    # compares to template curves
-    # loads the templates for future use
+    # loads the templates for comparison
     current_dir = os.path.dirname(os.path.abspath(__file__))
     file_path_b1 = os.path.join(current_dir, 'bezier1_upper_curve_template.npy')
     bezier1_upper_curve_template = np.load(file_path_b1)
     file_path_b2 = os.path.join(current_dir, 'bezier2_lower_curve_template.npy')
     bezier2_lower_curve_template = np.load(file_path_b2)
 
-    # from fastdtw import fastdtw
-    # from scipy.spatial.distance import euclidean
-    #
-    # def compare_sequences(seq1, seq2):
-    #     """
-    #     Compares two sequences using Dynamic Time Warping.
-    #
-    #     :param seq1: The first sequence.
-    #     :param seq2: The second sequence.
-    #     :return: The Dynamic Time Warping distance between the sequences.
-    #     """
-    #     distance, _ = fastdtw(seq1, seq2, dist=euclidean)
-    #
-    #     return distance
+    # calculates the Euclidean distance between the first point of user's curves and the first point of the templates
+    dist1 = euclidean_distance(user_curve_1[0], bezier1_upper_curve_template[0])
+    dist2 = euclidean_distance(user_curve_1[0], bezier2_lower_curve_template[0])
 
+    if dist1 < dist2:
+        # if the first point of user_curve_1 is closer to bezier1
+        distance1_template = compare_sequences(user_curve_1, bezier1_upper_curve_template)
+        distance2_template = compare_sequences(user_curve_2, bezier2_lower_curve_template)
+    else:
+        # if the first point of user_curve_1 is closer to bezier2
+        distance1_template = compare_sequences(user_curve_1, bezier2_lower_curve_template)
+        distance2_template = compare_sequences(user_curve_2, bezier1_upper_curve_template)
 
-if __name__ == '__main__':
-    # Makes web server listen on port 5000 and makes it externally visible by binding it to 0.0.0.0
-    fit_bezier_for_ch()
+    print(f"distance1_template: {distance1_template}")
+    print(f"distance2_template: {distance2_template}")
+
+    if distance1_template > 5000.0 or distance2_template > 5000.0:
+        return False
+
+    return True
+
+# if __name__ == '__main__':
+#     # already executed to save templates
+#     fit_bezier_for_ch()

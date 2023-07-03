@@ -1,6 +1,6 @@
 import pytest
+from Backend.sign_a import *
 
-from sign_a import *
 
 def test_timestamp_duration_valid():
     assert timestamp_duration_valid([0.0, 1.0, 2.0]) == True
