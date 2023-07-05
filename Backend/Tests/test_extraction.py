@@ -1,6 +1,6 @@
 import pytest
 
-from Backend.extraction import extract_timestamps_and_locations
+from extraction import extract_timestamps_and_locations
 
 
 def test_extract_timestamps_and_locations():

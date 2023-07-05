@@ -56,6 +56,14 @@ struct MenuView: View {
                         .foregroundColor(.white)
                         .cornerRadius(10)
                 }
+                NavigationLink(destination: Hview()) {
+                    Text("H")
+                        .font(.title)
+                        .padding()
+                        .background(Color.blue)
+                        .foregroundColor(.white)
+                        .cornerRadius(10)
+                }
                 // Add more buttons here
             }
         }

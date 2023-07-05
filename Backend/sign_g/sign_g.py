@@ -11,7 +11,7 @@ from matplotlib import pyplot as plt
 
 from extraction import extract_timestamps_and_locations
 from sign_a import timestamp_duration_valid
-from sign_ch.sign_ch import generate_two_linear_beziers, linear_bezier_curve, compare_sequences
+from sign_ch.sign_ch import linear_bezier_curve, compare_sequences
 
 
 def generate_linear_bezier(locations: List[List[float]]) -> np.ndarray:
@@ -46,10 +46,10 @@ def fit_bezier_for_g():
 
     # opens and loads the JSON file
     with open(file_path) as file:
-        data_ch = json.load(file)
+        data_g = json.load(file)
 
     # splits data into touch locations and timestamps
-    timestamps, locations = extract_timestamps_and_locations(data_ch)
+    timestamps, locations = extract_timestamps_and_locations(data_g)
 
     # generates Bezier curves
     bezier = generate_linear_bezier(locations)
@@ -98,7 +98,6 @@ def is_sign_g(timestamps: List[float], locations: List[List[float]]) -> bool:
         return False
 
     return True
-
 
 # if __name__ == '__main__':
 #     # already executed to save templates

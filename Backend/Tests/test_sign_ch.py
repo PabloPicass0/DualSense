@@ -1,5 +1,5 @@
 import pytest
-from Backend.sign_ch.sign_ch import *
+from sign_ch.sign_ch import *
 
 
 def test_linear_bezier_curve():

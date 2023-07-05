@@ -207,3 +207,4 @@ fastlane/test_output
 
 iOSInjectionProject/
 
+__pycache__/

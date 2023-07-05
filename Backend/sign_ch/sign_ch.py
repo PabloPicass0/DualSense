@@ -12,8 +12,8 @@ import matplotlib.pyplot as plt
 from fastdtw import fastdtw
 from scipy.spatial.distance import euclidean
 
-from Backend.extraction import extract_timestamps_and_locations
-from Backend.sign_a import timestamp_duration_valid
+from extraction import extract_timestamps_and_locations
+from sign_a import timestamp_duration_valid
 
 
 def linear_bezier_curve(p0: np.ndarray, p1: np.ndarray, t: np.ndarray) -> np.ndarray:

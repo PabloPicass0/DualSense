@@ -1,6 +1,6 @@
 import pytest
 
-from Backend.sign_b import *
+from sign_b import *
 
 
 def test_locations_inside_rectangle():

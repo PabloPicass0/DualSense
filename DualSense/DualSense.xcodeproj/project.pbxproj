@@ -11,6 +11,9 @@
 		F9355B4C2A49C0BD00F573AA /* GestureDetectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9355B4B2A49C0BD00F573AA /* GestureDetectionView.swift */; };
 		F9355B532A49CD9400F573AA /* Aview.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9355B522A49CD9400F573AA /* Aview.swift */; };
 		F9355B552A49CDC900F573AA /* DetectButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9355B542A49CDC900F573AA /* DetectButton.swift */; };
+		F95710212A5594CB00A73948 /* CHview.swift in Sources */ = {isa = PBXBuildFile; fileRef = F95710202A5594CB00A73948 /* CHview.swift */; };
+		F95710232A5594CD00A73948 /* Gview.swift in Sources */ = {isa = PBXBuildFile; fileRef = F95710222A5594CD00A73948 /* Gview.swift */; };
+		F95710252A5594CE00A73948 /* Hview.swift in Sources */ = {isa = PBXBuildFile; fileRef = F95710242A5594CE00A73948 /* Hview.swift */; };
 		F9B745D52A38B56100A31413 /* DualSenseApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9B745D42A38B56100A31413 /* DualSenseApp.swift */; };
 		F9B745D72A38B56100A31413 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9B745D62A38B56100A31413 /* ContentView.swift */; };
 		F9B745D92A38B56200A31413 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F9B745D82A38B56200A31413 /* Assets.xcassets */; };
@@ -47,6 +50,9 @@
 		F9355B4B2A49C0BD00F573AA /* GestureDetectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GestureDetectionView.swift; sourceTree = "<group>"; };
 		F9355B522A49CD9400F573AA /* Aview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Aview.swift; sourceTree = "<group>"; };
 		F9355B542A49CDC900F573AA /* DetectButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetectButton.swift; sourceTree = "<group>"; };
+		F95710202A5594CB00A73948 /* CHview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CHview.swift; sourceTree = "<group>"; };
+		F95710222A5594CD00A73948 /* Gview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Gview.swift; sourceTree = "<group>"; };
+		F95710242A5594CE00A73948 /* Hview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Hview.swift; sourceTree = "<group>"; };
 		F9B745D12A38B56100A31413 /* DualSense.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DualSense.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F9B745D42A38B56100A31413 /* DualSenseApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DualSenseApp.swift; sourceTree = "<group>"; };
 		F9B745D62A38B56100A31413 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -97,6 +103,30 @@
 			path = A;
 			sourceTree = "<group>";
 		};
+		F95710262A5594F100A73948 /* CH */ = {
+			isa = PBXGroup;
+			children = (
+				F95710202A5594CB00A73948 /* CHview.swift */,
+			);
+			path = CH;
+			sourceTree = "<group>";
+		};
+		F95710272A5594FF00A73948 /* G */ = {
+			isa = PBXGroup;
+			children = (
+				F95710222A5594CD00A73948 /* Gview.swift */,
+			);
+			path = G;
+			sourceTree = "<group>";
+		};
+		F95710282A55950D00A73948 /* H */ = {
+			isa = PBXGroup;
+			children = (
+				F95710242A5594CE00A73948 /* Hview.swift */,
+			);
+			path = H;
+			sourceTree = "<group>";
+		};
 		F9B745C82A38B56100A31413 = {
 			isa = PBXGroup;
 			children = (
@@ -120,6 +150,9 @@
 		F9B745D32A38B56100A31413 /* DualSense */ = {
 			isa = PBXGroup;
 			children = (
+				F95710282A55950D00A73948 /* H */,
+				F95710272A5594FF00A73948 /* G */,
+				F95710262A5594F100A73948 /* CH */,
 				F9E5708A2A4F3068009AC724 /* B */,
 				F9355B4F2A49CACB00F573AA /* A */,
 				F9B745D42A38B56100A31413 /* DualSenseApp.swift */,
@@ -301,6 +334,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				F9355B4A2A49A0B700F573AA /* MenuView.swift in Sources */,
+				F95710212A5594CB00A73948 /* CHview.swift in Sources */,
+				F95710232A5594CD00A73948 /* Gview.swift in Sources */,
 				F9E98E522A40CF29004561D7 /* TouchDetectionLayer.swift in Sources */,
 				F9E570892A4F2FEB009AC724 /* Bview.swift in Sources */,
 				F9E98E542A40D098004561D7 /* RecordButton.swift in Sources */,
@@ -311,6 +346,7 @@
 				F9E98E562A40D1D4004561D7 /* HandGraphic.swift in Sources */,
 				F9355B4C2A49C0BD00F573AA /* GestureDetectionView.swift in Sources */,
 				F9B745D52A38B56100A31413 /* DualSenseApp.swift in Sources */,
+				F95710252A5594CE00A73948 /* Hview.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
