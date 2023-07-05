@@ -44,13 +44,13 @@ def fit_bezier_for_h():
     plt.show()
 
 
-def is_sign_h(timestamps: List[float], locations: List[List[float]]) -> Dict[str, Union[bool, List[List[float]]]]:
+def is_sign_h(timestamps: List[float], locations: List[List[float]]) -> bool:
     """
     This function takes a list of timestamps and a list of touch locations as input.
     It checks whether the gesture represented by these data points matches the gesture of "H"
     according to a predefined template of the gesture.
     If the performed gesture deviates from the template by more than a certain threshold,
-    the function returns False. Otherwise, it returns True, together with the correct template for visualisation.
+    the function returns False. Otherwise, it returns True.
 
     :param timestamps: A list of timestamps.
     :param locations: A list of touch locations, where each location is a list of x and y coordinates.
@@ -70,17 +70,16 @@ def is_sign_h(timestamps: List[float], locations: List[List[float]]) -> Dict[str
     # debugging
     print(f"distance_template: {distance_template}")
 
-    # compares threshold
-    result: Dict = {'result': False, 'template': bezier_curve_template.tolist()}
-    if distance_template <= 2000.0:
-        result['result'] = True
+    # compares if distance to template is below threshold
+    if distance_template > 2000.0:
+        return False
 
     # checks if time frame is valid
     if not timestamp_duration_valid(timestamps):
         print("Duration too long")
-        return result
+        return False
 
-    return result
+    return True
 
 # if __name__ == '__main__':
 #     # already executed to save templates

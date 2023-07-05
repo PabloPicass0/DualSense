@@ -14,6 +14,8 @@
 		F95710212A5594CB00A73948 /* CHview.swift in Sources */ = {isa = PBXBuildFile; fileRef = F95710202A5594CB00A73948 /* CHview.swift */; };
 		F95710232A5594CD00A73948 /* Gview.swift in Sources */ = {isa = PBXBuildFile; fileRef = F95710222A5594CD00A73948 /* Gview.swift */; };
 		F95710252A5594CE00A73948 /* Hview.swift in Sources */ = {isa = PBXBuildFile; fileRef = F95710242A5594CE00A73948 /* Hview.swift */; };
+		F957102C2A55B70900A73948 /* TemplateLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = F957102B2A55B70900A73948 /* TemplateLayer.swift */; };
+		F957102F2A55BDDE00A73948 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = F957102E2A55BDDE00A73948 /* Alamofire */; };
 		F9B745D52A38B56100A31413 /* DualSenseApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9B745D42A38B56100A31413 /* DualSenseApp.swift */; };
 		F9B745D72A38B56100A31413 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9B745D62A38B56100A31413 /* ContentView.swift */; };
 		F9B745D92A38B56200A31413 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F9B745D82A38B56200A31413 /* Assets.xcassets */; };
@@ -53,6 +55,7 @@
 		F95710202A5594CB00A73948 /* CHview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CHview.swift; sourceTree = "<group>"; };
 		F95710222A5594CD00A73948 /* Gview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Gview.swift; sourceTree = "<group>"; };
 		F95710242A5594CE00A73948 /* Hview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Hview.swift; sourceTree = "<group>"; };
+		F957102B2A55B70900A73948 /* TemplateLayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TemplateLayer.swift; sourceTree = "<group>"; };
 		F9B745D12A38B56100A31413 /* DualSense.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DualSense.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F9B745D42A38B56100A31413 /* DualSenseApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DualSenseApp.swift; sourceTree = "<group>"; };
 		F9B745D62A38B56100A31413 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -75,6 +78,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F957102F2A55BDDE00A73948 /* Alamofire in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -166,6 +170,7 @@
 				F9E98E512A40CF29004561D7 /* TouchDetectionLayer.swift */,
 				F9355B4B2A49C0BD00F573AA /* GestureDetectionView.swift */,
 				F9355B542A49CDC900F573AA /* DetectButton.swift */,
+				F957102B2A55B70900A73948 /* TemplateLayer.swift */,
 			);
 			path = DualSense;
 			sourceTree = "<group>";
@@ -219,6 +224,9 @@
 			dependencies = (
 			);
 			name = DualSense;
+			packageProductDependencies = (
+				F957102E2A55BDDE00A73948 /* Alamofire */,
+			);
 			productName = DualSense;
 			productReference = F9B745D12A38B56100A31413 /* DualSense.app */;
 			productType = "com.apple.product-type.application";
@@ -291,6 +299,9 @@
 				Base,
 			);
 			mainGroup = F9B745C82A38B56100A31413;
+			packageReferences = (
+				F957102D2A55BDDE00A73948 /* XCRemoteSwiftPackageReference "Alamofire" */,
+			);
 			productRefGroup = F9B745D22A38B56100A31413 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -345,6 +356,7 @@
 				F9355B552A49CDC900F573AA /* DetectButton.swift in Sources */,
 				F9E98E562A40D1D4004561D7 /* HandGraphic.swift in Sources */,
 				F9355B4C2A49C0BD00F573AA /* GestureDetectionView.swift in Sources */,
+				F957102C2A55B70900A73948 /* TemplateLayer.swift in Sources */,
 				F9B745D52A38B56100A31413 /* DualSenseApp.swift in Sources */,
 				F95710252A5594CE00A73948 /* Hview.swift in Sources */,
 			);
@@ -671,6 +683,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		F957102D2A55BDDE00A73948 /* XCRemoteSwiftPackageReference "Alamofire" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Alamofire/Alamofire";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.0.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		F957102E2A55BDDE00A73948 /* Alamofire */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = F957102D2A55BDDE00A73948 /* XCRemoteSwiftPackageReference "Alamofire" */;
+			productName = Alamofire;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = F9B745C92A38B56100A31413 /* Project object */;
 }

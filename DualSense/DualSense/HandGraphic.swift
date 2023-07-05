@@ -42,6 +42,9 @@ struct HandGraphic: View {
                     .frame(width: 10, height: 10)
                     .position(touchPoints[index])
             }
+            
+            // TemplateLayer do display path
+            TemplateLayer(sign: sign)
         }
     }
 }

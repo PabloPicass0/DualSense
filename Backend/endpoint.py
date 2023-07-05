@@ -75,6 +75,22 @@ def recogniser_function(sign: string, data: List[Dict[str, Union[float, List[flo
     return jsonify({"message": "Sign not correct"}), 200
 
 
+@app.route('/get-template', methods=['GET'])
+def get_template():
+    """
+        Receives request form frontend to send corresponding template data as json file with respective coordinates.
+    """
+    # retrieves sign
+    sign = request.args.get('sign')
+    if sign:
+        # reads in the coordinates and returns them
+        with open(f"{sign}.json", 'r') as f:
+            coordinates = json.load(f)
+            return jsonify(coordinates)
+    else:
+        return jsonify(["No sign available"])
+
+
 if __name__ == '__main__':
     # Makes web server listen on port 5000 and makes it externally visible by binding it to 0.0.0.0
     app.run(host='0.0.0.0', port=5000)

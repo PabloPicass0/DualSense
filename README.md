@@ -6,7 +6,7 @@ This is a template for getting started with iOS development using GitLab and [fa
 Whenever working on the project, activate the virtual environment. 
 Install packages using pip and add then to the requirement.txt file.
 
-- Activate: source venv/bin/activate
+- Activate: source env/bin/activate
 - Deactivate: deactivate
 
 # Reference links
