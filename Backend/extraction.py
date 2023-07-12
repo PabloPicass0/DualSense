@@ -50,4 +50,4 @@ def numpy_to_json(directory: str, filename: str):
 
 # Call the function
 if __name__ == '__main__':
-    numpy_to_json('sign_ch', 'bezier2_lower_curve_template.npy')
+    numpy_to_json('sign_j', 'bezier_curve_template.npy')

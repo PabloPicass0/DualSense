@@ -8,6 +8,7 @@ import string
 
 from sign_g.sign_g import is_sign_g
 from sign_h.sign_h import is_sign_h
+from sign_j.sign_j import is_sign_j
 
 # Creates basic flask application
 app = Flask(__name__)
@@ -70,6 +71,8 @@ def recogniser_function(sign: string, data: List[Dict[str, Union[float, List[flo
         return jsonify({"message": "Sign G correct"}), 200
     elif sign == 'H' and is_sign_h(timestamps, locations):
         return jsonify({"message": "Sign H correct"}), 200
+    elif sign == 'J' and is_sign_j(timestamps, locations):
+        return jsonify({"message": "Sign J correct"}), 200
 
     # otherwise false
     return jsonify({"message": "Sign not correct"}), 200
