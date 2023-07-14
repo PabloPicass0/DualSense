@@ -103,6 +103,7 @@ def fit_cubic_bezier_curve(coordinates: List[List[float]]) -> np.ndarray:
     Fits a cubic Bézier curve to the given coordinates.
 
     :param coordinates: A list of touch locations, where each location is a list of x and y coordinates.
+    :return: The four control points of a cubic Bézier curve.
     """
     # converts to numpy for numerical calculations
     coordinates_np = np.array(coordinates)

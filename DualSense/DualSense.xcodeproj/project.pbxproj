@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		F900C5F22A61A39300201BB6 /* LLview.swift in Sources */ = {isa = PBXBuildFile; fileRef = F900C5F12A61A39300201BB6 /* LLview.swift */; };
 		F9355B4A2A49A0B700F573AA /* MenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9355B492A49A0B700F573AA /* MenuView.swift */; };
 		F9355B4C2A49C0BD00F573AA /* GestureDetectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9355B4B2A49C0BD00F573AA /* GestureDetectionView.swift */; };
 		F9355B532A49CD9400F573AA /* Aview.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9355B522A49CD9400F573AA /* Aview.swift */; };
@@ -49,6 +50,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		F900C5F12A61A39300201BB6 /* LLview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LLview.swift; sourceTree = "<group>"; };
 		F9355B492A49A0B700F573AA /* MenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuView.swift; sourceTree = "<group>"; };
 		F9355B4B2A49C0BD00F573AA /* GestureDetectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GestureDetectionView.swift; sourceTree = "<group>"; };
 		F9355B522A49CD9400F573AA /* Aview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Aview.swift; sourceTree = "<group>"; };
@@ -101,6 +103,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		F900C5F02A61A36600201BB6 /* LLview */ = {
+			isa = PBXGroup;
+			children = (
+				F900C5F12A61A39300201BB6 /* LLview.swift */,
+			);
+			path = LLview;
+			sourceTree = "<group>";
+		};
 		F9355B4F2A49CACB00F573AA /* A */ = {
 			isa = PBXGroup;
 			children = (
@@ -156,6 +166,7 @@
 		F9B745D32A38B56100A31413 /* DualSense */ = {
 			isa = PBXGroup;
 			children = (
+				F900C5F02A61A36600201BB6 /* LLview */,
 				F9FBEE872A5F3A26009D6DBC /* J */,
 				F95710282A55950D00A73948 /* H */,
 				F95710272A5594FF00A73948 /* G */,
@@ -356,6 +367,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				F9355B4A2A49A0B700F573AA /* MenuView.swift in Sources */,
+				F900C5F22A61A39300201BB6 /* LLview.swift in Sources */,
 				F95710212A5594CB00A73948 /* CHview.swift in Sources */,
 				F95710232A5594CD00A73948 /* Gview.swift in Sources */,
 				F9E98E522A40CF29004561D7 /* TouchDetectionLayer.swift in Sources */,
