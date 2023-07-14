@@ -29,7 +29,7 @@ def linear_bezier_curve(p0: np.ndarray, p1: np.ndarray, t: np.ndarray) -> np.nda
     return (1 - t)[:, None] * p0 + t[:, None] * p1
 
 
-def euclidean_distance(point1: Tuple[float, float], point2: Tuple[float, float]) -> float:
+def euclidean_distance(point1: List[float], point2: List[float]) -> float:
     """
     Calculates the Euclidean distance between two points in 2D.
 
@@ -41,8 +41,8 @@ def euclidean_distance(point1: Tuple[float, float], point2: Tuple[float, float])
     return math.sqrt((point1[0] - point2[0]) ** 2 + (point1[1] - point2[1]) ** 2)
 
 
-def split_touch_locations(locations: List[Tuple[float, float]]) -> Tuple[
-    List[Tuple[float, float]], List[Tuple[float, float]]]:
+def split_touch_locations(locations: List[List[float]]) -> Tuple[
+    List[List[float]], List[List[float]]]:
     """
     Splits the provided locations into two curves based on a distance threshold.
 

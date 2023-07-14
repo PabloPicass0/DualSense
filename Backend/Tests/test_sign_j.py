@@ -1,4 +1,3 @@
-import pytest
 from sign_j.sign_j import *
 
 
@@ -29,7 +28,8 @@ def test_error_function_cubic():
     times = np.linspace(0, 1, 4)
 
     # defines a perfect cubic Bezier curve
-    perfect_curve = np.array([calculate_cubic_bezier_point(t, p0, np.array([1, 1]), np.array([2, 1]), p3) for t in times])
+    perfect_curve = np.array([calculate_cubic_bezier_point(t, p0, np.array([1, 1]), np.array([2, 1]), p3)
+                              for t in times])
 
     # calculates control points from perfect curve
     control = fit_cubic_bezier_curve(perfect_curve)[1:3].flatten()
@@ -38,7 +38,7 @@ def test_error_function_cubic():
     assert np.allclose(error_function_cubic(control, perfect_curve, times), 0, atol=1e-8)
 
     # testing for not perfectly fitting curve, error should be > 0
-    imperfect_curve = np.array([p0, np.array([1, 1]), np.array([2, 2]), p3]) # p2 is shifted to create an imperfect
+    imperfect_curve = np.array([p0, np.array([1, 1]), np.array([2, 2]), p3])  # p2 is shifted to create an imperfect
     # curve
     assert error_function_cubic(control, imperfect_curve, times) > 0
 
@@ -58,6 +58,5 @@ def test_fit_cubic_bezier_curve():
 
     # compares the recreated curve to the original coordinates
     assert np.allclose(recreated_curve, coordinates,
-                       atol=1e-6), f"Recreated curve {recreated_curve} does not match original coordinates {coordinates} within tolerance"
-
-
+                       atol=1e-6), f"Recreated curve {recreated_curve} does not match original " \
+                                   f"coordinates {coordinates} within tolerance"

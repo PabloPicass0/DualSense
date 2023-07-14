@@ -28,36 +28,36 @@ def test_linear_bezier_curve():
 
 
 def test_euclidean_distance():
-    point1 = (0, 0)
-    point2 = (1, 1)
+    point1 = [0, 0]
+    point2 = [1, 1]
     assert math.isclose(euclidean_distance(point1, point2), math.sqrt(2)), "The distance should be sqrt(2)."
 
-    point1 = (0, 0)
-    point2 = (0, 0)
+    point1 = [0, 0]
+    point2 = [0, 0]
     assert euclidean_distance(point1, point2) == 0, "The distance between two identical points should be 0."
 
-    point1 = (-1, -1)
-    point2 = (1, 1)
+    point1 = [-1, -1]
+    point2 = [1, 1]
     assert math.isclose(euclidean_distance(point1, point2), 2 * math.sqrt(2)), "The distance should be 2 * sqrt(2)."
 
-    point1 = (-1.5, 3.4)
-    point2 = (4.2, -1.6)
+    point1 = [-1.5, 3.4]
+    point2 = [4.2, -1.6]
     result = math.sqrt((point1[0] - point2[0]) ** 2 + (point1[1] - point2[1]) ** 2)
     assert math.isclose(euclidean_distance(point1, point2), result), f"The distance should be {result}."
 
 
 def test_split_touch_locations():
-    locations = [(0, 0), (1, 1), (2, 2), (20, 20), (21, 21), (22, 22)]
+    locations = [[0.0, 0.0], [1.0, 1.0], [2.0, 2.0], [20.0, 20.0], [21.0, 21.0], [22.0, 22.0]]
     curve1, curve2 = split_touch_locations(locations)
-    assert curve1 == [(0, 0), (1, 1), (2, 2)], "First three points should be in curve1."
-    assert curve2 == [(20, 20), (21, 21), (22, 22)], "Last three points should be in curve2."
+    assert curve1 == [[0.0, 0.0], [1.0, 1.0], [2.0, 2.0]], "First three points should be in curve1."
+    assert curve2 == [[20.0, 20.0], [21.0, 21.0], [22.0, 22.0]], "Last three points should be in curve2."
 
-    locations = [(0, 0), (11, 11), (22, 22), (33, 33), (44, 44)]
+    locations = [[0.0, 0.0], [11.0, 11.0], [22.0, 22.0], [33.0, 33.0], [44.0, 44.0]]
     curve1, curve2 = split_touch_locations(locations)
-    assert curve1 == [(0, 0)], "Only first point should be in curve1."
-    assert curve2 == [(11, 11), (22, 22), (33, 33), (44, 44)], "Remaining points should be in curve2."
+    assert curve1 == [[0.0, 0.0]], "Only first point should be in curve1."
+    assert curve2 == [[11.0, 11.0], [22.0, 22.0], [33.0, 33.0], [44.0, 44.0]], "Remaining points should be in curve2."
 
-    locations = [(0, 0), (5, 5), (10, 10), (15, 15), (20, 20)]
+    locations = [[0.0, 0.0], [5.0, 5.0], [10.0, 10.0], [15.0, 15.0], [20.0, 20.0]]
     curve1, curve2 = split_touch_locations(locations)
     assert curve1 == locations, "All points should be in curve1 as they're within 10 units of each other."
     assert curve2 == [], "Curve2 should be empty."
@@ -65,7 +65,7 @@ def test_split_touch_locations():
 
 def test_generate_two_linear_beziers():
     # tests this with simple set of coordinates
-    locations = [(0, 0), (1, 1), (2, 2), (20, 20), (21, 21), (22, 22)]
+    locations = [[0, 0], [1, 1], [2, 2], [20, 20], [21, 21], [22, 22]]
     bezier1, bezier2 = generate_two_linear_beziers(locations)
 
     # checks that the output are numpy arrays

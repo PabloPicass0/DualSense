@@ -16,7 +16,8 @@ def locations_inside_rectangle(locations: List[List[float]]) -> bool:
     """
     Checks whether all touches are within the defined rectangle.
 
-    :param locations: A list of locations. Each location is a list with two floats representing x and y coordinates of a touch point.
+    :param locations: A list of locations. Each location is a list with two floats representing x and y coordinates
+    of a touch point.
     :return: True if all points are inside the rectangle, False otherwise (if any point is outside).
     """
     # unpacks rectangle coordinates

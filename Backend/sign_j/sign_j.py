@@ -136,12 +136,7 @@ def fit_bezier_for_j():
     # splits data into touch locations and timestamps
     timestamps, locations = extract_timestamps_and_locations(data_j)
 
-    # calculates the control points for the curve
-    bezier_control_points = fit_cubic_bezier_curve(locations)
-    # generates 100 evenly spaced points, representing the parameter t
-    t_values = np.linspace(0, 1, 100)
-    # calculates the corresponding point on the Bézier curve for each 't' using the control points
-    curve_points = [calculate_cubic_bezier_point(t, *bezier_control_points) for t in t_values]
+    curve_points = return_cubic_bezier(locations)
 
     # converts list of tuples to numpy array
     curve_points_np = np.array(curve_points)
@@ -154,6 +149,23 @@ def fit_bezier_for_j():
     plt.plot(curve_points_np[:, 0], curve_points_np[:, 1], color='blue')
 
     plt.show()
+
+
+def return_cubic_bezier(locations: List[List[float]]) -> List[np.ndarray]:
+    """
+    Calculates the control points for the curve, generates 100 evenly spaced points,
+    and calculates the corresponding point on the Bézier curve for each 't' using the control points.
+
+    :param locations: Locations through which the curve should pass.
+    :return: The calculated curve points.
+    """
+    # calculates the control points for the curve
+    bezier_control_points = fit_cubic_bezier_curve(locations)
+    # generates 100 evenly spaced points, representing the parameter t
+    t_values = np.linspace(0, 1, 100)
+    # calculates the corresponding point on the Bézier curve for each 't' using the control points
+    curve_points = [calculate_cubic_bezier_point(t, *bezier_control_points) for t in t_values]
+    return curve_points
 
 
 def is_sign_j(timestamps: List[float], locations: List[List[float]]) -> bool:
@@ -169,16 +181,16 @@ def is_sign_j(timestamps: List[float], locations: List[List[float]]) -> bool:
     :return: True if the gesture matches the template, False otherwise.
     """
     # creates cubic Bézier curve representing the user-performed gesture
-    user_curve_control = fit_cubic_bezier_curve(locations)
-    # generates 100 evenly spaced points, representing the parameter t
-    t_values = np.linspace(0, 1, 100)
-    # calculates the corresponding point on the Bézier curve for each 't' using the control points
-    curve_points_user = [calculate_cubic_bezier_point(t, *user_curve_control) for t in t_values]
+    curve_points_user = return_cubic_bezier(locations)
 
     # loads the template for comparison
     current_dir = os.path.dirname(os.path.abspath(__file__))
     file_path_b = os.path.join(current_dir, 'bezier_curve_template.npy')
     bezier_curve_template = np.load(file_path_b)
+
+    # converts list of numpy arrays to a single 2D numpy array
+    curve_points_user = np.vstack(curve_points_user)
+    bezier_curve_template = np.vstack(bezier_curve_template)
 
     # calculates distance using DTW
     distance_template = compare_sequences(curve_points_user, bezier_curve_template)

@@ -5,6 +5,8 @@ detects only individual points. Therefore, a circle is defined within
 which the tap needs to occur.
 """
 
+from typing import List
+
 # Circle template parameters for sign "A" in pixels
 # Circle center x-coordinate
 XC = 477.5
@@ -12,8 +14,6 @@ XC = 477.5
 YC = 755.5
 # Circle radius
 R = 369.5
-
-from typing import List
 
 
 def timestamp_duration_valid(timestamps: List[float]) -> bool:

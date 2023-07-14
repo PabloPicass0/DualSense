@@ -4,7 +4,7 @@ For recognition, the line is fitted into a Bézier curve, just like sign 'G'.
 """
 import json
 import os
-from typing import List, Dict, Union
+from typing import List
 
 import numpy as np
 from matplotlib import pyplot as plt
