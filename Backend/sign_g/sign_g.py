@@ -94,7 +94,7 @@ def is_sign_g(timestamps: List[float], locations: List[List[float]]) -> bool:
 
     print(f"distance_template: {distance_template}")
 
-    if distance_template > 1500.0:
+    if distance_template > 2000.0:
         return False
 
     return True

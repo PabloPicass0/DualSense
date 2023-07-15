@@ -69,4 +69,3 @@ def test_return_quartic_bezier_curve():
 
 if __name__ == '__main__':
     pytest.main()
-
