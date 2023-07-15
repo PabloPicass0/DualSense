@@ -1,3 +1,5 @@
+import pytest
+
 from sign_j.sign_j import *
 
 
@@ -60,3 +62,7 @@ def test_fit_cubic_bezier_curve():
     assert np.allclose(recreated_curve, coordinates,
                        atol=1e-6), f"Recreated curve {recreated_curve} does not match original " \
                                    f"coordinates {coordinates} within tolerance"
+
+
+if __name__ == '__main__':
+    pytest.main()
