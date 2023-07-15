@@ -140,8 +140,6 @@ dmypy.json
 #
 # gitignore contributors: remember to update Global/Xcode.gitignore, Objective-C.gitignore & Swift.gitignore
 
-*.pbxproj
-
 
 ## Build generated
 DerivedData/
