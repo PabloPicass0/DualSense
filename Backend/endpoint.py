@@ -10,6 +10,7 @@ from sign_g.sign_g import is_sign_g
 from sign_h.sign_h import is_sign_h
 from sign_j.sign_j import is_sign_j
 from sign_ll.sign_ll import is_sign_ll
+from sign_ñ.sign_ñ import is_sign_ñ, is_sign_ñ_single_curve
 
 # Creates basic flask application
 app = Flask(__name__)
@@ -76,6 +77,10 @@ def recogniser_function(sign: string, data: List[Dict[str, Union[float, List[flo
         return jsonify({"message": "Sign J correct"}), 200
     elif sign == 'LL' and is_sign_ll(timestamps, locations):
         return jsonify({"message": "Sign LL correct"}), 200
+    # elif sign == 'Ñ' and is_sign_ñ(timestamps, locations):
+    #     return jsonify({"message": "Sign Ñ correct"}), 200
+    elif sign == 'Ñ' and is_sign_ñ_single_curve(timestamps, locations):
+        return jsonify({"message": "Sign Ñ correct"}), 200
 
     # otherwise false
     return jsonify({"message": "Sign not correct"}), 200

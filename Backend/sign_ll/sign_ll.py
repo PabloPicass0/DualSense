@@ -247,24 +247,25 @@ def is_sign_ll(timestamps: List[float], locations: List[List[float]]) -> bool:
     bezier2_lower_curve_template = np.load(file_path_b2)
 
     # # The code below saves a figure to see how the user curves compare to the templates
+    # # Needs to uncomment agg at the top of the file
     # creates a new figure
-    plt.figure()
-    # plots the templates
-    plt.plot(bezier1_upper_curve_template[:, 0], bezier1_upper_curve_template[:, 1], label='Bezier 1 Template',
-             linestyle='dashed')
-    plt.plot(bezier2_lower_curve_template[:, 0], bezier2_lower_curve_template[:, 1], label='Bezier 2 Template',
-             linestyle='dashed')
-    # plots user curves
-    plt.plot(user_curve_1_b[:, 0], user_curve_1_b[:, 1], label='User Bezier 1')
-    plt.plot(user_curve_2_b[:, 0], user_curve_2_b[:, 1], label='User Bezier 2')
-    # adds a legend
-    plt.legend()
-    # saves the plot
-    current_dir = os.path.dirname(os.path.abspath(__file__))
-    filename = os.path.join(current_dir, 'output_figure.png')
-    plt.savefig(filename)
-    # closes the figure to free up memory
-    plt.close()
+    # plt.figure()
+    # # plots the templates
+    # plt.plot(bezier1_upper_curve_template[:, 0], bezier1_upper_curve_template[:, 1], label='Bezier 1 Template',
+    #          linestyle='dashed')
+    # plt.plot(bezier2_lower_curve_template[:, 0], bezier2_lower_curve_template[:, 1], label='Bezier 2 Template',
+    #          linestyle='dashed')
+    # # plots user curves
+    # plt.plot(user_curve_1_b[:, 0], user_curve_1_b[:, 1], label='User Bezier 1')
+    # plt.plot(user_curve_2_b[:, 0], user_curve_2_b[:, 1], label='User Bezier 2')
+    # # adds a legend
+    # plt.legend()
+    # # saves the plot
+    # current_dir = os.path.dirname(os.path.abspath(__file__))
+    # filename = os.path.join(current_dir, 'output_figure.png')
+    # plt.savefig(filename)
+    # # closes the figure to free up memory
+    # plt.close()
 
     # calculates the Euclidean distance between the first point of user's curves and the first point of the templates
     dist1 = euclidean(user_curve_1_b[0], bezier1_upper_curve_template[0])

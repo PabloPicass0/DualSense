@@ -48,6 +48,31 @@ def numpy_to_json(directory: str, filename: str):
         json.dump(data_as_list, json_file)
 
 
+def read_and_store_locations_to_json(directory: str, filename: str, output_filename: str):
+    """
+    This function loads data from a JSON file, separates locations from timestamps using the
+    existing function, and stores the locations into a new JSON file.
+
+    :param directory: The directory where the input JSON file is stored.
+    :param filename: The name of the input JSON file.
+    :param output_filename: The name of the output JSON file for locations.
+    """
+    # loads data from JSON file
+    with open(os.path.join(directory, filename), 'r') as json_file:
+        data = json.load(json_file)
+
+    # splits data into timestamps and locations
+    _, locations = extract_timestamps_and_locations(data)
+
+    # saves locations as JSON
+    with open(os.path.join(directory, output_filename), 'w') as json_file:
+        json.dump(locations, json_file)
+
+
 # Call the function
 if __name__ == '__main__':
-    numpy_to_json('sign_j', 'bezier_curve_template.npy')
+    # extracts numpy template (Bézier curves) into json file for frontend
+    # numpy_to_json('sign_j', 'bezier_curve_template.npy')
+
+    # extracts touch location coordinates into json files
+    read_and_store_locations_to_json('.', 'data.json', 'ñ.json')
