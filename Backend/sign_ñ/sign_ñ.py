@@ -118,6 +118,7 @@ def fit_bezier_for_ñ():
     np.save(file_path_b2, bezier2_curve)
 
 
+# Function below currently not implemented in endpoint as accuracy is lower than with single function
 def is_sign_ñ(timestamps: List[float], locations: List[List[float]]) -> bool:
     """
     This function takes a list of timestamps and a list of touch locations as input.
@@ -341,8 +342,8 @@ def is_sign_ñ_single_curve(timestamps: List[float], locations: List[List[float]
     return True
 
 
-if __name__ == '__main__':
-    # fits two curves
-    # fit_bezier_for_ñ_single_curve()
-    # fits one curve
-    fit_bezier_for_ñ_single_curve()
+# if __name__ == '__main__':
+#     # fits two curves
+#     # fit_bezier_for_ñ_single_curve()
+#     # fits one curve
+#     fit_bezier_for_ñ_single_curve()
