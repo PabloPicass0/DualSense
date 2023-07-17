@@ -315,7 +315,27 @@ def is_sign_ñ_single_curve(timestamps: List[float], locations: List[List[float]
 
     print(f"distance_template: {distance_template}")
 
-    if distance_template > 2000.0:
+    # captures the very different sign, usually the first --> this is the random single few points whent the gesture
+    # terminates
+    if distance_template > 20000:
+        print("large distance print")
+        plt.figure()
+        # plots the template
+        plt.plot(bezier_curve_single_template[:, 0], bezier_curve_single_template[:, 1], label='Bezier 1 Template',
+                 linestyle='dashed')
+        # plots user curves
+        plt.plot(user_curve_b[:, 0], user_curve_b[:, 1], label='User Bezier')
+
+        # adds a legend
+        plt.legend()
+        # saves the plot
+        current_dir = os.path.dirname(os.path.abspath(__file__))
+        filename = os.path.join(current_dir, 'output_figure_single_high_distance.png')
+        plt.savefig(filename)
+        # closes the figure to free up memory
+        plt.close()
+
+    if distance_template > 3000.0:
         return False
 
     return True
