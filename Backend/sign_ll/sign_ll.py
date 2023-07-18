@@ -74,8 +74,8 @@ def is_sign_ll(timestamps: List[float], locations: List[List[float]]) -> bool:
     """
     This function takes a list of timestamps and a list of touch locations as input.
     It checks whether the gesture represented by these data points matches the gesture of "LL"
-    according to a predefined template of the gesture.
-    If the performed gesture deviates from the template by more than a certain threshold,
+    according to a predefined templates of the gesture. 'LL' uses two curves and has two templates.
+    If the performed gesture deviates from the templates by more than a certain threshold,
     the function returns False. Otherwise, it returns True.
 
     :param timestamps: A list of timestamps.

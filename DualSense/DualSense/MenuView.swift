@@ -88,6 +88,14 @@ struct MenuView: View {
                         .foregroundColor(.white)
                         .cornerRadius(10)
                 }
+                NavigationLink(destination: RRview()) {
+                    Text("RR")
+                        .font(.title)
+                        .padding()
+                        .background(Color.blue)
+                        .foregroundColor(.white)
+                        .cornerRadius(10)
+                }
                 // Add more buttons here
             }
         }
