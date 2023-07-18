@@ -122,7 +122,7 @@ class TouchRecognizer: UIGestureRecognizer {
     // Sends data to backend if flag isRecognising is set
     private func sendToBackend(jsonData: Data, sign: String) {
         // Creates a URL request with a specific URL string, including IP address --> may needs to be updated
-        var request = URLRequest(url: URL(string: "http://146.169.152.132:5000/receive_json")!)
+        var request = URLRequest(url: URL(string: "http://146.169.155.122:5000/receive_json")!)
         // Specifies the HTTP method for the request as POST
         request.httpMethod = "POST"
         // Sets HTTP header with information about sign (for backend to select recogniser)

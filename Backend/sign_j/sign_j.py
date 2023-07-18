@@ -8,8 +8,8 @@ from matplotlib import pyplot as plt
 from extraction import extract_timestamps_and_locations
 from scipy.optimize import minimize
 
+from recognition import compare_sequences
 from sign_a import timestamp_duration_valid
-from sign_ch.sign_ch import compare_sequences
 
 """ The functions for the quadratic curve are not implemented, but have been tried. The cubic curve 
     showed more flexibility. """

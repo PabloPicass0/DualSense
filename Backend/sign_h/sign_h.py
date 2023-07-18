@@ -10,8 +10,8 @@ import numpy as np
 from matplotlib import pyplot as plt
 
 from extraction import extract_timestamps_and_locations
+from recognition import compare_sequences
 from sign_a import timestamp_duration_valid
-from sign_ch.sign_ch import compare_sequences
 from sign_g.sign_g import generate_linear_bezier
 
 

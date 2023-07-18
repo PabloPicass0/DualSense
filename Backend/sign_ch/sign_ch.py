@@ -5,14 +5,13 @@ compared to the curve to determine accuracy.
 """
 import os
 import json
-import math
 import numpy as np
 from typing import List, Tuple
 import matplotlib.pyplot as plt
-from fastdtw import fastdtw
-from scipy.spatial.distance import euclidean
 
 from extraction import extract_timestamps_and_locations
+from extraction import euclidean_distance
+from recognition import compare_sequences
 from sign_a import timestamp_duration_valid
 
 
@@ -27,18 +26,6 @@ def linear_bezier_curve(p0: np.ndarray, p1: np.ndarray, t: np.ndarray) -> np.nda
     :return: The computed Bézier curve as a numpy array.
     """
     return (1 - t)[:, None] * p0 + t[:, None] * p1
-
-
-def euclidean_distance(point1: List[float], point2: List[float]) -> float:
-    """
-    Calculates the Euclidean distance between two points in 2D.
-
-    :param point1: The first point as a tuple of two floats representing x and y coordinates.
-    :param point2: The second point as a tuple of two floats representing x and y coordinates.
-
-    :return: The Euclidean distance between the two points.
-    """
-    return math.sqrt((point1[0] - point2[0]) ** 2 + (point1[1] - point2[1]) ** 2)
 
 
 def split_touch_locations(locations: List[List[float]]) -> Tuple[
@@ -134,19 +121,6 @@ def fit_bezier_for_ch():
     # [P0_curve2[1], P1_curve2[1]], color='red')  # control points for curve2
 
     plt.show()
-
-
-def compare_sequences(seq1: np.ndarray, seq2: np.ndarray) -> float:
-    """
-    Compares two sequences using Dynamic Time Warping.
-
-    :param seq1: The first sequence. It is a numpy array.
-    :param seq2: The second sequence. It is a numpy array.
-    :return: The Dynamic Time Warping distance between the sequences as a float.
-    """
-    distance, _ = fastdtw(seq1, seq2, dist=euclidean)
-
-    return distance
 
 
 def is_sign_ch(timestamps: List[float], locations: List[List[float]]) -> bool:

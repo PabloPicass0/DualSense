@@ -1,3 +1,5 @@
+# Go through and update!!!
+
 import json
 import os
 from typing import List, Tuple
@@ -8,9 +10,9 @@ from matplotlib import pyplot as plt
 from scipy.spatial.distance import euclidean
 
 from extraction import extract_timestamps_and_locations
-from sign_ch.sign_ch import compare_sequences
-from sign_ll.sign_ll import fit_quartic_bezier_control_points, return_two_quartic_bezier_curves, \
-    timestamp_duration_valid, return_quartic_bezier_curve
+from parameterisation import fit_quartic_bezier_control_points, return_quartic_bezier_curve, \
+    return_two_quartic_bezier_curves
+from recognition import timestamp_duration_valid, compare_sequences
 
 matplotlib.use('Agg')
 
@@ -132,7 +134,7 @@ def is_sign_ñ(timestamps: List[float], locations: List[List[float]]) -> bool:
     :return: True if the gesture matches the template, False otherwise.
     """
     # checks if time frame is valid
-    if not timestamp_duration_valid(timestamps):
+    if not timestamp_duration_valid('Ñ', timestamps):
         print("Duration too long")
         return False
 
@@ -196,6 +198,7 @@ def is_sign_ñ(timestamps: List[float], locations: List[List[float]]) -> bool:
     return True
 
 
+# May not be needed! Check and delete
 def generate_quartic_bezier_control_points(locations: List[List[float]]) -> np.ndarray:
     """
     Generates one quartic Bézier curve given a list of touch locations.
@@ -272,19 +275,19 @@ def is_sign_ñ_single_curve(timestamps: List[float], locations: List[List[float]
     :param locations: A list of touch locations, where each location is a list of x and y coordinates.
     :return: True if the gesture matches the template, False otherwise.
     """
+    # checks if location inputs are valid by assessing number of touch points
+    if len(locations) < 20:
+        return False
+
     # checks if time frame is valid
-    if not timestamp_duration_valid(timestamps):
+    if not timestamp_duration_valid('Ñ', timestamps):
         print("Duration too long")
         return False
 
-    try:
-        # splits location points into respective curves and returns control points
-        user_curve_control = generate_quartic_bezier_control_points(locations)
-    except ValueError:
-        print("\nCurve2 is empty")
-        return False
+    # returns control points
+    user_curve_control = fit_quartic_bezier_control_points(locations)
 
-    # creates full Bezier curves
+    # creates full Bezier curve
     user_curve_b = return_quartic_bezier_curve(user_curve_control)
 
     # loads the template for comparison
@@ -316,7 +319,7 @@ def is_sign_ñ_single_curve(timestamps: List[float], locations: List[List[float]
 
     print(f"distance_template: {distance_template}")
 
-    # captures the very different sign, usually the first --> this is the random single few points whent the gesture
+    # captures the very different sign, usually the first --> this is the random single few points when the gesture
     # terminates
     if distance_template > 20000:
         print("large distance print")
@@ -340,7 +343,6 @@ def is_sign_ñ_single_curve(timestamps: List[float], locations: List[List[float]
         return False
 
     return True
-
 
 # if __name__ == '__main__':
 #     # fits two curves

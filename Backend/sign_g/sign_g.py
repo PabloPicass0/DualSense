@@ -10,8 +10,9 @@ import numpy as np
 from matplotlib import pyplot as plt
 
 from extraction import extract_timestamps_and_locations
+from recognition import compare_sequences
 from sign_a import timestamp_duration_valid
-from sign_ch.sign_ch import linear_bezier_curve, compare_sequences
+from sign_ch.sign_ch import linear_bezier_curve
 
 
 def generate_linear_bezier(locations: List[List[float]]) -> np.ndarray:

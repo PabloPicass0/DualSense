@@ -1,3 +1,5 @@
+import math
+
 import pytest
 from sign_ch.sign_ch import *
 

@@ -1,6 +1,6 @@
 import pytest
 
-from sign_ll.sign_ll import *
+from parameterisation import *
 
 
 def test_error_function_quartic():
