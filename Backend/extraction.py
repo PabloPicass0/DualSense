@@ -66,8 +66,8 @@ def split_touch_locations(sign: str, locations: List[List[float]]) -> Tuple[
     elif sign == 'Ñ':
         # curves are closer together
         threshold = 20
-    elif sign == 'RR':
-        # curves are closer together
+    elif sign == 'RR' or sign == 'V':
+        # medium distance
         threshold = 50
 
     # starts by putting the first point in curve1
@@ -125,10 +125,10 @@ def read_and_store_locations_to_json(directory: str, filename: str, output_filen
     with open(os.path.join(directory, output_filename), 'w') as json_file:
         json.dump(locations, json_file)
 
-# calls the function
-# if __name__ == '__main__':
-# extracts numpy template (Bézier curves) into json file for frontend
-# numpy_to_json('sign_j', 'bezier_curve_template.npy')
+
+if __name__ == '__main__':
+    # extracts numpy template (Bézier curves) into json file for frontend
+    numpy_to_json('sign_v', 'bezier2_curve_template.npy')
 
 # extracts touch location coordinates into json files
 # make sure to update the filename before use to not override other files

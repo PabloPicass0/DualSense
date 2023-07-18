@@ -12,91 +12,103 @@ struct MenuView: View {
     var body: some View {
         NavigationStack {
             VStack {
-                // Creates button that navigates to the gesture recording view
-                NavigationLink(destination: GestureDetectionView()) {
-                    Text("Record")
-                        .font(.title)
-                        .padding()
-                        .background(Color.blue)
-                        .foregroundColor(.white)
-                        .cornerRadius(10)
+                Group {
+                    // Creates button that navigates to the gesture recording view
+                    NavigationLink(destination: GestureDetectionView()) {
+                        Text("Record")
+                            .font(.title)
+                            .padding()
+                            .background(Color.blue)
+                            .foregroundColor(.white)
+                            .cornerRadius(10)
+                    }
+                    // Creates button that navigates to Aview
+                    NavigationLink(destination: Aview()) {
+                        Text("A")
+                            .font(.title)
+                            .padding()
+                            .background(Color.blue)
+                            .foregroundColor(.white)
+                            .cornerRadius(10)
+                    }
+                    // Creates button that navigates to Bview
+                    NavigationLink(destination: Bview()) {
+                        Text("B")
+                            .font(.title)
+                            .padding()
+                            .background(Color.blue)
+                            .foregroundColor(.white)
+                            .cornerRadius(10)
+                    }
+                    // Creates button that navigates to CHview
+                    NavigationLink(destination: CHview()) {
+                        Text("CH")
+                            .font(.title)
+                            .padding()
+                            .background(Color.blue)
+                            .foregroundColor(.white)
+                            .cornerRadius(10)
+                    }
+                    NavigationLink(destination: Gview()) {
+                        Text("G")
+                            .font(.title)
+                            .padding()
+                            .background(Color.blue)
+                            .foregroundColor(.white)
+                            .cornerRadius(10)
+                    }
+                    NavigationLink(destination: Hview()) {
+                        Text("H")
+                            .font(.title)
+                            .padding()
+                            .background(Color.blue)
+                            .foregroundColor(.white)
+                            .cornerRadius(10)
+                    }
+                    NavigationLink(destination: Jview()) {
+                        Text("J")
+                            .font(.title)
+                            .padding()
+                            .background(Color.blue)
+                            .foregroundColor(.white)
+                            .cornerRadius(10)
+                    }
                 }
-                // Creates button that navigates to Aview
-                NavigationLink(destination: Aview()) {
-                    Text("A")
-                        .font(.title)
-                        .padding()
-                        .background(Color.blue)
-                        .foregroundColor(.white)
-                        .cornerRadius(10)
+                Group {
+                    NavigationLink(destination: LLview()) {
+                        Text("LL")
+                            .font(.title)
+                            .padding()
+                            .background(Color.blue)
+                            .foregroundColor(.white)
+                            .cornerRadius(10)
+                    }
+                    NavigationLink(destination: Ñview()) {
+                        Text("Ñ")
+                            .font(.title)
+                            .padding()
+                            .background(Color.blue)
+                            .foregroundColor(.white)
+                            .cornerRadius(10)
+                    }
+                    NavigationLink(destination: RRview()) {
+                        Text("RR")
+                            .font(.title)
+                            .padding()
+                            .background(Color.blue)
+                            .foregroundColor(.white)
+                            .cornerRadius(10)
+                    }
+                    NavigationLink(destination: Vview()) {
+                        Text("V")
+                            .font(.title)
+                            .padding()
+                            .background(Color.blue)
+                            .foregroundColor(.white)
+                            .cornerRadius(10)
+                    }
                 }
-                // Creates button that navigates to Bview
-                NavigationLink(destination: Bview()) {
-                    Text("B")
-                        .font(.title)
-                        .padding()
-                        .background(Color.blue)
-                        .foregroundColor(.white)
-                        .cornerRadius(10)
-                }
-                // Creates button that navigates to CHview
-                NavigationLink(destination: CHview()) {
-                    Text("CH")
-                        .font(.title)
-                        .padding()
-                        .background(Color.blue)
-                        .foregroundColor(.white)
-                        .cornerRadius(10)
-                }
-                NavigationLink(destination: Gview()) {
-                    Text("G")
-                        .font(.title)
-                        .padding()
-                        .background(Color.blue)
-                        .foregroundColor(.white)
-                        .cornerRadius(10)
-                }
-                NavigationLink(destination: Hview()) {
-                    Text("H")
-                        .font(.title)
-                        .padding()
-                        .background(Color.blue)
-                        .foregroundColor(.white)
-                        .cornerRadius(10)
-                }
-                NavigationLink(destination: Jview()) {
-                    Text("J")
-                        .font(.title)
-                        .padding()
-                        .background(Color.blue)
-                        .foregroundColor(.white)
-                        .cornerRadius(10)
-                }
-                NavigationLink(destination: LLview()) {
-                    Text("LL")
-                        .font(.title)
-                        .padding()
-                        .background(Color.blue)
-                        .foregroundColor(.white)
-                        .cornerRadius(10)
-                }
-                NavigationLink(destination: Ñview()) {
-                    Text("Ñ")
-                        .font(.title)
-                        .padding()
-                        .background(Color.blue)
-                        .foregroundColor(.white)
-                        .cornerRadius(10)
-                }
-                NavigationLink(destination: RRview()) {
-                    Text("RR")
-                        .font(.title)
-                        .padding()
-                        .background(Color.blue)
-                        .foregroundColor(.white)
-                        .cornerRadius(10)
-                }
-                // Add more buttons here
+                
             }
         }
     }
