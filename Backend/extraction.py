@@ -128,7 +128,7 @@ def read_and_store_locations_to_json(directory: str, filename: str, output_filen
 
 if __name__ == '__main__':
     # extracts numpy template (Bézier curves) into json file for frontend
-    numpy_to_json('sign_v', 'bezier2_curve_template.npy')
+    numpy_to_json('sign_ñ', 'bezier_curve_single_template.npy')
 
 # extracts touch location coordinates into json files
 # make sure to update the filename before use to not override other files
