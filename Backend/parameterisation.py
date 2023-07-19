@@ -3,6 +3,43 @@ from typing import List, Tuple
 import numpy as np
 from scipy.optimize import minimize
 
+""" ******************************************* Linear Bezier function ******************************************* """
+
+
+def linear_bezier_curve(p0: np.ndarray, p1: np.ndarray, t: np.ndarray) -> np.ndarray:
+    """
+    Function to calculate a linear Bézier curve.
+
+    :param p0: The starting control point of the Bézier curve. It is a numpy array.
+    :param p1: The ending control point of the Bézier curve. It is a numpy array.
+    :param t: The parameter values, typically ranging from 0 to 1. It is a numpy array.
+
+    :return: The computed Bézier curve as a numpy array.
+    """
+    return (1 - t)[:, None] * p0 + t[:, None] * p1
+
+
+def generate_linear_bezier(locations: List[List[float]]) -> np.ndarray:
+    """
+    Generates one linear Bézier curve given a list of touch locations.
+
+    :param locations: The list of touch locations, where each location is a tuple of x and y coordinates.
+    :return: One numpy array,representing a linear Bézier curve.
+    """
+
+    # control points: fits curves into linear Bézier curve
+    P0_curve = np.array(locations[0])
+    P1_curve = np.array(locations[-1])
+
+    # assigns parameter values
+    t = np.linspace(0, 1, num=100)
+
+    # calculates points for curve1
+    bezier = linear_bezier_curve(P0_curve, P1_curve, t=t)
+
+    return bezier
+
+
 """ ******************************************* Qubic Bezier function ******************************************* """
 
 

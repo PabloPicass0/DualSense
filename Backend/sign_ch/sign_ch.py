@@ -11,21 +11,9 @@ import matplotlib.pyplot as plt
 
 from extraction import extract_timestamps_and_locations
 from extraction import euclidean_distance
+from parameterisation import linear_bezier_curve
 from recognition import compare_sequences
 from sign_a import timestamp_duration_valid
-
-
-def linear_bezier_curve(p0: np.ndarray, p1: np.ndarray, t: np.ndarray) -> np.ndarray:
-    """
-    Function to calculate a linear Bézier curve.
-
-    :param p0: The starting control point of the Bézier curve. It is a numpy array.
-    :param p1: The ending control point of the Bézier curve. It is a numpy array.
-    :param t: The parameter values, typically ranging from 0 to 1. It is a numpy array.
-
-    :return: The computed Bézier curve as a numpy array.
-    """
-    return (1 - t)[:, None] * p0 + t[:, None] * p1
 
 
 def split_touch_locations(locations: List[List[float]]) -> Tuple[

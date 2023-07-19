@@ -1,7 +1,3 @@
-"""
-Sign 'G' is a single touch gesture, where the index draws a line on the upper side of the recipient's hand.
-For recognition, the line is fitted into a Bézier curve, just like sign 'CH'.
-"""
 import json
 import os
 from typing import List
@@ -11,25 +7,24 @@ from matplotlib import pyplot as plt
 
 from extraction import extract_timestamps_and_locations
 from parameterisation import generate_linear_bezier
-from recognition import compare_sequences
-from sign_a import timestamp_duration_valid
+from recognition import timestamp_duration_valid, compare_sequences
 
 
-def fit_bezier_for_g():
+def fit_bezier_for_y():
     """
     This function fits one linear Bézier curve to the given data and saves it as templates for later comparison.
-    Used only once for saving templates of the sign.
+    Used only once for saving templates of the sign 'Y'.
     """
     # defines filepath; function needs to be run from root directory
     current_dir = os.path.dirname(os.path.abspath(__file__))
-    file_path = os.path.join(current_dir, 'data_g.json')
+    file_path = os.path.join(current_dir, 'data_y.json')
 
     # opens and loads the JSON file
     with open(file_path) as file:
-        data_g = json.load(file)
+        data_y = json.load(file)
 
     # splits data into touch locations and timestamps
-    timestamps, locations = extract_timestamps_and_locations(data_g)
+    timestamps, locations = extract_timestamps_and_locations(data_y)
 
     # generates Bezier curves
     bezier = generate_linear_bezier(locations)
@@ -44,10 +39,10 @@ def fit_bezier_for_g():
     plt.show()
 
 
-def is_sign_g(timestamps: List[float], locations: List[List[float]]) -> bool:
+def is_sign_y(timestamps: List[float], locations: List[List[float]]) -> bool:
     """
     This function takes a list of timestamps and a list of touch locations as input.
-    It checks whether the gesture represented by these data points matches the gesture of "G"
+    It checks whether the gesture represented by these data points matches the gesture of "Y"
     according to a predefined template of the gesture.
     If the performed gesture deviates from the template by more than a certain threshold,
     the function returns False. Otherwise, it returns True.
@@ -57,7 +52,7 @@ def is_sign_g(timestamps: List[float], locations: List[List[float]]) -> bool:
     :return: True if the gesture matches the template, False otherwise.
     """
     # checks if time frame is valid
-    if not timestamp_duration_valid(timestamps):
+    if not timestamp_duration_valid('Y', timestamps):
         print("Duration too long")
         return False
 
@@ -74,11 +69,11 @@ def is_sign_g(timestamps: List[float], locations: List[List[float]]) -> bool:
 
     print(f"distance_template: {distance_template}")
 
-    if distance_template > 2000.0:
+    if distance_template > 3000.0:
         return False
 
     return True
 
-# if __name__ == '__main__':
-#     # already executed to save templates
-#     fit_bezier_for_g()
+
+if __name__ == '__main__':
+    fit_bezier_for_y()

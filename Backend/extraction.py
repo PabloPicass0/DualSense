@@ -60,7 +60,9 @@ def split_touch_locations_two_curves(sign: str, locations: List[List[float]]) ->
     threshold = 10
 
     # assigns value to threshold depending on curve
-    if sign == 'LL':
+    if sign == 'CH':
+        threshold = 10
+    elif sign == 'LL':
         # both curves are far from each other for LL
         threshold = 100
     elif sign == 'Ñ':
@@ -179,7 +181,7 @@ def read_and_store_locations_to_json(directory: str, filename: str, output_filen
 
 if __name__ == '__main__':
     # extracts numpy template (Bézier curves) into json file for frontend
-    numpy_to_json('sign_z', 'bezier_curve_template_quartic.npy')
+    numpy_to_json('sign_y', 'bezier_curve_template.npy')
 
 # extracts touch location coordinates into json files
 # make sure to update the filename before use to not override other files

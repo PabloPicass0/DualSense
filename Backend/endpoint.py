@@ -13,12 +13,15 @@ from sign_ll.sign_ll import is_sign_ll
 from sign_rr.sign_rr import is_sign_rr
 from sign_v.sign_v import is_sign_v
 from sign_w.sign_w import is_sign_w_three_curves, is_sign_w_single_curve
+from sign_y.sign_y import is_sign_y
 from sign_z.sign_z import is_sign_z_cubic, is_sign_z_quartic
 from sign_ñ.sign_ñ import is_sign_ñ, is_sign_ñ_single_curve
 
-# Creates basic flask application
+# creates basic flask application
 app = Flask(__name__)
-# Cross-Origin Resource Sharing enabled for all routes
+# flask secret key for sessions to share request information; can be random but needs to be consistent across sessions
+app.secret_key = os.urandom(24)
+# cross-Origin Resource Sharing enabled for all routes
 CORS(app)
 
 
@@ -93,6 +96,8 @@ def recogniser_function(sign: string, data: List[Dict[str, Union[float, List[flo
     #     return jsonify({"message": "Sign W correct"}), 200
     elif sign == 'W' and is_sign_w_three_curves(timestamps, locations):
         return jsonify({"message": "Sign W correct"}), 200
+    elif sign == 'Y' and is_sign_y(timestamps, locations):
+        return jsonify({"message": "Sign Y correct"}), 200
     elif sign == 'Z' and is_sign_z_cubic(timestamps, locations):
         return jsonify({"message": "Sign Z correct"}), 200
     # elif sign == 'Z' and is_sign_z_quartic(timestamps, locations):
@@ -119,5 +124,5 @@ def get_template():
 
 
 if __name__ == '__main__':
-    # Makes web server listen on port 5000 and makes it externally visible by binding it to 0.0.0.0
+    # makes web server listen on port 5000 and makes it externally visible by binding it to 0.0.0.0
     app.run(host='0.0.0.0', port=5000)
