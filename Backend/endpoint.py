@@ -13,6 +13,7 @@ from sign_ll.sign_ll import is_sign_ll
 from sign_rr.sign_rr import is_sign_rr
 from sign_v.sign_v import is_sign_v
 from sign_w.sign_w import is_sign_w_three_curves, is_sign_w_single_curve
+from sign_z.sign_z import is_sign_z_cubic, is_sign_z_quartic
 from sign_ñ.sign_ñ import is_sign_ñ, is_sign_ñ_single_curve
 
 # Creates basic flask application
@@ -92,6 +93,10 @@ def recogniser_function(sign: string, data: List[Dict[str, Union[float, List[flo
     #     return jsonify({"message": "Sign W correct"}), 200
     elif sign == 'W' and is_sign_w_three_curves(timestamps, locations):
         return jsonify({"message": "Sign W correct"}), 200
+    elif sign == 'Z' and is_sign_z_cubic(timestamps, locations):
+        return jsonify({"message": "Sign Z correct"}), 200
+    # elif sign == 'Z' and is_sign_z_quartic(timestamps, locations):
+    #     return jsonify({"message": "Sign Z correct"}), 200
 
     # otherwise false
     return jsonify({"message": "Sign not correct"}), 200

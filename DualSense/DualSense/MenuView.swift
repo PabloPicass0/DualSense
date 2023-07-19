@@ -115,6 +115,14 @@ struct MenuView: View {
                             .foregroundColor(.white)
                             .cornerRadius(10)
                     }
+                    NavigationLink(destination: Zview()) {
+                        Text("Z")
+                            .font(.title)
+                            .padding()
+                            .background(Color.blue)
+                            .foregroundColor(.white)
+                            .cornerRadius(10)
+                    }
                 }
                 
             }

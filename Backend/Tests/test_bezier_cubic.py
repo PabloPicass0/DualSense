@@ -1,6 +1,7 @@
+import numpy as np
 import pytest
 
-from sign_j.sign_j import *
+from parameterisation import calculate_cubic_bezier_point, fit_cubic_bezier_curve, error_function_cubic
 
 
 def test_calculate_cubic_bezier_point():

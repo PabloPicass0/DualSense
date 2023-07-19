@@ -24,6 +24,8 @@ def timestamp_duration_valid(sign: str, timestamps: List[float]) -> bool:
         time_period = 4
     elif sign == 'W':
         time_period = 4
+    elif sign == 'Z':
+        time_period = 3
 
     return timestamps[-1] - timestamps[0] <= time_period
 

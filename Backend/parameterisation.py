@@ -1,8 +1,87 @@
-""" ******************************************* Quartic Bezier function ******************************************* """
 from typing import List, Tuple
 
 import numpy as np
 from scipy.optimize import minimize
+
+""" ******************************************* Qubic Bezier function ******************************************* """
+
+
+def calculate_cubic_bezier_point(t: float, p0: np.array, p1: np.array, p2: np.array, p3: np.array) -> np.array:
+    """
+    Calculates a point on a cubic Bézier curve.
+
+    :param t: The parameter t in the range of [0, 1] for calculating a point on the Bézier curve.
+    :param p0: The first endpoint of the Bézier curve.
+    :param p1: The first control point of the Bézier curve.
+    :param p2: The second control point of the Bézier curve.
+    :param p3: The second endpoint of the Bézier curve.
+    :return: The calculated point on the curve.
+    """
+    # cubic Bézier formula to compute a point on the curve
+    return (1 - t) ** 3 * p0 + 3 * (1 - t) ** 2 * t * p1 + 3 * (1 - t) * t ** 2 * p2 + t ** 3 * p3
+
+
+def error_function_cubic(control: np.array, coordinates: np.ndarray, times: np.ndarray) -> np.array:
+    """
+    Error function for the cubic curve fitting optimization problem.
+
+    :param control: Control points for cubic Bézier curve.
+    :param coordinates: Coordinates through which the curve should pass.
+    :param times: Array of equally spaced time instances.
+    :return: The calculated error.
+    """
+    # separates end and control points
+    p0, p3 = coordinates[0], coordinates[-1]
+    p1, p2 = control.reshape(2, -1)
+
+    # estimates the curve points by calculating Bézier points for all time values
+    estimate = np.array([calculate_cubic_bezier_point(t, p0, p1, p2, p3) for t in times])
+
+    # calculates and return the error as sum of squares of the difference between coordinates and estimate
+    return np.sum((coordinates - estimate) ** 2)
+
+
+def fit_cubic_bezier_curve(coordinates: List[List[float]]) -> np.ndarray:
+    """
+    Fits a cubic Bézier curve to the given coordinates.
+
+    :param coordinates: A list of touch locations, where each location is a list of x and y coordinates.
+    :return: The four control points of a cubic Bézier curve.
+    """
+    # converts to numpy for numerical calculations
+    coordinates_np = np.array(coordinates)
+    # creates an array with equally spaced times between 0 and 1 to parametrize the Bézier curve
+    times = np.linspace(0, 1, len(coordinates_np))
+
+    # uses the mean of all coordinates as the initial guess for the control points of the Bézier curve
+    # the initial guess has four points (hence the repeat)
+    initial_guess = np.repeat(coordinates_np.mean(axis=0), 2)
+
+    # uses the BFGS method to minimize the error function and returns the optimal control points that
+    # minimize the difference between the Bézier curve and the given coordinates.
+    result = minimize(error_function_cubic, initial_guess, args=(coordinates_np, times), method='BFGS')
+    control = result.x.reshape(2, -1)
+    return np.array([coordinates_np[0], control[0], control[1], coordinates_np[-1]])
+
+
+def return_cubic_bezier(locations: List[List[float]]) -> List[np.ndarray]:
+    """
+    Calculates the control points for the curve, generates 100 evenly spaced points,
+    and calculates the corresponding point on the Bézier curve for each 't' using the control points.
+
+    :param locations: Locations through which the curve should pass.
+    :return: The calculated curve points.
+    """
+    # calculates the control points for the curve
+    bezier_control_points = fit_cubic_bezier_curve(locations)
+    # generates 100 evenly spaced points, representing the parameter t
+    t_values = np.linspace(0, 1, 100)
+    # calculates the corresponding point on the Bézier curve for each 't' using the control points
+    curve_points = [calculate_cubic_bezier_point(t, *bezier_control_points) for t in t_values]
+    return curve_points
+
+
+""" ******************************************* Quartic Bezier function ******************************************* """
 
 
 def error_function_quartic(control: np.array, coordinates: np.ndarray, times: np.ndarray) -> np.array:
