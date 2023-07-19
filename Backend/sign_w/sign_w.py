@@ -15,7 +15,7 @@ from recognition import timestamp_duration_valid, compare_sequences
 def fit_three_beziers_for_w():
     """
     This function fits three quartic Bézier curves to the given data and saves them as templates for later comparison.
-    Used only once for saving templates of the sign w. This is done to compare the accuracy of three Bezier curves as
+    Used only once for saving templates of the sign w. This is done to compare the accuracy of three Bézier curves as
     compared to only one.
     """
     # defines filepath; function needs to be run from root directory
@@ -99,17 +99,17 @@ def fit_bezier_for_w_single_curve():
     # calculates and returns full curves
     bezier_curve = return_quartic_bezier_curve(bezier_control)
 
-    # transforms into numpy arrays
-    bezier_curve_np = np.array(bezier_curve)
-
     # Code below plots fitted Bézier curves
+    # transforms into numpy arrays
+    # bezier_curve_np = np.array(bezier_curve)
+
     # plots Bézier curve
     # plt.figure(figsize=(6, 6))
     # plt.plot(bezier_curve_np[:, 0], bezier_curve_np[:, 1], label='Bezier 1')
     # plt.scatter(bezier_curve_np[:, 0], bezier_curve_np[:, 1], s=10)
     #
     # # setting up the title and labels
-    # plt.title('Bezier Curves')
+    # plt.title('Bézier curves')
     # plt.xlabel('X Coordinate')
     # plt.ylabel('Y Coordinate')
     #

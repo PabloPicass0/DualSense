@@ -102,7 +102,7 @@ def split_touch_locations_three_curves(locations: List[List[float]]) \
     curve1, curve2, curve3 = [], [], []
     curves = [curve1, curve2, curve3]
 
-    threshold = 10
+    threshold = 25
 
     for point in locations:
         # starts with first curve
