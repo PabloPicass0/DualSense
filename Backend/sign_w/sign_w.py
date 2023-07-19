@@ -280,7 +280,7 @@ def is_sign_w_three_curves(timestamps: List[float], locations: List[List[float]]
         distance_template = compare_sequences(user_curves[i], assigned_template)
         # prints the distance to the respective template
         print(f"distance{assignments[i] + 1}_template: {distance_template}")
-        if distance_template > 4000:
+        if distance_template > 5000:
             return False
 
     return True

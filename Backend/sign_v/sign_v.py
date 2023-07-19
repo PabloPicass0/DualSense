@@ -142,7 +142,7 @@ def is_sign_v(timestamps: List[float], locations: List[List[float]]) -> bool:
     print(f"distance1_template: {distance1_template}")
     print(f"distance2_template: {distance2_template}")
 
-    if distance1_template > 3000.0 or distance2_template > 3000.0:
+    if distance1_template > 7000.0 or distance2_template > 7000.0:
         return False
 
     return True
