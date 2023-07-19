@@ -6,7 +6,7 @@ import numpy as np
 from matplotlib import pyplot as plt
 from scipy.spatial.distance import euclidean
 
-from extraction import extract_timestamps_and_locations, split_touch_locations
+from extraction import extract_timestamps_and_locations, split_touch_locations_two_curves
 from parameterisation import generate_two_quartic_beziers_control_points, return_two_quartic_bezier_curves
 from recognition import timestamp_duration_valid, compare_sequences
 
@@ -28,7 +28,7 @@ def fit_bezier_for_v():
     timestamps, locations = extract_timestamps_and_locations(data_v)
 
     # splits locations into both Bézier curves
-    curve1, curve2 = split_touch_locations('V', locations)
+    curve1, curve2 = split_touch_locations_two_curves('V', locations)
 
     # generates Bezier curve control points
     bezier1_control, bezier2_control = generate_two_quartic_beziers_control_points(curve1, curve2)
@@ -87,7 +87,7 @@ def is_sign_v(timestamps: List[float], locations: List[List[float]]) -> bool:
 
     try:
         # splits locations into both Bézier curves
-        curve1, curve2 = split_touch_locations('V', locations)
+        curve1, curve2 = split_touch_locations_two_curves('V', locations)
     except ValueError:
         print("\nCurve2 is empty")
         return False

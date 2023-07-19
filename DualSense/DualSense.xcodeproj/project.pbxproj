@@ -20,6 +20,7 @@
 		F957102F2A55BDDE00A73948 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = F957102E2A55BDDE00A73948 /* Alamofire */; };
 		F9953F692A66DC9900390C78 /* RRview.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9953F682A66DC9900390C78 /* RRview.swift */; };
 		F9953F6C2A66F33100390C78 /* Vview.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9953F6B2A66F33100390C78 /* Vview.swift */; };
+		F9953F6F2A670D6400390C78 /* Wview.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9953F6E2A670D6400390C78 /* Wview.swift */; };
 		F9B745D52A38B56100A31413 /* DualSenseApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9B745D42A38B56100A31413 /* DualSenseApp.swift */; };
 		F9B745D72A38B56100A31413 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9B745D62A38B56100A31413 /* ContentView.swift */; };
 		F9B745D92A38B56200A31413 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F9B745D82A38B56200A31413 /* Assets.xcassets */; };
@@ -65,6 +66,7 @@
 		F957102B2A55B70900A73948 /* TemplateLayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TemplateLayer.swift; sourceTree = "<group>"; };
 		F9953F682A66DC9900390C78 /* RRview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RRview.swift; sourceTree = "<group>"; };
 		F9953F6B2A66F33100390C78 /* Vview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Vview.swift; sourceTree = "<group>"; };
+		F9953F6E2A670D6400390C78 /* Wview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Wview.swift; sourceTree = "<group>"; };
 		F9B745D12A38B56100A31413 /* DualSense.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DualSense.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F9B745D42A38B56100A31413 /* DualSenseApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DualSenseApp.swift; sourceTree = "<group>"; };
 		F9B745D62A38B56100A31413 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -174,6 +176,14 @@
 			path = V;
 			sourceTree = "<group>";
 		};
+		F9953F6D2A670D4F00390C78 /* W */ = {
+			isa = PBXGroup;
+			children = (
+				F9953F6E2A670D6400390C78 /* Wview.swift */,
+			);
+			path = W;
+			sourceTree = "<group>";
+		};
 		F9B745C82A38B56100A31413 = {
 			isa = PBXGroup;
 			children = (
@@ -197,6 +207,7 @@
 		F9B745D32A38B56100A31413 /* DualSense */ = {
 			isa = PBXGroup;
 			children = (
+				F9953F6D2A670D4F00390C78 /* W */,
 				F9953F6A2A66F31F00390C78 /* V */,
 				F9953F672A66DC7A00390C78 /* RR */,
 				F91FAB912A6443E500DDE905 /* Ñ */,
@@ -415,6 +426,7 @@
 				F9E98E562A40D1D4004561D7 /* HandGraphic.swift in Sources */,
 				F9FBEE892A5F3A35009D6DBC /* Jview.swift in Sources */,
 				F9355B4C2A49C0BD00F573AA /* GestureDetectionView.swift in Sources */,
+				F9953F6F2A670D6400390C78 /* Wview.swift in Sources */,
 				F9953F6C2A66F33100390C78 /* Vview.swift in Sources */,
 				F957102C2A55B70900A73948 /* TemplateLayer.swift in Sources */,
 				F91FAB932A64442300DDE905 /* Ñview.swift in Sources */,

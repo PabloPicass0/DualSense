@@ -47,7 +47,7 @@ def split_touch_locations(locations: List[List[float]]) -> Tuple[
 def generate_two_quartic_beziers_control_points(locations: List[List[float]]) -> Tuple[np.ndarray, np.ndarray]:
     """
     Generates two quartic Bézier curves given a list of touch locations. This function is duplicated in this file from
-    the same function in sign_ll because it uses the proprietary split_touch_locations function.
+    the same function in sign_ll because it uses the proprietary split_touch_locations_two_curves function.
 
     :param locations: The list of touch locations, where each location is a tuple of x and y coordinates.
     :return: Two numpy arrays, each representing a quartic Bézier curve.

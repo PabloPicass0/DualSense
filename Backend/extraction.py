@@ -42,7 +42,7 @@ def euclidean_distance(point1: List[float], point2: List[float]) -> float:
     return math.sqrt((point1[0] - point2[0]) ** 2 + (point1[1] - point2[1]) ** 2)
 
 
-def split_touch_locations(sign: str, locations: List[List[float]]) -> Tuple[
+def split_touch_locations_two_curves(sign: str, locations: List[List[float]]) -> Tuple[
     List[List[float]], List[List[float]]]:
     """
     Splits the provided locations into two curves based on a distance threshold, depending on the sign.
@@ -84,6 +84,57 @@ def split_touch_locations(sign: str, locations: List[List[float]]) -> Tuple[
         raise ValueError("Curve2 is empty.")
 
     return curve1, curve2
+
+
+def split_touch_locations_three_curves(locations: List[List[float]]) \
+        -> Tuple[List[List[float]], List[List[float]], List[List[float]]]:
+    """
+        Splits a list of locations into three separate curves based on the euclidean distance between points.
+        The locations are assigned to curves sequentially. A new curve starts when the distance to the next
+        location is greater than a specified threshold compared to the last location in the current curves.
+
+        :param locations: A list of locations, where each location is a list of two float numbers
+                          representing the x and y coordinates.
+
+        :return: A tuple of three curves, each of which is a list of locations.
+                 Each location in a curve is a list of two float numbers representing the x and y coordinates.
+    """
+    curve1, curve2, curve3 = [], [], []
+    curves = [curve1, curve2, curve3]
+
+    threshold = 10
+
+    for point in locations:
+        # starts with first curve
+        if not curve1:
+            curve1.append(point)
+        # adds point to curve2 if distance to curve1 is larger than threshold1
+        elif not curve2:
+            if euclidean_distance(curve1[-1], point) > threshold:
+                curve2.append(point)
+            else:
+                curve1.append(point)
+        # adds point to curve3 if distance to both curve1 and curve2 is larger than threshold2
+        elif not curve3:
+            if euclidean_distance(curve1[-1], point) > 25 and euclidean_distance(curve2[-1], point) > threshold:
+                curve3.append(point)
+            elif euclidean_distance(curve1[-1], point) < euclidean_distance(curve2[-1], point):
+                curve1.append(point)
+            else:
+                curve2.append(point)
+        # all curves are started, assign point to the closest curve
+        else:
+            distances = [euclidean_distance(curve[-1], point) for curve in curves]
+            closest_curve = curves[np.argmin(distances)]
+            closest_curve.append(point)
+
+    # throws exception if one of the curves is empty
+    if not curve2:
+        raise ValueError("Curve2 is empty")
+    if not curve3:
+        raise ValueError("Curve3 is empty")
+
+    return curve1, curve2, curve3
 
 
 def numpy_to_json(directory: str, filename: str):
@@ -128,7 +179,7 @@ def read_and_store_locations_to_json(directory: str, filename: str, output_filen
 
 if __name__ == '__main__':
     # extracts numpy template (Bézier curves) into json file for frontend
-    numpy_to_json('sign_ñ', 'bezier_curve_single_template.npy')
+    numpy_to_json('sign_w', 'bezier1_curve_template.npy')
 
 # extracts touch location coordinates into json files
 # make sure to update the filename before use to not override other files

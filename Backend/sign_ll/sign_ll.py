@@ -9,7 +9,7 @@ from scipy.spatial.distance import euclidean
 from extraction import extract_timestamps_and_locations
 from parameterisation import generate_two_quartic_beziers_control_points, return_two_quartic_bezier_curves
 from recognition import timestamp_duration_valid, compare_sequences
-from extraction import split_touch_locations
+from extraction import split_touch_locations_two_curves
 
 matplotlib.use('Agg')
 
@@ -31,7 +31,7 @@ def fit_bezier_for_ll():
     timestamps, locations = extract_timestamps_and_locations(data_ll)
 
     # splits locations into both Bézier curves
-    curve1, curve2 = split_touch_locations('LL', locations)
+    curve1, curve2 = split_touch_locations_two_curves('LL', locations)
 
     # generates Bezier curve control points
     bezier1_control, bezier2_control = generate_two_quartic_beziers_control_points(curve1, curve2)
@@ -89,7 +89,7 @@ def is_sign_ll(timestamps: List[float], locations: List[List[float]]) -> bool:
 
     try:
         # splits locations into both Bézier curves
-        curve1, curve2 = split_touch_locations('LL', locations)
+        curve1, curve2 = split_touch_locations_two_curves('LL', locations)
     except ValueError:
         print("\nCurve2 is empty")
         return False

@@ -107,6 +107,14 @@ struct MenuView: View {
                             .foregroundColor(.white)
                             .cornerRadius(10)
                     }
+                    NavigationLink(destination: Wview()) {
+                        Text("W")
+                            .font(.title)
+                            .padding()
+                            .background(Color.blue)
+                            .foregroundColor(.white)
+                            .cornerRadius(10)
+                    }
                 }
                 
             }
