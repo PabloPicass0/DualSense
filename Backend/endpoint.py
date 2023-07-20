@@ -1,3 +1,5 @@
+from typing import Callable
+
 from flask import Flask, request, jsonify, Response
 from flask_cors import CORS
 from extraction import *
@@ -28,28 +30,51 @@ CORS(app)
 
 # global variable to hold the result of the first stroke for gesture 'Y'
 first_stroke_result = None
+# global variable to verify that a second stroke came
+second_stroke_result = None
 
 # executor for managing threads
 executor = ThreadPoolExecutor(max_workers=1)
 
 
 # decorator that injects the dependencies as default arguments so the client does not need to pass them
-def inject_executor_and_result_holder(executor_threads, result_holder, func):
-    def wrapper(*args, **kwargs):
-        return func(*args, executor=executor_threads, result_holder=result_holder, **kwargs)
+# allows for testing
+# def inject_executor_and_result_holder(executor_threads, func):
+#     def wrapper(*args, **kwargs):
+#         return func(*args, executor=executor_threads, **kwargs)
+#
+#     return wrapper
+
+def inject_executor_and_result_holder(executor_threads, func):
+    from inspect import signature, isbuiltin
+
+    if not isbuiltin(func):
+        sig = signature(func)
+        if "executor_threads" in sig.parameters:
+            def wrapper(*args, **kwargs):
+                return func(*args, executor=executor_threads, **kwargs)
+        else:
+            def wrapper(*args, **kwargs):
+                return func(*args, **kwargs)
+    else:
+        def wrapper(*args, **kwargs):
+            return func(*args, **kwargs)
 
     return wrapper
 
 
 # creates endpoint that listens for POST requests
 @app.route('/receive_json', methods=['POST'])
-@inject_executor_and_result_holder(executor, first_stroke_result)
-def receive_json(executor_threads=None, result_holder=None) -> Tuple[Response, int]:
+@inject_executor_and_result_holder(executor, time.sleep)
+def receive_json(executor_threads=None, sleep_function=None) -> Tuple[Response, int]:
     """
         Receives message from frontend with sign in header and touch data as JSON file.
         :rtype: tuple where first object is flask jsonify response object, second is HTTP status code
         :return: two objects: first object is flask jsonify response object, second is HTTP status code
     """
+    # declare use of global variable
+    global first_stroke_result
+    global second_stroke_result
     # gets header/indicator for sign
     sign: string = request.headers.get('Sign')
     # gets JSON file
@@ -71,34 +96,46 @@ def receive_json(executor_threads=None, result_holder=None) -> Tuple[Response, i
 
     # if the sign is incorrect, return the response right away
     if response[0].json.get("message") == "Sign not correct":
+        # if it is the second stroke for 'Y', set flag for delay_response not to reply
+        if sign == 'Y' and first_stroke_result is not None:
+            second_stroke_result = 'NOT'
         return response
 
     if sign == 'Y':
         # if a previous stroke result exists, return it and clear the result
-        if result_holder is not None:
-            result = result_holder
-            result_holder = None
+        if first_stroke_result is not None and second_stroke_result is None:
+            result = first_stroke_result
+            first_stroke_result = None
+            # set the flag for the second stroke so that delay_response does not return anything
+            second_stroke_result = 'Y'
             return result
 
-        # stores first stroke
-        result_holder = response
+        else:
+            # stores first stroke
+            first_stroke_result = response
 
-        # schedules a function to run after a delay
-        future = executor.submit(delay_response, result_holder, 2, time.sleep)
-        # blocks until the future is done, then return its result
-        return future.result()
+            # schedules a function to run after a delay
+            future = executor_threads.submit(delay_response, first_stroke_result, 2, sleep_function)
+            # blocks until the future is done, then returns its result
+            return future.result()
 
     # returns Response (imported from Flask) and HTTP status code
     return response
 
 
-def delay_response(result_holder, delay: int, sleeper: Callable[[int], None]) -> Tuple[Response, int]:
+def delay_response(delay: int, sleeper: Callable[[int], None]) -> Tuple[Response, int]:
+    global first_stroke_result
+    global second_stroke_result
     sleeper(delay)
-    if result_holder is not None:
-        # If no second stroke has been received after the delay
+    if first_stroke_result is not None and second_stroke_result is None:
+        # if no second stroke has been received after the delay
         result = (jsonify({"message": "Second stroke not received"}), 200)
-        result_holder = None
+        first_stroke_result = None
         return result
+    elif second_stroke_result is not None:
+        # if the second stroke has been received, reset second global variable
+        second_stroke_result = None
+        pass
 
 
 # finish and write docstring
