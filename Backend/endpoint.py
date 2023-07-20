@@ -5,6 +5,7 @@ from sign_a import is_sign_a
 from sign_b import is_sign_b
 from sign_ch.sign_ch import is_sign_ch
 import string
+import time
 
 from sign_g.sign_g import is_sign_g
 from sign_h.sign_h import is_sign_h
@@ -16,6 +17,7 @@ from sign_w.sign_w import is_sign_w_three_curves, is_sign_w_single_curve
 from sign_y.sign_y import is_sign_y
 from sign_z.sign_z import is_sign_z_cubic, is_sign_z_quartic
 from sign_ñ.sign_ñ import is_sign_ñ, is_sign_ñ_single_curve
+from concurrent.futures import ThreadPoolExecutor
 
 # creates basic flask application
 app = Flask(__name__)
@@ -24,10 +26,25 @@ app.secret_key = os.urandom(24)
 # cross-Origin Resource Sharing enabled for all routes
 CORS(app)
 
+# global variable to hold the result of the first stroke for gesture 'Y'
+first_stroke_result = None
 
-# Creates endpoint that listens for POST requests
+# executor for managing threads
+executor = ThreadPoolExecutor(max_workers=1)
+
+
+# decorator that injects the dependencies as default arguments so the client does not need to pass them
+def inject_executor_and_result_holder(executor_threads, result_holder, func):
+    def wrapper(*args, **kwargs):
+        return func(*args, executor=executor_threads, result_holder=result_holder, **kwargs)
+
+    return wrapper
+
+
+# creates endpoint that listens for POST requests
 @app.route('/receive_json', methods=['POST'])
-def receive_json() -> Tuple[Response, int]:
+@inject_executor_and_result_holder(executor, first_stroke_result)
+def receive_json(executor_threads=None, result_holder=None) -> Tuple[Response, int]:
     """
         Receives message from frontend with sign in header and touch data as JSON file.
         :rtype: tuple where first object is flask jsonify response object, second is HTTP status code
@@ -52,8 +69,36 @@ def receive_json() -> Tuple[Response, int]:
     # gives json into recogniser
     response: Tuple[Response, int] = recogniser_function(sign, data)
 
+    # if the sign is incorrect, return the response right away
+    if response[0].json.get("message") == "Sign not correct":
+        return response
+
+    if sign == 'Y':
+        # if a previous stroke result exists, return it and clear the result
+        if result_holder is not None:
+            result = result_holder
+            result_holder = None
+            return result
+
+        # stores first stroke
+        result_holder = response
+
+        # schedules a function to run after a delay
+        future = executor.submit(delay_response, result_holder, 2, time.sleep)
+        # blocks until the future is done, then return its result
+        return future.result()
+
     # returns Response (imported from Flask) and HTTP status code
     return response
+
+
+def delay_response(result_holder, delay: int, sleeper: Callable[[int], None]) -> Tuple[Response, int]:
+    sleeper(delay)
+    if result_holder is not None:
+        # If no second stroke has been received after the delay
+        result = (jsonify({"message": "Second stroke not received"}), 200)
+        result_holder = None
+        return result
 
 
 # finish and write docstring
