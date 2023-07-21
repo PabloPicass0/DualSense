@@ -1,5 +1,3 @@
-from typing import Callable
-
 from flask import Flask, request, jsonify, Response
 from flask_cors import CORS
 from extraction import *
@@ -37,36 +35,20 @@ second_stroke_result = None
 executor = ThreadPoolExecutor(max_workers=1)
 
 
-# decorator that injects the dependencies as default arguments so the client does not need to pass them
+# inject_arguments that injects the dependencies as default arguments so the client does not need to pass them
 # allows for testing
-# def inject_executor_and_result_holder(executor_threads, func):
-#     def wrapper(*args, **kwargs):
-#         return func(*args, executor=executor_threads, **kwargs)
-#
-#     return wrapper
-
-def inject_executor_and_result_holder(executor_threads, func):
-    from inspect import signature, isbuiltin
-
-    if not isbuiltin(func):
-        sig = signature(func)
-        if "executor_threads" in sig.parameters:
-            def wrapper(*args, **kwargs):
-                return func(*args, executor=executor_threads, **kwargs)
-        else:
-            def wrapper(*args, **kwargs):
-                return func(*args, **kwargs)
-    else:
-        def wrapper(*args, **kwargs):
-            return func(*args, **kwargs)
-
-    return wrapper
+def decorator_receive_json(executor_threads):
+    def decorator(func):
+        def wrapper():
+            return func(executor_threads=executor_threads)
+        return wrapper
+    return decorator
 
 
 # creates endpoint that listens for POST requests
 @app.route('/receive_json', methods=['POST'])
-@inject_executor_and_result_holder(executor, time.sleep)
-def receive_json(executor_threads=None, sleep_function=None) -> Tuple[Response, int]:
+@decorator_receive_json(executor)
+def receive_json(executor_threads=None) -> Tuple[Response, int]:
     """
         Receives message from frontend with sign in header and touch data as JSON file.
         :rtype: tuple where first object is flask jsonify response object, second is HTTP status code
@@ -77,6 +59,7 @@ def receive_json(executor_threads=None, sleep_function=None) -> Tuple[Response, 
     global second_stroke_result
     # gets header/indicator for sign
     sign: string = request.headers.get('Sign')
+    print(f"sign saved: {sign}")
     # gets JSON file
     data: Union[List[Dict[str, Union[float, List[float]]]], None] = request.get_json()
     # for parametrisation purposes
@@ -93,6 +76,7 @@ def receive_json(executor_threads=None, sleep_function=None) -> Tuple[Response, 
 
     # gives json into recogniser
     response: Tuple[Response, int] = recogniser_function(sign, data)
+    print(response[0].get_json())
 
     # if the sign is incorrect, return the response right away
     if response[0].json.get("message") == "Sign not correct":
@@ -102,11 +86,12 @@ def receive_json(executor_threads=None, sleep_function=None) -> Tuple[Response, 
         return response
 
     if sign == 'Y':
+        print("sign Y if statement entered")
         # if a previous stroke result exists, return it and clear the result
         if first_stroke_result is not None and second_stroke_result is None:
             result = first_stroke_result
             first_stroke_result = None
-            # set the flag for the second stroke so that delay_response does not return anything
+            # set the flag for the second stroke for delay_response
             second_stroke_result = 'Y'
             return result
 
@@ -115,7 +100,7 @@ def receive_json(executor_threads=None, sleep_function=None) -> Tuple[Response, 
             first_stroke_result = response
 
             # schedules a function to run after a delay
-            future = executor_threads.submit(delay_response, first_stroke_result, 2, sleep_function)
+            future = executor_threads.submit(delay_response, app, 2)
             # blocks until the future is done, then returns its result
             return future.result()
 
@@ -123,19 +108,20 @@ def receive_json(executor_threads=None, sleep_function=None) -> Tuple[Response, 
     return response
 
 
-def delay_response(delay: int, sleeper: Callable[[int], None]) -> Tuple[Response, int]:
-    global first_stroke_result
-    global second_stroke_result
-    sleeper(delay)
-    if first_stroke_result is not None and second_stroke_result is None:
-        # if no second stroke has been received after the delay
-        result = (jsonify({"message": "Second stroke not received"}), 200)
-        first_stroke_result = None
-        return result
-    elif second_stroke_result is not None:
-        # if the second stroke has been received, reset second global variable
-        second_stroke_result = None
-        pass
+def delay_response(application, delay: int) -> Tuple[Response, int]:
+    with application.app_context():
+        global first_stroke_result
+        global second_stroke_result
+        time.sleep(delay)
+        if first_stroke_result is not None and second_stroke_result is None:
+            # if no second stroke has been received after the delay
+            result = (jsonify({"message": "Second stroke not received"}), 200)
+            first_stroke_result = None
+            return result
+        elif second_stroke_result is not None:
+            # if the second stroke has been received, reset second global variable
+            second_stroke_result = None
+            return jsonify({"message": "Second stroke already received"}), 200
 
 
 # finish and write docstring
