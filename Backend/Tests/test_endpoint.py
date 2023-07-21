@@ -14,7 +14,7 @@ def test_delay_response_second_stroke_missing():
         endpoint.first_stroke_result = (Response(), 200)
         endpoint.second_stroke_result = None
         # calls the function
-        result = endpoint.delay_response(1)
+        result = endpoint.delay_response(app, 1)
         # checks the result
         assert result[0].get_json() == jsonify({"message": "Second stroke not received"}).get_json() \
                and result[1] == 200
@@ -30,9 +30,10 @@ def test_delay_response_second_stroke_received():
         endpoint.first_stroke_result = (Response(), 200)
         endpoint.second_stroke_result = 'Y'
         # calls the function
-        result = endpoint.delay_response(1)
+        result = endpoint.delay_response(app, 1)
         # checks the result
-        assert result is None
+        assert result[0].get_json() == jsonify({"message": "Second stroke already received"}).get_json() \
+               and result[1] == 200
         # checks that the global variable was reset
         assert endpoint.second_stroke_result is None
 

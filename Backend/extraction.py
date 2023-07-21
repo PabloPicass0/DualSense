@@ -2,11 +2,12 @@
 Functions to extract data and features from JSON files.
 """
 import json
-import math
 import os
 from typing import List, Dict, Tuple, Union
 
 import numpy as np
+
+from recognition import euclidean_distance
 
 
 def extract_timestamps_and_locations(json_data: List[Dict[str, Union[float, List[float]]]]) -> Tuple[
@@ -28,18 +29,6 @@ def extract_timestamps_and_locations(json_data: List[Dict[str, Union[float, List
         locations.append(item['location'])
 
     return timestamps, locations
-
-
-def euclidean_distance(point1: List[float], point2: List[float]) -> float:
-    """
-    Calculates the Euclidean distance between two points in 2D.
-
-    :param point1: The first point as a tuple of two floats representing x and y coordinates.
-    :param point2: The second point as a tuple of two floats representing x and y coordinates.
-
-    :return: The Euclidean distance between the two points.
-    """
-    return math.sqrt((point1[0] - point2[0]) ** 2 + (point1[1] - point2[1]) ** 2)
 
 
 def split_touch_locations_two_curves(sign: str, locations: List[List[float]]) -> Tuple[

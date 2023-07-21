@@ -286,7 +286,7 @@ def is_sign_w_three_curves(timestamps: List[float], locations: List[List[float]]
     return True
 
 
-# executed once to create the template
-if __name__ == '__main__':
-    # fit_bezier_for_w_single_curve()
-    fit_three_beziers_for_w()
+# # executed once to create the template
+# if __name__ == '__main__':
+#     # fit_bezier_for_w_single_curve()
+#     fit_three_beziers_for_w()

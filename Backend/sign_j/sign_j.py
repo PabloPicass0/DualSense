@@ -6,62 +6,10 @@ import numpy as np
 from matplotlib import pyplot as plt
 
 from extraction import extract_timestamps_and_locations
-from scipy.optimize import minimize
 
 from parameterisation import return_cubic_bezier
 from recognition import compare_sequences
 from sign_a.sign_a import timestamp_duration_valid
-
-""" The functions for the quadratic curve are not implemented, but have been tried. The cubic curve 
-    showed more flexibility. """
-
-
-def calculate_bezier_point_quadratic(t: float, p0: np.array, p1: np.array, p2: np.array) -> np.array:
-    """
-    Calculate a point on a quadratic Bézier curve.
-
-    :param t: The t-value at which to evaluate the curve (0 <= t <= 1).
-    :param p0: The first point defining the Bézier curve.
-    :param p1: The control point defining the curve.
-    :param p2: The last point defining the Bézier curve.
-    :return: The calculated point on the curve.
-    """
-    return (1 - t) ** 2 * p0 + 2 * (1 - t) * t * p1 + t ** 2 * p2
-
-
-def error_function_quadratic(control: np.array, coordinates: np.ndarray, times: np.ndarray) -> np.array:
-    """
-    Error function for the optimization problem. The error is the sum of squares of the differences
-    between the coordinates and the estimated points on the curve.
-
-    :param control: Control point for Bézier curve.
-    :param coordinates: Coordinates through which the curve should pass.
-    :param times: Array of equally spaced time instances.
-    :return: The calculated error.
-    """
-    p0, p2 = coordinates[0], coordinates[-1]
-    p1 = np.array(control)
-    estimate = np.array([calculate_bezier_point_quadratic(t, p0, p1, p2) for t in times])
-    return np.sum((coordinates - estimate).flatten() ** 2)
-
-
-def fit_quadratic_bezier_curve(coordinates: List[List[float]]) -> np.ndarray:
-    """
-    Fit a quadratic Bézier curve to the given coordinates.
-
-    :param coordinates: The coordinates through which the curve should pass.
-    :return: The control points for the fitted Bézier curve as a np.ndarray.
-    """
-    # converts coordinates to numpy array for processing
-    coordinates_np = np.array(coordinates)
-
-    times = np.linspace(0, 1, len(coordinates_np))
-    initial_guess = coordinates_np.mean(axis=0)
-    result = minimize(error_function_quadratic, initial_guess, args=(coordinates_np, times), method='BFGS')
-    control = result.x
-
-    # packages results as a np.ndarray
-    return np.array([coordinates_np[0], control, coordinates_np[-1]])
 
 
 def fit_bezier_for_j():
@@ -80,6 +28,7 @@ def fit_bezier_for_j():
     # splits data into touch locations and timestamps
     timestamps, locations = extract_timestamps_and_locations(data_j)
 
+    # generates cubic bezier curve
     curve_points = return_cubic_bezier(locations)
 
     # converts list of tuples to numpy array
@@ -130,12 +79,12 @@ def is_sign_j(timestamps: List[float], locations: List[List[float]]) -> bool:
         return False
 
     # checks if time frame is valid
-    if not timestamp_duration_valid(timestamps):
+    if not timestamp_duration_valid('J', timestamps):
         print("Duration too long")
         return False
 
     return True
 
-
-if __name__ == '__main__':
-    fit_bezier_for_j()
+# # Code below already executed to fit template
+# if __name__ == '__main__':
+#     fit_bezier_for_j()

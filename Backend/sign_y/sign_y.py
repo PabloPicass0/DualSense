@@ -74,6 +74,6 @@ def is_sign_y(timestamps: List[float], locations: List[List[float]]) -> bool:
 
     return True
 
-
-if __name__ == '__main__':
-    fit_bezier_for_y()
+# # Code below already executed to fit template
+# if __name__ == '__main__':
+#     fit_bezier_for_y()

@@ -1,6 +1,6 @@
 """
 Sign 'G' is a single touch gesture, where the index draws a line on the upper side of the recipient's hand.
-For recognition, the line is fitted into a Bézier curve, just like sign 'CH'.
+For recognition, the line is fitted into a linear Bézier curve.
 """
 import json
 import os
@@ -11,8 +11,7 @@ from matplotlib import pyplot as plt
 
 from extraction import extract_timestamps_and_locations
 from parameterisation import generate_linear_bezier
-from recognition import compare_sequences
-from sign_a.sign_a import timestamp_duration_valid
+from recognition import compare_sequences, timestamp_duration_valid
 
 
 def fit_bezier_for_g():
@@ -57,7 +56,7 @@ def is_sign_g(timestamps: List[float], locations: List[List[float]]) -> bool:
     :return: True if the gesture matches the template, False otherwise.
     """
     # checks if time frame is valid
-    if not timestamp_duration_valid(timestamps):
+    if not timestamp_duration_valid('G', timestamps):
         print("Duration too long")
         return False
 
@@ -79,6 +78,7 @@ def is_sign_g(timestamps: List[float], locations: List[List[float]]) -> bool:
 
     return True
 
+# Code below already executed to fit template
 # if __name__ == '__main__':
 #     # already executed to save templates
 #     fit_bezier_for_g()

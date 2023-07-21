@@ -1,6 +1,6 @@
 """
 Sign 'H' is a single touch gesture, where the thumb draws a line through the middle of the recipient's hand.
-For recognition, the line is fitted into a Bézier curve, just like sign 'G'.
+For recognition, the line is fitted into a linear Bézier curve, like sign 'G'.
 """
 import json
 import os
@@ -10,9 +10,8 @@ import numpy as np
 from matplotlib import pyplot as plt
 
 from extraction import extract_timestamps_and_locations
-from recognition import compare_sequences
-from sign_a.sign_a import timestamp_duration_valid
-from sign_g.sign_g import generate_linear_bezier
+from parameterisation import generate_linear_bezier
+from recognition import compare_sequences, timestamp_duration_valid
 
 
 def fit_bezier_for_h():
@@ -75,12 +74,13 @@ def is_sign_h(timestamps: List[float], locations: List[List[float]]) -> bool:
         return False
 
     # checks if time frame is valid
-    if not timestamp_duration_valid(timestamps):
+    if not timestamp_duration_valid('H', timestamps):
         print("Duration too long")
         return False
 
     return True
 
+# # Code below already executed to fit template
 # if __name__ == '__main__':
 #     # already executed to save templates
 #     fit_bezier_for_h()

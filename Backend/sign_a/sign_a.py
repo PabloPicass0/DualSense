@@ -7,6 +7,8 @@ which the tap needs to occur.
 
 from typing import List
 
+from recognition import timestamp_duration_valid
+
 # Circle template parameters for sign "A" in pixels
 # Circle center x-coordinate
 XC = 477.5
@@ -14,16 +16,6 @@ XC = 477.5
 YC = 755.5
 # Circle radius
 R = 369.5
-
-
-def timestamp_duration_valid(timestamps: List[float]) -> bool:
-    """
-    Checks whether the difference between the first and the last timestamp is larger than 3 seconds.
-
-    :param timestamps: List of timestamps
-    :return: True if the duration is less than or equal to 3 seconds, False otherwise
-    """
-    return timestamps[-1] - timestamps[0] <= 2
 
 
 def locations_inside_circle(locations: List[List[float]]) -> bool:
@@ -54,7 +46,7 @@ def is_sign_a(timestamps: List[float], locations: List[List[float]]) -> bool:
         print("Too many touch points")
         return False
 
-    if not timestamp_duration_valid(timestamps):
+    if not timestamp_duration_valid('A', timestamps):
         print("Duration too long")
         return False
 

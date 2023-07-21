@@ -5,7 +5,8 @@ detects only individual points which differ from time to time. Therefore,
 a rectangle is defined into which the tap needs to fall.
 """
 from typing import List
-from sign_a.sign_a import timestamp_duration_valid
+
+from recognition import timestamp_duration_valid
 
 # Constants for the corners of the rectangle; y-values increases going down in graphical systems
 RECT_TOP_LEFT = (155, 548.5)
@@ -48,7 +49,7 @@ def is_sign_b(timestamps: List[float], locations: List[List[float]]) -> bool:
         print("Too many touch points")
         return False
 
-    if not timestamp_duration_valid(timestamps):
+    if not timestamp_duration_valid('B', timestamps):
         print("Duration too long")
         return False
 

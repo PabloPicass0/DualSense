@@ -40,6 +40,90 @@ def generate_linear_bezier(locations: List[List[float]]) -> np.ndarray:
     return bezier
 
 
+def generate_two_linear_beziers(curve1: List[List[float]], curve2: List[List[float]]) -> Tuple[np.ndarray, np.ndarray]:
+    """
+    Generates two linear Bézier curves given a list of touch locations.
+
+    :param curve1: The first curve consisting of lists of coordinates.
+    :param curve2: The second curve consisting of lists of coordinates.
+    :return: Two numpy arrays, each representing a linear Bézier curve.
+    """
+
+    # fits curves into linear Bézier curves
+    # control points for curve1
+    P0_curve1 = np.array(curve1[0])
+    P1_curve1 = np.array(curve1[-1])
+
+    # control points for curve2
+    P0_curve2 = np.array(curve2[0])
+    P1_curve2 = np.array(curve2[-1])
+
+    # assigns parameter values
+    t = np.linspace(0, 1, num=100)
+
+    # calculates points for curve1
+    bezier1 = linear_bezier_curve(P0_curve1, P1_curve1, t=t)
+
+    # calculates points for curve2
+    bezier2 = linear_bezier_curve(P0_curve2, P1_curve2, t=t)
+
+    return bezier1, bezier2
+
+
+""" ****************************************** Quadratic Bezier function ****************************************** """
+
+""" The functions for the quadratic curve are not implemented, but have been tried. The cubic curve 
+    showed more flexibility. """
+
+
+def calculate_bezier_point_quadratic(t: float, p0: np.array, p1: np.array, p2: np.array) -> np.array:
+    """
+    Calculate a point on a quadratic Bézier curve.
+
+    :param t: The t-value at which to evaluate the curve (0 <= t <= 1).
+    :param p0: The first point defining the Bézier curve.
+    :param p1: The control point defining the curve.
+    :param p2: The last point defining the Bézier curve.
+    :return: The calculated point on the curve.
+    """
+    return (1 - t) ** 2 * p0 + 2 * (1 - t) * t * p1 + t ** 2 * p2
+
+
+def error_function_quadratic(control: np.array, coordinates: np.ndarray, times: np.ndarray) -> np.array:
+    """
+    Error function for the optimization problem. The error is the sum of squares of the differences
+    between the coordinates and the estimated points on the curve.
+
+    :param control: Control point for Bézier curve.
+    :param coordinates: Coordinates through which the curve should pass.
+    :param times: Array of equally spaced time instances.
+    :return: The calculated error.
+    """
+    p0, p2 = coordinates[0], coordinates[-1]
+    p1 = np.array(control)
+    estimate = np.array([calculate_bezier_point_quadratic(t, p0, p1, p2) for t in times])
+    return np.sum((coordinates - estimate).flatten() ** 2)
+
+
+def fit_quadratic_bezier_curve(coordinates: List[List[float]]) -> np.ndarray:
+    """
+    Fit a quadratic Bézier curve to the given coordinates.
+
+    :param coordinates: The coordinates through which the curve should pass.
+    :return: The control points for the fitted Bézier curve as a np.ndarray.
+    """
+    # converts coordinates to numpy array for processing
+    coordinates_np = np.array(coordinates)
+
+    times = np.linspace(0, 1, len(coordinates_np))
+    initial_guess = coordinates_np.mean(axis=0)
+    result = minimize(error_function_quadratic, initial_guess, args=(coordinates_np, times), method='BFGS')
+    control = result.x
+
+    # packages results as a np.ndarray
+    return np.array([coordinates_np[0], control, coordinates_np[-1]])
+
+
 """ ******************************************* Qubic Bezier function ******************************************* """
 
 
@@ -168,7 +252,7 @@ def fit_quartic_bezier_control_points(coordinates: List[List[float]]) -> np.ndar
 def generate_two_quartic_beziers_control_points(curve1: List[List[float]], curve2: List[List[float]]) \
         -> Tuple[np.ndarray, np.ndarray]:
     """
-    Generates two quartic Bézier curves given a list of touch locations.
+    Generates two sets of control points for two quartic Bézier curves given a list of touch locations.
 
     :param curve1: The first curve, where each location is a tuple of x and y coordinates.
     :param curve2: The second curve, where each location is a tuple of x and y coordinates.

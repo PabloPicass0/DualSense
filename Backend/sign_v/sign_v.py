@@ -147,6 +147,6 @@ def is_sign_v(timestamps: List[float], locations: List[List[float]]) -> bool:
 
     return True
 
-
-if __name__ == '__main__':
-    fit_bezier_for_v()
+# # Code below already executed to fit template
+# if __name__ == '__main__':
+#     fit_bezier_for_v()

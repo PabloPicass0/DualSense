@@ -1,7 +1,8 @@
 import pytest
 
 from extraction import extract_timestamps_and_locations, split_touch_locations_two_curves, \
-    split_touch_locations_three_curves, euclidean_distance
+    split_touch_locations_three_curves
+from recognition import euclidean_distance
 
 
 def test_extract_timestamps_and_locations():
@@ -17,7 +18,7 @@ def test_extract_timestamps_and_locations():
     assert locations == expected_locations
 
 
-def test_split_touch_locations():
+def test_split_touch_locations_two_curves():
     # Mock data
     locations = [[0, 0], [1, 1], [2, 2], [3, 3], [110, 110], [111, 111]]
 
