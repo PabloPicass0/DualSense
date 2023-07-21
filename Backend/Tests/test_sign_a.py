@@ -1,5 +1,5 @@
 import pytest
-from sign_a import *
+from sign_a.sign_a import *
 
 
 def test_timestamp_duration_valid():

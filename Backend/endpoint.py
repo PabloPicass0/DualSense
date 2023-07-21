@@ -1,12 +1,12 @@
+from typing import Callable
 from flask import Flask, request, jsonify, Response
 from flask_cors import CORS
 from extraction import *
-from sign_a import is_sign_a
-from sign_b import is_sign_b
+from sign_a.sign_a import is_sign_a
+from sign_b.sign_b import is_sign_b
 from sign_ch.sign_ch import is_sign_ch
 import string
 import time
-
 from sign_g.sign_g import is_sign_g
 from sign_h.sign_h import is_sign_h
 from sign_j.sign_j import is_sign_j
@@ -22,6 +22,7 @@ from concurrent.futures import ThreadPoolExecutor
 # creates basic flask application
 app = Flask(__name__)
 # flask secret key for sessions to share request information; can be random but needs to be consistent across sessions
+# for multithreading in case a Y signs comes in
 app.secret_key = os.urandom(24)
 # cross-Origin Resource Sharing enabled for all routes
 CORS(app)
@@ -35,9 +36,16 @@ second_stroke_result = None
 executor = ThreadPoolExecutor(max_workers=1)
 
 
-# inject_arguments that injects the dependencies as default arguments so the client does not need to pass them
-# allows for testing
-def decorator_receive_json(executor_threads):
+# allows client to not pass any arguments
+def decorator_receive_json(executor_threads: ThreadPoolExecutor) -> Callable:
+    """
+    Decorator factory for injecting ThreadPoolExecutor instance into the decorated function.
+    The resulting decorator will, when applied, pass the executor_threads argument to the decorated function,
+    making it easy to mock or replace for testing.
+
+    :param executor_threads: ThreadPoolExecutor instance used for managing threads.
+    :return: decorator function which injects executor_threads into the decorated function.
+    """
     def decorator(func):
         def wrapper():
             return func(executor_threads=executor_threads)
@@ -50,20 +58,17 @@ def decorator_receive_json(executor_threads):
 @decorator_receive_json(executor)
 def receive_json(executor_threads=None) -> Tuple[Response, int]:
     """
-        Receives message from frontend with sign in header and touch data as JSON file.
-        :rtype: tuple where first object is flask jsonify response object, second is HTTP status code
-        :return: two objects: first object is flask jsonify response object, second is HTTP status code
+    Receives message from frontend with sign in header and touch data as JSON file.
+    :rtype: tuple where first object is flask jsonify response object, second is HTTP status code
+    :return: two objects: first object is flask jsonify response object, second is HTTP status code
     """
     # declare use of global variable
     global first_stroke_result
     global second_stroke_result
     # gets header/indicator for sign
     sign: string = request.headers.get('Sign')
-    print(f"sign saved: {sign}")
     # gets JSON file
     data: Union[List[Dict[str, Union[float, List[float]]]], None] = request.get_json()
-    # for parametrisation purposes
-    print(sign)
 
     # if data is none, returns error message
     if not data:
@@ -71,12 +76,11 @@ def receive_json(executor_threads=None) -> Tuple[Response, int]:
         return jsonify({"message": "No JSON received"}), 400
 
     # saves touch data into JSON file into backend
-    with open('data.json', 'w') as file:
+    with open('Templates/data.json', 'w') as file:
         json.dump(data, file)
 
     # gives json into recogniser
     response: Tuple[Response, int] = recogniser_function(sign, data)
-    print(response[0].get_json())
 
     # if the sign is incorrect, return the response right away
     if response[0].json.get("message") == "Sign not correct":
@@ -86,7 +90,6 @@ def receive_json(executor_threads=None) -> Tuple[Response, int]:
         return response
 
     if sign == 'Y':
-        print("sign Y if statement entered")
         # if a previous stroke result exists, return it and clear the result
         if first_stroke_result is not None and second_stroke_result is None:
             result = first_stroke_result
@@ -108,8 +111,18 @@ def receive_json(executor_threads=None) -> Tuple[Response, int]:
     return response
 
 
-def delay_response(application, delay: int) -> Tuple[Response, int]:
+def delay_response(application: Flask, delay: int) -> Tuple[Response, int]:
+    """
+    Delays a response to simulate asynchronous behaviour, checking the state of two global variables
+    to determine the appropriate response. Note that this function directly manipulates the global variables
+    'first_stroke_result' and 'second_stroke_result'.
+
+    :param application: Flask application instance required to set up application context.
+    :param delay: The delay time in seconds.
+    :return: A tuple containing a Flask Response object and an HTTP status code.
+    """
     with application.app_context():
+        # declares use of global variables
         global first_stroke_result
         global second_stroke_result
         time.sleep(delay)
@@ -184,7 +197,7 @@ def get_template():
     sign = request.args.get('sign')
     if sign:
         # reads in the coordinates and returns them
-        with open(f"{sign}.json", 'r') as f:
+        with open(f"Templates/{sign}.json", 'r') as f:
             coordinates = json.load(f)
             return jsonify(coordinates)
     else:

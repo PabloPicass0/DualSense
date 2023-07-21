@@ -10,7 +10,7 @@ from scipy.optimize import minimize
 
 from parameterisation import return_cubic_bezier
 from recognition import compare_sequences
-from sign_a import timestamp_duration_valid
+from sign_a.sign_a import timestamp_duration_valid
 
 """ The functions for the quadratic curve are not implemented, but have been tried. The cubic curve 
     showed more flexibility. """

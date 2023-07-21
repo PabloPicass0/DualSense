@@ -13,7 +13,7 @@ from extraction import extract_timestamps_and_locations
 from extraction import euclidean_distance
 from parameterisation import linear_bezier_curve
 from recognition import compare_sequences
-from sign_a import timestamp_duration_valid
+from sign_a.sign_a import timestamp_duration_valid
 
 
 def split_touch_locations(locations: List[List[float]]) -> Tuple[
