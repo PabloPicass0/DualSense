@@ -31,6 +31,9 @@ class TouchRecognizer: UIGestureRecognizer {
     // Indicator for backend to select recogniser
     let sign: String
     
+    // Server Response actualisation
+    var serverResponseHandler: ((String) -> Void)?
+    
     // Creates a data array for touch data
     var touchDataArray = [TouchData]()
     
@@ -38,10 +41,11 @@ class TouchRecognizer: UIGestureRecognizer {
     var touchDelegate: TouchRecognizerDelegate?
         
     // Custom initializer
-    init(target: Any?, action: Selector?, isRecording: Bool, isRecognising: Bool, sign: String) {
+    init(target: Any?, action: Selector?, isRecording: Bool, isRecognising: Bool, sign: String, serverResponseHandler: @escaping (String) -> Void) {
         self.isRecording = isRecording
         self.isRecognising = isRecognising
         self.sign = sign
+        self.serverResponseHandler = serverResponseHandler
         super.init(target: target, action: action)
     }
     
@@ -146,6 +150,7 @@ class TouchRecognizer: UIGestureRecognizer {
                     // Use the data returned from server
                     let responseStr = String(data: data, encoding: .utf8)
                     print("Received data:\n\(responseStr ?? "")")
+                    self.serverResponseHandler?(responseStr ?? "")
                 }
             }
         }

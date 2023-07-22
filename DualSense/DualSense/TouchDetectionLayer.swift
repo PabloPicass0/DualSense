@@ -20,6 +20,9 @@ struct TouchDetectionLayer: UIViewRepresentable {
     // Recognition string for backend to select appropriate recogniser
     var sign: String
     
+    // The server response for informing the user about the success/failure of its performed sign
+    @Binding var serverResponse: String
+    
     // Optional delegate for updating the view and colourise touch points
     var touchDelegate: TouchRecognizerDelegate?
         
@@ -54,7 +57,9 @@ struct TouchDetectionLayer: UIViewRepresentable {
                                               action: #selector(Coordinator.touchDetected),
                                               isRecording: isRecording,
                                               isRecognising: isRecognising,
-                                              sign: sign)
+                                              sign: sign) { response in
+            self.serverResponse = response
+        }
         touchRecognizer.touchDelegate = touchDelegate
         view.addGestureRecognizer(touchRecognizer)
         return view

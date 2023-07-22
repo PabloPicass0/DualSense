@@ -16,11 +16,14 @@ struct HandGraphic: View {
     // if true, data detected is sent to backend instead of being stored on device
     var isRecognising: Bool
     
-    // Needed to store the touchpoints which will be rendered
-    @State private var touchPoints: [CGPoint] = []
+    // The server response for informing the user about the success/failure of its performed sign
+    @Binding var serverResponse: String
     
     // Recognition string for backend to select appropriate recogniser
     var sign: String
+    
+    // Needed to store the touchpoints which will be rendered
+    @State private var touchPoints: [CGPoint] = []
     
     var body: some View {
         // ZStack stacks layers on top of each other
@@ -33,9 +36,9 @@ struct HandGraphic: View {
                 .padding(.bottom, 100)
             
             // Touch View layer on top of hand image
-            TouchDetectionLayer(isRecording: $isRecording, isRecognising: isRecognising, sign: sign, touchDelegate: self)
+            TouchDetectionLayer(isRecording: $isRecording, isRecognising: isRecognising, sign: sign, serverResponse: $serverResponse ,touchDelegate: self)
             
-            // Colours touch locations on view
+            // Colours touch locations of user on view
             ForEach(touchPoints.indices, id: \.self) { index in
                 Circle()
                     .fill(Color.red)
