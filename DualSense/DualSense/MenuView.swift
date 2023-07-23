@@ -22,26 +22,8 @@ struct MenuView: View {
                             .foregroundColor(.white)
                             .cornerRadius(10)
                     }
-                    // Creates button that navigates to Aview
-                    NavigationLink(destination: Aview()) {
-                        Text("A")
-                            .font(.title)
-                            .padding()
-                            .background(Color.blue)
-                            .foregroundColor(.white)
-                            .cornerRadius(10)
-                    }
-                    // Creates button that navigates to Bview
-                    NavigationLink(destination: Bview()) {
-                        Text("B")
-                            .font(.title)
-                            .padding()
-                            .background(Color.blue)
-                            .foregroundColor(.white)
-                            .cornerRadius(10)
-                    }
                     // Creates button that navigates to CHview
-                    NavigationLink(destination: CHview()) {
+                    NavigationLink(destination: SignView(sign: "CH")) {
                         Text("CH")
                             .font(.title)
                             .padding()
@@ -49,7 +31,7 @@ struct MenuView: View {
                             .foregroundColor(.white)
                             .cornerRadius(10)
                     }
-                    NavigationLink(destination: Gview()) {
+                    NavigationLink(destination: SignView(sign: "G")) {
                         Text("G")
                             .font(.title)
                             .padding()
@@ -57,7 +39,7 @@ struct MenuView: View {
                             .foregroundColor(.white)
                             .cornerRadius(10)
                     }
-                    NavigationLink(destination: Hview()) {
+                    NavigationLink(destination: SignView(sign: "H")) {
                         Text("H")
                             .font(.title)
                             .padding()
@@ -65,7 +47,7 @@ struct MenuView: View {
                             .foregroundColor(.white)
                             .cornerRadius(10)
                     }
-                    NavigationLink(destination: Jview()) {
+                    NavigationLink(destination: SignView(sign: "J")) {
                         Text("J")
                             .font(.title)
                             .padding()
@@ -75,7 +57,7 @@ struct MenuView: View {
                     }
                 }
                 Group {
-                    NavigationLink(destination: LLview()) {
+                    NavigationLink(destination: SignView(sign: "LL")) {
                         Text("LL")
                             .font(.title)
                             .padding()
@@ -83,7 +65,7 @@ struct MenuView: View {
                             .foregroundColor(.white)
                             .cornerRadius(10)
                     }
-                    NavigationLink(destination: Ñview()) {
+                    NavigationLink(destination: SignView(sign: "Ñ")) {
                         Text("Ñ")
                             .font(.title)
                             .padding()
@@ -91,7 +73,7 @@ struct MenuView: View {
                             .foregroundColor(.white)
                             .cornerRadius(10)
                     }
-                    NavigationLink(destination: RRview()) {
+                    NavigationLink(destination: SignView(sign: "RR")) {
                         Text("RR")
                             .font(.title)
                             .padding()
@@ -99,7 +81,7 @@ struct MenuView: View {
                             .foregroundColor(.white)
                             .cornerRadius(10)
                     }
-                    NavigationLink(destination: Vview()) {
+                    NavigationLink(destination: SignView(sign: "V")) {
                         Text("V")
                             .font(.title)
                             .padding()
@@ -107,7 +89,7 @@ struct MenuView: View {
                             .foregroundColor(.white)
                             .cornerRadius(10)
                     }
-                    NavigationLink(destination: Wview()) {
+                    NavigationLink(destination: SignView(sign: "W")) {
                         Text("W")
                             .font(.title)
                             .padding()
@@ -115,7 +97,7 @@ struct MenuView: View {
                             .foregroundColor(.white)
                             .cornerRadius(10)
                     }
-                    NavigationLink(destination: Zview()) {
+                    NavigationLink(destination: SignView(sign: "Z")) {
                         Text("Z")
                             .font(.title)
                             .padding()
@@ -123,7 +105,7 @@ struct MenuView: View {
                             .foregroundColor(.white)
                             .cornerRadius(10)
                     }
-                    NavigationLink(destination: Yview()) {
+                    NavigationLink(destination: SignView(sign: "Y")) {
                         Text("Y")
                             .font(.title)
                             .padding()
@@ -132,7 +114,6 @@ struct MenuView: View {
                             .cornerRadius(10)
                     }
                 }
-                
             }
         }
     }

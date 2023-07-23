@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		F900C5F22A61A39300201BB6 /* LLview.swift in Sources */ = {isa = PBXBuildFile; fileRef = F900C5F12A61A39300201BB6 /* LLview.swift */; };
 		F91FAB932A64442300DDE905 /* Ñview.swift in Sources */ = {isa = PBXBuildFile; fileRef = F91FAB922A64442300DDE905 /* Ñview.swift */; };
+		F92617F52A6D904400C7C0A7 /* SignView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F92617F42A6D904400C7C0A7 /* SignView.swift */; };
 		F9355B4A2A49A0B700F573AA /* MenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9355B492A49A0B700F573AA /* MenuView.swift */; };
 		F9355B4C2A49C0BD00F573AA /* GestureDetectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9355B4B2A49C0BD00F573AA /* GestureDetectionView.swift */; };
 		F9355B532A49CD9400F573AA /* Aview.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9355B522A49CD9400F573AA /* Aview.swift */; };
@@ -58,6 +59,7 @@
 /* Begin PBXFileReference section */
 		F900C5F12A61A39300201BB6 /* LLview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LLview.swift; sourceTree = "<group>"; };
 		F91FAB922A64442300DDE905 /* Ñview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Ñview.swift"; sourceTree = "<group>"; };
+		F92617F42A6D904400C7C0A7 /* SignView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignView.swift; sourceTree = "<group>"; };
 		F9355B492A49A0B700F573AA /* MenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuView.swift; sourceTree = "<group>"; };
 		F9355B4B2A49C0BD00F573AA /* GestureDetectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GestureDetectionView.swift; sourceTree = "<group>"; };
 		F9355B522A49CD9400F573AA /* Aview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Aview.swift; sourceTree = "<group>"; };
@@ -236,6 +238,7 @@
 				F9355B4B2A49C0BD00F573AA /* GestureDetectionView.swift */,
 				F9355B542A49CDC900F573AA /* DetectButton.swift */,
 				F957102B2A55B70900A73948 /* TemplateLayer.swift */,
+				F92617F42A6D904400C7C0A7 /* SignView.swift */,
 			);
 			path = DualSense;
 			sourceTree = "<group>";
@@ -454,6 +457,7 @@
 				F957102C2A55B70900A73948 /* TemplateLayer.swift in Sources */,
 				F91FAB932A64442300DDE905 /* Ñview.swift in Sources */,
 				F9B745D52A38B56100A31413 /* DualSenseApp.swift in Sources */,
+				F92617F52A6D904400C7C0A7 /* SignView.swift in Sources */,
 				F95710252A5594CE00A73948 /* Hview.swift in Sources */,
 				F9B95BE12A68607300817309 /* Yview.swift in Sources */,
 			);

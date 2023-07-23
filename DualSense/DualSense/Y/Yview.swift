@@ -20,20 +20,18 @@ struct Yview: View {
     @State private var serverResponse: String = ""
     
     var body: some View {
-        ZStack {
-            VStack {
-                Spacer()
-                HandGraphic(isRecording: $isRecording, isRecognising: isRecognising, serverResponse: $serverResponse ,sign: sign)
-                // passes in isRecording to enable data being sent to backend when button is pushed
-                DetectButton(isDetecting: $isRecording)
-            }
-            VStack {
-                Text(serverResponse)  // Display the server response
-                .font(.title)
-                .padding()
-                Spacer()
-                
+            ZStack {
+                VStack {
+                    Spacer()
+                    HandGraphic(isRecording: $isRecording, isRecognising: isRecognising, serverResponse: $serverResponse ,sign: sign)
+                    DetectButton(isDetecting: $isRecording)
+                }
+                VStack {
+                    Text(serverResponse)  // Display the server response
+                        .font(.title)
+                        .padding()
+                    Spacer()
+                }
             }
         }
-    }
 }
