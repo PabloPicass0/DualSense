@@ -144,7 +144,7 @@ def is_sign_ll(timestamps: List[float], locations: List[List[float]]) -> bool:
     print(f"distance1_template: {distance1_template}")
     print(f"distance2_template: {distance2_template}")
 
-    if distance1_template > 5000.0 or distance2_template > 5500.0:
+    if distance1_template > 6000.0 or distance2_template > 6000.0:
         return False
 
     return True
