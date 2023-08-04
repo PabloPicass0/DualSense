@@ -13,15 +13,16 @@ struct MenuView: View {
         NavigationStack {
             VStack {
                 Group {
-                    // Creates button that navigates to the gesture recording view
-                    NavigationLink(destination: GestureDetectionView()) {
-                        Text("Record")
-                            .font(.title)
-                            .padding()
-                            .background(Color.blue)
-                            .foregroundColor(.white)
-                            .cornerRadius(10)
-                    }
+                    // Old: record needs to be removed entirely
+//                    // Creates button that navigates to the gesture recording view
+//                    NavigationLink(destination: GestureDetectionView()) {
+//                        Text("Record")
+//                            .font(.title)
+//                            .padding()
+//                            .background(Color.blue)
+//                            .foregroundColor(.white)
+//                            .cornerRadius(10)
+//                    }
                     // Creates button that navigates to CHview
                     NavigationLink(destination: SignView(sign: "CH")) {
                         Text("CH")
