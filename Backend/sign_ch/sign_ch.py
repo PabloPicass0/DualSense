@@ -12,7 +12,7 @@ import matplotlib.pyplot as plt
 
 from extraction import extract_timestamps_and_locations, split_touch_locations_two_curves
 from parameterisation import generate_two_linear_beziers
-from recognition import compare_sequences, timestamp_duration_valid, euclidean_distance
+from recognition import compare_sequences_fdtw, timestamp_duration_valid, euclidean_distance
 
 
 def fit_bezier_for_ch():
@@ -92,12 +92,12 @@ def is_sign_ch(timestamps: List[float], locations: List[List[float]]) -> bool:
 
     if dist1 < dist2:
         # if the first point of user_curve_1 is closer to bezier1
-        distance1_template = compare_sequences(user_curve_1, bezier1_upper_curve_template)
-        distance2_template = compare_sequences(user_curve_2, bezier2_lower_curve_template)
+        distance1_template = compare_sequences_fdtw(user_curve_1, bezier1_upper_curve_template)
+        distance2_template = compare_sequences_fdtw(user_curve_2, bezier2_lower_curve_template)
     else:
         # if the first point of user_curve_1 is closer to bezier2
-        distance1_template = compare_sequences(user_curve_1, bezier2_lower_curve_template)
-        distance2_template = compare_sequences(user_curve_2, bezier1_upper_curve_template)
+        distance1_template = compare_sequences_fdtw(user_curve_1, bezier2_lower_curve_template)
+        distance2_template = compare_sequences_fdtw(user_curve_2, bezier1_upper_curve_template)
 
     print(f"distance1_template: {distance1_template}")
     print(f"distance2_template: {distance2_template}")

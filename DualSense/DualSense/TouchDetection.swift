@@ -9,7 +9,7 @@ import SwiftUI
 import UIKit
 
 // Creates a data structure that holds touch data
-struct TouchData : Codable {
+struct TouchData: Codable {
     var location: CGPoint
     var timestamp: TimeInterval
 }

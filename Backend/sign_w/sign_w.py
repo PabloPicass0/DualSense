@@ -9,7 +9,7 @@ from scipy.spatial.distance import euclidean
 from extraction import extract_timestamps_and_locations, split_touch_locations_three_curves
 from parameterisation import fit_quartic_bezier_control_points, return_quartic_bezier_curve, \
     generate_two_quartic_beziers_control_points, return_two_quartic_bezier_curves
-from recognition import timestamp_duration_valid, compare_sequences
+from recognition import timestamp_duration_valid, compare_sequences_fdtw, compare_sequences_dtw
 
 
 def fit_three_beziers_for_w():
@@ -175,7 +175,7 @@ def is_sign_w_single_curve(timestamps: List[float], locations: List[List[float]]
     plt.close()
 
     # calculates DTW distance
-    distance_template = compare_sequences(user_curve_b, bezier_curve_single_template)
+    distance_template = compare_sequences_fdtw(user_curve_b, bezier_curve_single_template)
 
     print(f"distance_template: {distance_template}")
 
@@ -277,7 +277,7 @@ def is_sign_w_three_curves(timestamps: List[float], locations: List[List[float]]
     # compares user curves to templates
     for i in range(3):
         assigned_template = template_curves[assignments[i]]
-        distance_template = compare_sequences(user_curves[i], assigned_template)
+        distance_template = compare_sequences_dtw(user_curves[i], assigned_template)
         # prints the distance to the respective template
         print(f"distance{assignments[i] + 1}_template: {distance_template}")
         if distance_template > 5000:

@@ -25,29 +25,37 @@ struct HandGraphic: View {
     // Needed to store the touchpoints which will be rendered
     @State private var touchPoints: [CGPoint] = []
     
+    
     var body: some View {
-        // ZStack stacks layers on top of each other
-        ZStack {
-            // Hand Image
-            Image("HandBlackWhite")
-                .resizable()
-                .scaledToFit()
-                .scaleEffect(1.1)  // Makes the image 10% larger
-                .padding(.bottom, 100)
-            
-            // Touch View layer on top of hand image
-            TouchDetectionLayer(isRecording: $isRecording, isRecognising: isRecognising, sign: sign, serverResponse: $serverResponse ,touchDelegate: self)
-            
-            // Colours touch locations of user on view
-            ForEach(touchPoints.indices, id: \.self) { index in
-                Circle()
-                    .fill(Color.red)
-                    .frame(width: 10, height: 10)
-                    .position(touchPoints[index])
+        VStack {
+            ZStack {
+                // Hand Image
+                Image("HandBlackWhite")
+                    .resizable()
+                    .scaledToFit()
+                    .scaleEffect(1.1)  // Makes the image 10% larger
+                    .padding(.bottom, 100)
+                
+                // Touch View layer on top of hand image
+                TouchDetectionLayer(isRecording: $isRecording, isRecognising: isRecognising, sign: sign, serverResponse: $serverResponse ,touchDelegate: self)
+                
+                // Colours touch locations of user on view
+                ForEach(touchPoints.indices, id: \.self) { index in
+                    Circle()
+                        .fill(Color.red)
+                        .frame(width: 10, height: 10)
+                        .position(touchPoints[index])
+                }
+                
+                // TemplateLayer do display template Bezier curves
+                TemplateLayer(sign: sign)
             }
-            
-            // TemplateLayer do display path
-            TemplateLayer(sign: sign)
+
+            // Spacer will push the button to the bottom of the available space
+            Spacer()
+
+            // Button to detect touches and display touch locations when performed
+            DetectButton(isDetecting: $isRecording)
         }
     }
 }

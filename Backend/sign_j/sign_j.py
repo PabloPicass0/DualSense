@@ -8,7 +8,7 @@ from matplotlib import pyplot as plt
 from extraction import extract_timestamps_and_locations
 
 from parameterisation import return_cubic_bezier
-from recognition import compare_sequences
+from recognition import compare_sequences_fdtw
 from sign_a.sign_a import timestamp_duration_valid
 
 
@@ -69,7 +69,7 @@ def is_sign_j(timestamps: List[float], locations: List[List[float]]) -> bool:
     bezier_curve_template = np.vstack(bezier_curve_template)
 
     # calculates distance using DTW
-    distance_template = compare_sequences(curve_points_user, bezier_curve_template)
+    distance_template = compare_sequences_fdtw(curve_points_user, bezier_curve_template)
 
     # debugging
     print(f"distance_template: {distance_template}")

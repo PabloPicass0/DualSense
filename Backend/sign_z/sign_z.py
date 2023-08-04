@@ -8,7 +8,7 @@ from matplotlib import pyplot as plt
 
 from extraction import extract_timestamps_and_locations
 from parameterisation import return_cubic_bezier, fit_quartic_bezier_control_points, return_quartic_bezier_curve
-from recognition import compare_sequences, timestamp_duration_valid
+from recognition import compare_sequences_fdtw, timestamp_duration_valid, compare_sequences_dtw
 
 matplotlib.use('Agg')
 
@@ -147,7 +147,7 @@ def is_sign_z_cubic(timestamps: List[float], locations: List[List[float]]) -> bo
     plt.close()
 
     # calculates distance using DTW
-    distance_template = compare_sequences(curve_points_user, bezier_curve_template)
+    distance_template = compare_sequences_dtw(curve_points_user, bezier_curve_template)
 
     # debugging
     print(f"distance_template: {distance_template}")
@@ -209,7 +209,7 @@ def is_sign_z_quartic(timestamps: List[float], locations: List[List[float]]) -> 
     plt.close()
 
     # calculates DTW distance
-    distance_template = compare_sequences(user_curve_b, bezier_curve_template_quartic)
+    distance_template = compare_sequences_fdtw(user_curve_b, bezier_curve_template_quartic)
 
     print(f"distance_template: {distance_template}")
 

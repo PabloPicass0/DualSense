@@ -24,7 +24,6 @@ struct SignView: View {
             VStack {
                 Spacer()
                 HandGraphic(isRecording: $isRecording, isRecognising: isRecognising, serverResponse: $serverResponse, sign: sign)
-                DetectButton(isDetecting: $isRecording)
             }
             VStack {
                 Text(serverResponse)

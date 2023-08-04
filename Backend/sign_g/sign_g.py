@@ -11,7 +11,7 @@ from matplotlib import pyplot as plt
 
 from extraction import extract_timestamps_and_locations
 from parameterisation import generate_linear_bezier
-from recognition import compare_sequences, timestamp_duration_valid
+from recognition import compare_sequences_fdtw, timestamp_duration_valid
 
 
 def fit_bezier_for_g():
@@ -69,7 +69,7 @@ def is_sign_g(timestamps: List[float], locations: List[List[float]]) -> bool:
     bezier_curve_template = np.load(file_path_b)
 
     # calculates distance using DTW
-    distance_template = compare_sequences(user_curve, bezier_curve_template)
+    distance_template = compare_sequences_fdtw(user_curve, bezier_curve_template)
 
     print(f"distance_template: {distance_template}")
 

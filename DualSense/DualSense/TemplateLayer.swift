@@ -74,7 +74,7 @@ struct TemplateLayer: View {
 
                 // If the array is not empty, convert each sub-array into a CGPoint
                 if !array.isEmpty {
-                    let points = array.map { CGPoint(x: CGFloat($0[0]), y: CGFloat($0[1])) }
+                    let points = array.map { CGPoint(x: CGFloat($0[0]), y: CGFloat($0[1]))}
 
                     // Uses the completion closure to return the array of points
                     completion(points)

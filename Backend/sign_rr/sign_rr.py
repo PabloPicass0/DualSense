@@ -8,7 +8,7 @@ from scipy.spatial.distance import euclidean
 
 from extraction import extract_timestamps_and_locations, split_touch_locations_two_curves
 from parameterisation import generate_two_quartic_beziers_control_points, return_two_quartic_bezier_curves
-from recognition import timestamp_duration_valid, compare_sequences
+from recognition import timestamp_duration_valid, compare_sequences_fdtw
 
 
 def fit_bezier_for_rr():
@@ -132,12 +132,12 @@ def is_sign_rr(timestamps: List[float], locations: List[List[float]]) -> bool:
 
     if dist1 < dist2:
         # if the first point of user_curve_1 is closer to bezier1
-        distance1_template = compare_sequences(user_curve_1_b, bezier1_curve_template)
-        distance2_template = compare_sequences(user_curve_2_b, bezier2_curve_template)
+        distance1_template = compare_sequences_fdtw(user_curve_1_b, bezier1_curve_template)
+        distance2_template = compare_sequences_fdtw(user_curve_2_b, bezier2_curve_template)
     else:
         # if the first point of user_curve_1 is closer to bezier2
-        distance1_template = compare_sequences(user_curve_1_b, bezier2_curve_template)
-        distance2_template = compare_sequences(user_curve_2_b, bezier1_curve_template)
+        distance1_template = compare_sequences_fdtw(user_curve_1_b, bezier2_curve_template)
+        distance2_template = compare_sequences_fdtw(user_curve_2_b, bezier1_curve_template)
 
     print(f"distance1_template: {distance1_template}")
     print(f"distance2_template: {distance2_template}")

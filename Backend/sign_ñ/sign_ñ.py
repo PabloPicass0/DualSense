@@ -10,7 +10,7 @@ from scipy.spatial.distance import euclidean
 from extraction import extract_timestamps_and_locations, split_touch_locations_two_curves
 from parameterisation import fit_quartic_bezier_control_points, return_quartic_bezier_curve, \
     return_two_quartic_bezier_curves, generate_two_quartic_beziers_control_points
-from recognition import timestamp_duration_valid, compare_sequences
+from recognition import timestamp_duration_valid, compare_sequences_fdtw
 
 matplotlib.use('Agg')
 
@@ -137,12 +137,12 @@ def is_sign_ñ_two_curves(timestamps: List[float], locations: List[List[float]])
 
     if dist1 < dist2:
         # if the first point of user_curve_1 is closer to bezier1
-        distance1_template = compare_sequences(user_curve_1_b, bezier1_upper_curve_template)
-        distance2_template = compare_sequences(user_curve_2_b, bezier2_lower_curve_template)
+        distance1_template = compare_sequences_fdtw(user_curve_1_b, bezier1_upper_curve_template)
+        distance2_template = compare_sequences_fdtw(user_curve_2_b, bezier2_lower_curve_template)
     else:
         # if the first point of user_curve_1 is closer to bezier2
-        distance1_template = compare_sequences(user_curve_1_b, bezier2_lower_curve_template)
-        distance2_template = compare_sequences(user_curve_2_b, bezier1_upper_curve_template)
+        distance1_template = compare_sequences_fdtw(user_curve_1_b, bezier2_lower_curve_template)
+        distance2_template = compare_sequences_fdtw(user_curve_2_b, bezier1_upper_curve_template)
 
     print(f"distance1_template: {distance1_template}")
     print(f"distance2_template: {distance2_template}")
@@ -255,7 +255,7 @@ def is_sign_ñ_single_curve(timestamps: List[float], locations: List[List[float]
     plt.close()
 
     # calculates DTW distance
-    distance_template = compare_sequences(user_curve_b, bezier_curve_single_template)
+    distance_template = compare_sequences_fdtw(user_curve_b, bezier_curve_single_template)
 
     print(f"distance_template: {distance_template}")
 

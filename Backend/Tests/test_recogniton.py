@@ -3,7 +3,7 @@ import math
 import numpy as np
 import pytest
 
-from recognition import euclidean_distance, compare_sequences
+from recognition import euclidean_distance, compare_sequences_fdtw
 
 
 def test_euclidean_distance():
@@ -29,11 +29,11 @@ def test_compare_sequences():
     # tests two identical sequences
     seq1 = np.array([[0, 0], [1, 1], [2, 2]])
     seq2 = np.array([[0, 0], [1, 1], [2, 2]])
-    assert compare_sequences(seq1, seq2) == 0, "identical sequences should have 0 distance"
+    assert compare_sequences_fdtw(seq1, seq2) == 0, "identical sequences should have 0 distance"
 
     # tests two completely different sequences
     seq3 = np.array([[3, 3], [4, 4], [5, 5]])
-    assert compare_sequences(seq1, seq3) > 0, "different sequences should have > 0 distance"
+    assert compare_sequences_fdtw(seq1, seq3) > 0, "different sequences should have > 0 distance"
 
 
 if __name__ == '__main__':

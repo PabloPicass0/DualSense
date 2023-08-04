@@ -51,6 +51,9 @@ struct TouchDetectionLayer: UIViewRepresentable {
     func makeUIView(context: Context) -> UIView {
         // Creates a UIView instance as constant (assigned variable cannot be changed)
         let view = UIView()
+        
+        // Enable multiple touches; does not make a difference as UIGestureRecognizer get all touches regardless
+//        view.isMultipleTouchEnabled = true
             
         // Creates a TouchRecognizer using the initializer and adds it to the view
         let touchRecognizer = TouchRecognizer(target: context.coordinator,
