@@ -55,6 +55,10 @@ struct DrawingView: UIViewRepresentable {
         for gesture in uiView.gestureRecognizers ?? [] {
             // Casts gesture to DrawingRecogniser because loop returns base class UIGestureRecognizer
             if let drawingRecogniser = gesture as? DrawingRecogniser {
+                // Clears the touchpoint array of DrawingRecogniser when the bool switches from False to True
+                if drawingRecogniser.isDrawing && !isDrawing {
+                    drawingRecogniser.touchPoints.removeAll()
+                }
                 drawingRecogniser.isDrawing = isDrawing
             }
         }
@@ -85,14 +89,14 @@ class DrawingRecogniser: UIGestureRecognizer {
         guard isDrawing else {return}
         appendTouchData(touches: touches)
         touchDelegate?.touchPointsUpdated(touchPoints.map { $0 })
-        touchPoints.removeAll()
+//        touchPoints.removeAll()
     }
     
     override func touchesCancelled(_ touches: Set<UITouch>, with event: UIEvent) {
         guard isDrawing else { return }
         appendTouchData(touches: touches)
         touchDelegate?.touchPointsUpdated(touchPoints.map { $0 })
-        touchPoints.removeAll()
+//        touchPoints.removeAll()
     }
     
     // Stores touch data in file in array

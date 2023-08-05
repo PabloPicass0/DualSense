@@ -21,6 +21,7 @@
 		F9B745F02A38B56200A31413 /* DualSenseUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9B745EF2A38B56200A31413 /* DualSenseUITests.swift */; };
 		F9B745F22A38B56200A31413 /* DualSenseUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9B745F12A38B56200A31413 /* DualSenseUITestsLaunchTests.swift */; };
 		F9B746032A38DDA000A31413 /* TouchDetection.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9B746022A38DDA000A31413 /* TouchDetection.swift */; };
+		F9E909E62A7EA3B4002E95EF /* DrawButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9E909E52A7EA3B4002E95EF /* DrawButton.swift */; };
 		F9E98E522A40CF29004561D7 /* TouchDetectionLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9E98E512A40CF29004561D7 /* TouchDetectionLayer.swift */; };
 		F9E98E542A40D098004561D7 /* RecordButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9E98E532A40D098004561D7 /* RecordButton.swift */; };
 		F9E98E562A40D1D4004561D7 /* HandGraphic.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9E98E552A40D1D4004561D7 /* HandGraphic.swift */; };
@@ -62,6 +63,7 @@
 		F9B745EF2A38B56200A31413 /* DualSenseUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DualSenseUITests.swift; sourceTree = "<group>"; };
 		F9B745F12A38B56200A31413 /* DualSenseUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DualSenseUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		F9B746022A38DDA000A31413 /* TouchDetection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TouchDetection.swift; sourceTree = "<group>"; };
+		F9E909E52A7EA3B4002E95EF /* DrawButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrawButton.swift; sourceTree = "<group>"; };
 		F9E98E512A40CF29004561D7 /* TouchDetectionLayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TouchDetectionLayer.swift; sourceTree = "<group>"; };
 		F9E98E532A40D098004561D7 /* RecordButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordButton.swift; sourceTree = "<group>"; };
 		F9E98E552A40D1D4004561D7 /* HandGraphic.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HandGraphic.swift; sourceTree = "<group>"; };
@@ -166,6 +168,7 @@
 			children = (
 				F9EB40012A7D5A5C00DF2D31 /* SampleView.swift */,
 				F9EB40042A7D719500DF2D31 /* DrawingView.swift */,
+				F9E909E52A7EA3B4002E95EF /* DrawButton.swift */,
 			);
 			path = ML;
 			sourceTree = "<group>";
@@ -319,6 +322,7 @@
 				F957102C2A55B70900A73948 /* TemplateLayer.swift in Sources */,
 				F9B745D52A38B56100A31413 /* DualSenseApp.swift in Sources */,
 				F92617F52A6D904400C7C0A7 /* SignView.swift in Sources */,
+				F9E909E62A7EA3B4002E95EF /* DrawButton.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
