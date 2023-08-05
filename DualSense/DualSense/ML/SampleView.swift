@@ -32,17 +32,21 @@ struct SampleView: View {
                     .position(touchPoints[index])
             }
             
-            // Draw Gesture View
-            DrawingView(isDrawing: $isDrawing, touchPoints: $touchPoints)
+            // Touch detector layer that captures the touch points
+            DrawingView(isDrawing: $isDrawing, touchDelegate: self)
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
             
-            // Detect Gesture Button
+            // Draw Gesture Button
             Button(action: {
                 isDrawing.toggle()
             }) {
                 Text("Draw Gesture")
+                    .foregroundColor(.white)
+                    .padding(.all)
+                    .background(isDrawing ? Color.red : Color.green)
+                    .cornerRadius(10)
             }
-            .position(x: UIScreen.main.bounds.width/2, y: UIScreen.main.bounds.height-100)
+            .position(x: UIScreen.main.bounds.width/2, y: UIScreen.main.bounds.height - 130)
             
             // Store Sample Button
             Button(action: {
@@ -50,7 +54,7 @@ struct SampleView: View {
             }) {
                 Text("Store Sample")
             }
-            .position(x: UIScreen.main.bounds.width/2, y: UIScreen.main.bounds.height-50)
+            .position(x: UIScreen.main.bounds.width - 130, y: UIScreen.main.bounds.height - 130)
             
         }
         .contentShape(Rectangle())
@@ -66,5 +70,14 @@ struct SampleView: View {
     
     func saveSample() {
         // your code for saving the sample here
+        print("Sample is saved")
+    }
+}
+
+// Implements the touchDelegate to handle the location updates to colour the gestures performed on view
+// Protocol TouchRecognizerDelegate defined in file "TouchDetection"
+extension SampleView: TouchRecognizerDelegate {
+    func touchPointsUpdated(_ touchPoints: [CGPoint]) {
+        self.touchPoints = touchPoints
     }
 }

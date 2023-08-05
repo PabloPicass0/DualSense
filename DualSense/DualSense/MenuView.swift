@@ -23,6 +23,14 @@ struct MenuView: View {
 //                            .foregroundColor(.white)
 //                            .cornerRadius(10)
 //                    }
+                    NavigationLink(destination: SampleView()) {
+                        Text("Collect Samples")
+                            .font(.title)
+                            .padding()
+                            .background(Color.blue)
+                            .foregroundColor(.white)
+                            .cornerRadius(10)
+                    }
                     // Creates button that navigates to CHview
                     NavigationLink(destination: SignView(sign: "CH")) {
                         Text("CH")
