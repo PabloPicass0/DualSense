@@ -189,7 +189,7 @@ def recogniser_function(sign: string, data: List[Dict[str, Union[float, List[flo
 
 
 @app.route('/get-template', methods=['GET'])
-def get_template():
+def get_template() -> Response:
     """
         Receives request form frontend to send corresponding template data as json file with respective coordinates.
     """
@@ -202,6 +202,32 @@ def get_template():
             return jsonify(coordinates)
     else:
         return jsonify(["No sign available"])
+
+
+@app.route('/save-sample', methods=['POST'])
+def save_sample() -> Response:
+    """
+    Receives image data from the frontend and stores it in the "Dataset" folder
+    """
+    # checks if the 'Filename' header is provided
+    filename: str = request.headers.get('Filename')
+    if not filename:
+        return Response("No filename provided", status=400)
+
+    # gets image data from the request
+    image_data = request.data
+    if not image_data:
+        return Response("No png received", status=400)
+
+    # creates the "Dataset" directory if it doesn't exist
+    os.makedirs('Dataset', exist_ok=True)
+
+    # saves the image to the "Dataset" directory with the provided filename
+    file_path = os.path.join('Dataset', filename + '.png')
+    with open(file_path, 'wb') as file:
+        file.write(image_data)
+
+    return Response("Image saved successfully", status=200)
 
 
 if __name__ == '__main__':

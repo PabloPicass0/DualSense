@@ -27,6 +27,7 @@
 		F9E98E562A40D1D4004561D7 /* HandGraphic.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9E98E552A40D1D4004561D7 /* HandGraphic.swift */; };
 		F9EB40022A7D5A5C00DF2D31 /* SampleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9EB40012A7D5A5C00DF2D31 /* SampleView.swift */; };
 		F9EB40052A7D719500DF2D31 /* DrawingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9EB40042A7D719500DF2D31 /* DrawingView.swift */; };
+		F9EE63B92A7FC0F100270B7E /* DotsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9EE63B82A7FC0F100270B7E /* DotsView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -69,6 +70,7 @@
 		F9E98E552A40D1D4004561D7 /* HandGraphic.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HandGraphic.swift; sourceTree = "<group>"; };
 		F9EB40012A7D5A5C00DF2D31 /* SampleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SampleView.swift; sourceTree = "<group>"; };
 		F9EB40042A7D719500DF2D31 /* DrawingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrawingView.swift; sourceTree = "<group>"; };
+		F9EE63B82A7FC0F100270B7E /* DotsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DotsView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -169,6 +171,7 @@
 				F9EB40012A7D5A5C00DF2D31 /* SampleView.swift */,
 				F9EB40042A7D719500DF2D31 /* DrawingView.swift */,
 				F9E909E52A7EA3B4002E95EF /* DrawButton.swift */,
+				F9EE63B82A7FC0F100270B7E /* DotsView.swift */,
 			);
 			path = ML;
 			sourceTree = "<group>";
@@ -310,6 +313,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				F9355B4A2A49A0B700F573AA /* MenuView.swift in Sources */,
+				F9EE63B92A7FC0F100270B7E /* DotsView.swift in Sources */,
 				F9E98E522A40CF29004561D7 /* TouchDetectionLayer.swift in Sources */,
 				F9E98E542A40D098004561D7 /* RecordButton.swift in Sources */,
 				F9B746032A38DDA000A31413 /* TouchDetection.swift in Sources */,

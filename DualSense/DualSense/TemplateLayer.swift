@@ -59,7 +59,7 @@ struct TemplateLayer: View {
     // Declares the function getTemplateFromBackend with parameters: sign and a completion closure that takes an array of CGPoints as input
     func getTemplateFromBackend(sign: String, completion: @escaping ([CGPoint]) -> Void) {
         // Defines the URL endpoint where we're making the request
-        let url = "http://146.169.155.122:5000/get-template" // Replace with your server's URL
+        let url = "http://146.169.155.122:5000/get-template" 
 
         // Defines the parameters for the request as a dictionary with the sign variable
         let parameters: [String: Any] = ["sign": sign]
@@ -86,8 +86,7 @@ struct TemplateLayer: View {
             // If the request fails, print the error
             case .failure(let error):
                 print("Request failed with error: \(error)")
-            }
-                
+            }                
         }
     }
 }

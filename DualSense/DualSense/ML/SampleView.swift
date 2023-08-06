@@ -21,7 +21,9 @@ struct SampleView: View {
     
     var body: some View {
         VStack {
+            
             // HandImage, detection layer and Sample buttons
+            // ZStack for alignment on top of each other
             ZStack {
                 // Hand Image
                 Image("HandBlackWhite")
@@ -56,8 +58,7 @@ struct SampleView: View {
             }
             
             // Draw Button and filename input
-            
-            // Pushes Draw Gesture Button to the Bottom
+            // Spacer pushes Draw Gesture Button to the Bottom
             Spacer()
             
             // Draw Gesture Button
@@ -86,7 +87,7 @@ struct SampleView: View {
                         
                         Button(action: {
                             if !self.filename.isEmpty && !touchPoints.isEmpty {
-                                saveSample(filename: self.filename)
+                                saveSampleToBackend(filename: self.filename)
                                 self.isShowingFilenameInput = false
                                 self.filename = ""
                                 touchPoints.removeAll()
@@ -99,14 +100,60 @@ struct SampleView: View {
                 }
                 .padding()
             }
-
-            
         }
     }
     
-    func saveSample(filename: String) {
-        // your code for saving the sample here
-        print("Sample named \(filename) is saved")
+    // Function to send image to backend
+    func saveSampleToBackend(filename: String) {
+        
+        // Creates view with touch dots on white background
+        let dotsView = DotsView(touchPoints: touchPoints)
+        if let image = snapshot(of: dotsView) {
+            
+            // Sends to backend
+            // Converts image to transmittable data
+            let imageData = image.pngData()
+            
+            // Creates URL request
+            var request = URLRequest(url: URL(string: "http://146.169.155.122:5000/save-sample")!)
+            request.httpMethod = "POST"
+            // Sets HTTP header with information about sign (for backend to select recogniser)
+            request.setValue(filename, forHTTPHeaderField: "Filename")
+            // Adds the imageData data to the request body
+            request.httpBody = imageData
+            // Sets the content type of the HTTP request to JSON
+            request.setValue("image/png", forHTTPHeaderField: "Content-Type")
+            
+            // Sends request using URLSession and handles repsonse
+            URLSession.shared.dataTask(with: request) { data, response, error in
+                if let error = error {
+                    print("Error: \(error)")
+                } else if let data = data {
+                    // Handle the response data, like parsing a JSON response.
+                    print("Success:", data)
+                }
+            }.resume()
+        }
+    }
+    
+    // Function to render a screenshot of the gesture trajectory and send it to the backend
+    // Generic function that accepts SwiftUI view and return optional UIImage
+    func snapshot<Content: View>(of view: Content) -> UIImage? {
+        // Wraps view in UIkit controller that can handle rendering
+        let controller = UIHostingController(rootView: view)
+        // Gets view associated with controler
+        let view = controller.view
+
+        // Format of image; same as screen with white background
+        let targetSize = UIScreen.main.bounds.size
+        view?.bounds = CGRect(origin: .zero, size: targetSize)
+        view?.backgroundColor = .white
+        
+        // Initialises renderer and returns image
+        let renderer = UIGraphicsImageRenderer(size: targetSize)
+        return renderer.image { _ in
+            view?.drawHierarchy(in: controller.view.bounds, afterScreenUpdates: true)
+        }
     }
 }
 
