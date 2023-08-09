@@ -220,10 +220,10 @@ def save_sample() -> Response:
         return Response("No png received", status=400)
 
     # creates the "Dataset" directory if it doesn't exist
-    os.makedirs('Dataset', exist_ok=True)
+    os.makedirs('ML/Dataset', exist_ok=True)
 
     # saves the image to the "Dataset" directory with the provided filename
-    file_path = os.path.join('Dataset', filename + '.png')
+    file_path = os.path.join('ML/Dataset', filename + '.png')
     with open(file_path, 'wb') as file:
         file.write(image_data)
 
