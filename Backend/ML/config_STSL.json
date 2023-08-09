@@ -1,0 +1,4 @@
+{
+    "batch_size": 16,
+    "STSL_INPUT_SHAPE": [128,128,1]
+}
