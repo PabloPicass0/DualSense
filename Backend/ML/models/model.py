@@ -1,12 +1,10 @@
 import numpy as np
 import tensorflow as tf
-from utils.tools import get_callbacks, marginLoss, multiAccuracy
+from utils.tools import get_callbacks, marginLoss
 from utils.dataset import Dataset
-from utils import pre_process_multimnist
-from models import efficient_capsnet_graph_mnist, efficient_capsnet_graph_smallnorb, efficient_capsnet_graph_multimnist, original_capsnet_graph_mnist
+from models import efficient_capsnet_graph_STSL
 import os
 import json
-from tqdm.notebook import tqdm
 
 
 class Model(object):
@@ -37,7 +35,7 @@ class Model(object):
         save model weights
     """
 
-    def __init__(self, mode='test', config_path='../config_STSL.json', verbose=True):
+    def __init__(self, mode='test', config_path='config_STSL.json', verbose=True):
         self.model = None
         self.mode = mode
         self.config_path = config_path
@@ -109,19 +107,19 @@ class EfficientCapsNet(Model):
         train the constructed network with a given dataset. All train hyperparameters are defined in the configuration file
 
     """
-    def __init__(self, mode='test', config_path='config.json', custom_path=None, verbose=True):
+    def __init__(self, mode='test', config_path='config_STSL.json', custom_path=None, verbose=True):
         Model.__init__(self, mode, config_path, verbose)
         if custom_path != None:
             self.model_path = custom_path
         else:
-            self.model_path = os.path.join(self.config['saved_model_dir'], f"efficient_capsnet_MNIST.h5")
-        self.model_path_new_train = os.path.join(self.config['saved_model_dir'], f"efficient_capsnetMNIST_new_train.h5")
-        self.tb_path = os.path.join(self.config['tb_log_save_dir'], f"efficient_capsnet_MNIST")
+            self.model_path = os.path.join(self.config['saved_model_dir'], f"efficient_capsnet_STSL.h5")
+        self.model_path_new_train = os.path.join(self.config['saved_model_dir'], f"efficient_capsnetSTSL_new_train.h5")
+        self.tb_path = os.path.join(self.config['tb_log_save_dir'], f"efficient_capsnet_STSL")
         self.load_graph()
     
 
     def load_graph(self):
-        self.model = efficient_capsnet_graph_mnist.build_graph(self.config['STSL_INPUT_SHAPE'], self.mode, self.verbose)
+        self.model = efficient_capsnet_graph_STSL.build_graph(self.config['STSL_INPUT_SHAPE'], self.mode, self.verbose)
         
             
     def train(self, dataset=None, initial_epoch=0):
