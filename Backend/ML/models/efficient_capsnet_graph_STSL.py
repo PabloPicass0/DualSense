@@ -25,22 +25,27 @@ def efficient_capsnet_graph(input_shape):
     # print("Shape of x before PrimaryCaps:", x.shape)
     # x = PrimaryCaps(128, 9, 16, 8)(x)
 
-    # may need to change layers or dimensions for FCCaps
+    # with two more layers, each stride of 2
     x = tf.keras.layers.Conv2D(32,5,activation="relu", padding='valid', kernel_initializer='he_normal')(inputs)
     print("Shape of x after first Conv2D:", x.shape)
     x = tf.keras.layers.BatchNormalization()(x)
     x = tf.keras.layers.Conv2D(64,3, activation='relu', padding='valid', kernel_initializer='he_normal')(x)
     print("Shape of x after second Conv2D:", x.shape)
     x = tf.keras.layers.BatchNormalization()(x)
-    x = tf.keras.layers.Conv2D(64,3, activation='relu', padding='valid', kernel_initializer='he_normal')(x)   
+    x = tf.keras.layers.Conv2D(64,3,2, activation='relu', padding='valid', kernel_initializer='he_normal')(x)
     print("Shape of x after third Conv2D:", x.shape)
     x = tf.keras.layers.BatchNormalization()(x)
-    x = tf.keras.layers.Conv2D(128,3,2, activation='relu', padding='valid', kernel_initializer='he_normal')(x)   
+    x = tf.keras.layers.Conv2D(64,3, activation='relu', padding='valid', kernel_initializer='he_normal')(x)   
     print("Shape of x after fourth Conv2D:", x.shape)
     x = tf.keras.layers.BatchNormalization()(x)
-    
+    x = tf.keras.layers.Conv2D(64,3,2, activation='relu', padding='valid', kernel_initializer='he_normal')(x)
+    print("Shape of x after fifth Conv2D:", x.shape)
+    x = tf.keras.layers.BatchNormalization()(x)
+    x = tf.keras.layers.Conv2D(128,3,2, activation='relu', padding='valid', kernel_initializer='he_normal')(x)   
+    print("Shape of x after sixth Conv2D:", x.shape)
+    x = tf.keras.layers.BatchNormalization()(x)
     print("Shape of x before PrimaryCaps:", x.shape)
-    x = PrimaryCaps(128, 59, 16, 8)(x)
+    x = PrimaryCaps(128, 13, 16, 8)(x)
     
     digit_caps = FCCaps(11,16)(x)
     

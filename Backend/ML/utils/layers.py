@@ -69,7 +69,8 @@ class PrimaryCaps(tf.keras.layers.Layer):
         self.N = N
         self.D = D
         self.s = s
-        
+
+    # each input channel convolved with own corresponding filter; to lean channel-specific features    
     def build(self, input_shape):    
         self.DW_Conv2D = tf.keras.layers.Conv2D(self.F, self.K, self.s,
                                              activation='linear', groups=self.F, padding='valid')
