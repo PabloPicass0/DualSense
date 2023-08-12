@@ -7,6 +7,7 @@ from sklearn.model_selection import train_test_split
 from utils.pre_process_STSL import pre_process
 from utils.pre_process_STSL import generate_tf_data
 from typing import Tuple, List
+from collections import Counter
 
 
 
@@ -61,6 +62,17 @@ class Dataset(object):
         # converts images and labels to numpy arrays
         images = np.array(images)
         labels = np.array(labels)
+
+        # # Display number of labels
+        # # Convert the numpy array to a regular Python list
+        # labels_list = labels.tolist()
+
+        # # Count the occurrences of each class label
+        # label_counts = Counter(labels_list)
+
+        # # Print the counts
+        # for label, count in label_counts.items():
+        #     print(f"Class {label}: {count} occurrences")
 
         # splits data into training and testing sets
         X_train, X_test, y_train, y_test = train_test_split(images, labels, test_size=test_size,

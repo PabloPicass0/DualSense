@@ -14,7 +14,7 @@ def efficient_capsnet_graph(input_shape):
     """
     inputs = tf.keras.Input(input_shape)
     
-    # x = tf.keras.layers.Conv2D(32,5,activation="relu", padding='valid', kernel_initializer='he_normal')(inputs)
+    # # x = tf.keras.layers.Conv2D(32,5,activation="relu", padding='valid', kernel_initializer='he_normal')(inputs)
     # x = tf.keras.layers.BatchNormalization()(x)
     # x = tf.keras.layers.Conv2D(64,3, activation='relu', padding='valid', kernel_initializer='he_normal')(x)
     # x = tf.keras.layers.BatchNormalization()(x)
