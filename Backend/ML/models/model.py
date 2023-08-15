@@ -53,6 +53,7 @@ class Model(object):
     
 
     def load_graph_weights(self):
+        print(f"Attempting to load weights from: {self.model_path}")
         try:
             self.model.load_weights(self.model_path)
         except Exception as e:
@@ -113,7 +114,7 @@ class EfficientCapsNet(Model):
             self.model_path = custom_path
         else:
             self.model_path = os.path.join(self.config['saved_model_dir'], f"efficient_capsnet_STSL.h5")
-        self.model_path_new_train = os.path.join(self.config['saved_model_dir'], f"efficient_capsnetSTSL_new_train.h5")
+        # self.model_path_new_train = os.path.join(self.config['saved_model_dir'], f"efficient_capsnet_STSL_new_train.h5")
         self.tb_path = os.path.join(self.config['tb_log_save_dir'], f"efficient_capsnet_STSL")
         self.load_graph()
     
@@ -123,7 +124,7 @@ class EfficientCapsNet(Model):
         
             
     def train(self, dataset=None, initial_epoch=0):
-        callbacks = get_callbacks(self.tb_path, self.model_path_new_train, self.config['lr_dec'], self.config['lr'])
+        callbacks = get_callbacks(self.tb_path, self.model_path, self.config['lr_dec'], self.config['lr'])
 
         if dataset == None:
             dataset = Dataset(self.config_path)
