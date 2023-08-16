@@ -24,7 +24,7 @@ def generator(image: Tensor, label: Tensor) -> Tuple[Tuple[Tensor, Tensor], Tupl
     return (image, label), (label, image)
 
 
-def generate_tf_data(X_train: np.ndarray, y_train: np.ndarray, X_test: np.ndarray, y_test: np.ndarray, batch_size: int) -> Tuple[tf.data.Dataset, tf.data.Dataset]:
+def generate_tf_data(X_train: np.ndarray, y_train: np.ndarray, X_val: np.ndarray, y_val: np.ndarray, X_test: np.ndarray, y_test: np.ndarray, batch_size: int) -> Tuple[tf.data.Dataset, tf.data.Dataset, tf.data.Dataset]:
     # prepares training data
     dataset_train = tf.data.Dataset.from_tensor_slices((X_train, y_train))
     dataset_train = dataset_train.shuffle(buffer_size=len(X_train))
@@ -34,6 +34,13 @@ def generate_tf_data(X_train: np.ndarray, y_train: np.ndarray, X_test: np.ndarra
     # tensorflow prefetches an optimal number of batches
     dataset_train = dataset_train.prefetch(tf.data.AUTOTUNE)
 
+    # prepares validation data
+    dataset_val = tf.data.Dataset.from_tensor_slices((X_val, y_val))
+    dataset_val = dataset_val.cache()
+    dataset_val = dataset_val.map(generator, num_parallel_calls=tf.data.AUTOTUNE)
+    dataset_val = dataset_val.batch(batch_size)
+    dataset_val = dataset_val.prefetch(tf.data.AUTOTUNE)
+
     # prepares testing data
     dataset_test = tf.data.Dataset.from_tensor_slices((X_test, y_test))
     dataset_test = dataset_test.cache()
@@ -41,5 +48,5 @@ def generate_tf_data(X_train: np.ndarray, y_train: np.ndarray, X_test: np.ndarra
     dataset_test = dataset_test.batch(batch_size)
     dataset_test = dataset_test.prefetch(tf.data.AUTOTUNE)
     
-    return dataset_train, dataset_test
+    return dataset_train, dataset_val, dataset_test
 

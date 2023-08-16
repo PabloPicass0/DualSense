@@ -5,6 +5,10 @@ from utils.dataset import Dataset
 from models import efficient_capsnet_graph_STSL
 import os
 import json
+import seaborn as sns
+from sklearn.metrics import classification_report, confusion_matrix
+import matplotlib.pyplot as plt
+import pandas as pd
 
 
 class Model(object):
@@ -64,18 +68,41 @@ class Model(object):
         return self.model.predict(dataset_test)
     
 
+
     def evaluate(self, X_test, y_test):
         print('-'*30 + f'{"STSL"} Evaluation' + '-'*30)
 
-        # calculate accuracy     
+        # calculate accuracy
         y_pred, X_gen =  self.model.predict(X_test)
         acc = np.sum(np.argmax(y_pred, 1) == np.argmax(y_test, 1))/y_test.shape[0]
 
         test_error = 1 - acc
         print('Test acc:', acc)
         print(f"Test error [%]: {(test_error):.4%}")
-        
+    
         print(f"N° misclassified images: {int(test_error*len(y_test))} out of {len(y_test)}")
+
+        # convert predicted probabilities to class labels
+        y_pred_class = np.argmax(y_pred, axis=1)
+        y_true_class = np.argmax(y_test, axis=1)
+
+        # directly print the classification report
+        print("\nClassification Report:")
+        print(classification_report(y_true_class, y_pred_class))
+
+        # create label mappings for confusion matrix plotting
+        label_mapping = {'CH': 0, 'G': 1, 'H': 2, 'J': 3, 'LL': 4, 'Ñ': 5, 'RR': 6, 'V': 7, 'W': 8, 'Z': 9, 'Y': 10}
+        combined_labels = [f"{v} [{k}]" for k, v in label_mapping.items()]
+
+        # plot the confusion matrix
+        matrix = confusion_matrix(y_true_class, y_pred_class)
+        plt.figure(figsize=(10, 6))
+        sns.heatmap(matrix, annot=True, fmt="d", linewidths=.5, cmap="Blues", xticklabels=combined_labels, yticklabels=combined_labels)
+        plt.ylabel('True Label')
+        plt.xlabel('Predicted Label')
+        plt.title('Confusion Matrix')
+        plt.savefig("Confusion Matrix.png")
+        plt.show()
 
 
     def save_graph_weights(self):
@@ -128,7 +155,7 @@ class EfficientCapsNet(Model):
 
         if dataset == None:
             dataset = Dataset(self.config_path)
-        dataset_train, dataset_val = dataset.get_tf_data()    
+        dataset_train, dataset_val, _ = dataset.get_tf_data()    
 
         self.model.compile(optimizer=tf.keras.optimizers.Adam(learning_rate=self.config['lr']),
             loss=[marginLoss, 'mse'],
