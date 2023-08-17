@@ -8,8 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		F92617F52A6D904400C7C0A7 /* SignView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F92617F42A6D904400C7C0A7 /* SignView.swift */; };
+		F92F880C2A8E6C4400891D97 /* HandGraphicML.swift in Sources */ = {isa = PBXBuildFile; fileRef = F92F880B2A8E6C4400891D97 /* HandGraphicML.swift */; };
+		F92F880E2A8E6DB400891D97 /* SignViewML.swift in Sources */ = {isa = PBXBuildFile; fileRef = F92F880D2A8E6DB400891D97 /* SignViewML.swift */; };
 		F9355B4A2A49A0B700F573AA /* MenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9355B492A49A0B700F573AA /* MenuView.swift */; };
-		F9355B4C2A49C0BD00F573AA /* GestureDetectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9355B4B2A49C0BD00F573AA /* GestureDetectionView.swift */; };
 		F9355B552A49CDC900F573AA /* DetectButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9355B542A49CDC900F573AA /* DetectButton.swift */; };
 		F957102C2A55B70900A73948 /* TemplateLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = F957102B2A55B70900A73948 /* TemplateLayer.swift */; };
 		F957102F2A55BDDE00A73948 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = F957102E2A55BDDE00A73948 /* Alamofire */; };
@@ -49,8 +50,9 @@
 
 /* Begin PBXFileReference section */
 		F92617F42A6D904400C7C0A7 /* SignView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignView.swift; sourceTree = "<group>"; };
+		F92F880B2A8E6C4400891D97 /* HandGraphicML.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HandGraphicML.swift; sourceTree = "<group>"; };
+		F92F880D2A8E6DB400891D97 /* SignViewML.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignViewML.swift; sourceTree = "<group>"; };
 		F9355B492A49A0B700F573AA /* MenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuView.swift; sourceTree = "<group>"; };
-		F9355B4B2A49C0BD00F573AA /* GestureDetectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GestureDetectionView.swift; sourceTree = "<group>"; };
 		F9355B542A49CDC900F573AA /* DetectButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetectButton.swift; sourceTree = "<group>"; };
 		F957102B2A55B70900A73948 /* TemplateLayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TemplateLayer.swift; sourceTree = "<group>"; };
 		F9B745D12A38B56100A31413 /* DualSense.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DualSense.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -132,7 +134,6 @@
 				F9B746022A38DDA000A31413 /* TouchDetection.swift */,
 				F9E98E532A40D098004561D7 /* RecordButton.swift */,
 				F9E98E512A40CF29004561D7 /* TouchDetectionLayer.swift */,
-				F9355B4B2A49C0BD00F573AA /* GestureDetectionView.swift */,
 				F9355B542A49CDC900F573AA /* DetectButton.swift */,
 				F957102B2A55B70900A73948 /* TemplateLayer.swift */,
 				F92617F42A6D904400C7C0A7 /* SignView.swift */,
@@ -172,6 +173,8 @@
 				F9EB40042A7D719500DF2D31 /* DrawingView.swift */,
 				F9E909E52A7EA3B4002E95EF /* DrawButton.swift */,
 				F9EE63B82A7FC0F100270B7E /* DotsView.swift */,
+				F92F880B2A8E6C4400891D97 /* HandGraphicML.swift */,
+				F92F880D2A8E6DB400891D97 /* SignViewML.swift */,
 			);
 			path = ML;
 			sourceTree = "<group>";
@@ -312,6 +315,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F92F880E2A8E6DB400891D97 /* SignViewML.swift in Sources */,
+				F92F880C2A8E6C4400891D97 /* HandGraphicML.swift in Sources */,
 				F9355B4A2A49A0B700F573AA /* MenuView.swift in Sources */,
 				F9EE63B92A7FC0F100270B7E /* DotsView.swift in Sources */,
 				F9E98E522A40CF29004561D7 /* TouchDetectionLayer.swift in Sources */,
@@ -322,7 +327,6 @@
 				F9B745D72A38B56100A31413 /* ContentView.swift in Sources */,
 				F9355B552A49CDC900F573AA /* DetectButton.swift in Sources */,
 				F9E98E562A40D1D4004561D7 /* HandGraphic.swift in Sources */,
-				F9355B4C2A49C0BD00F573AA /* GestureDetectionView.swift in Sources */,
 				F957102C2A55B70900A73948 /* TemplateLayer.swift in Sources */,
 				F9B745D52A38B56100A31413 /* DualSenseApp.swift in Sources */,
 				F92617F52A6D904400C7C0A7 /* SignView.swift in Sources */,
