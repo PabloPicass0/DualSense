@@ -1,9 +1,9 @@
 {
     "eps": 10e-21,
     "STSL_INPUT_SHAPE": [128,128,1],
-    "lr": 5e-4,
+    "lr": 1e-3,
     "lmd_gen": 0.392,
-    "lr_dec": 0.97,
+    "lr_dec": 0.99,
     "batch_size": 16,
     "epochs":50,
     "saved_model_dir": "bin",
