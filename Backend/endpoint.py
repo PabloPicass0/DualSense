@@ -22,10 +22,20 @@ from PIL import Image
 import numpy as np
 import io
 from tensorflow import keras
+from ML.utils.layers import *
+
+# define custom objects for loading keras model
+custom_objects = {
+    'Squash': Squash,
+    'PrimaryCaps': PrimaryCaps,
+    'FCCaps': FCCaps,
+    'Length': Length,
+    'Mask': Mask
+}
 
 # load the model (do this outside of any function, so it's only done once)
-model_path = "ML/bin/efficient_capsnet_STSL100_epochs_no_extra_layer.h5"
-model_STSL = keras.models.load_model(model_path)
+model_path = "ML/bin/model.keras"
+model_STSL = keras.models.load_model(model_path, custom_objects=custom_objects)
 
 # creates basic flask application
 app = Flask(__name__)

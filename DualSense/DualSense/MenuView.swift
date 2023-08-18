@@ -118,8 +118,8 @@ struct MenuView: View {
                 
                 VStack {
                     Group {
-                        NavigationLink(destination: SignViewML(sign: "CH")) {
-                            Text("CH")
+                        NavigationLink(destination: SignViewML(sign: "General")) {
+                            Text("General")
                                 .font(.title)
                                 .padding()
                                 .background(Color.blue)

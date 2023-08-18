@@ -110,6 +110,16 @@ class Model(object):
         self.model.save_weights(self.model_path)
 
 
+    def save_full_model(self, save_path):
+        try:
+            self.model.save(save_path)
+            if self.verbose:
+                print(f"Model saved successfully to {save_path}")
+        except Exception as e:
+            print(f"[ERROR] Failed to save the model. Reason: {e}")
+
+
+
 
 class EfficientCapsNet(Model):
     """
