@@ -18,10 +18,20 @@ from sign_y.sign_y import is_sign_y
 from sign_z.sign_z import is_sign_z_cubic, is_sign_z_quartic
 from sign_ñ.sign_ñ import is_sign_ñ_two_curves, is_sign_ñ_single_curve
 from concurrent.futures import ThreadPoolExecutor
+from PIL import Image
+import numpy as np
+import io
+from tensorflow import keras
+
+# load the model (do this outside of any function, so it's only done once)
+model_path = "ML/bin/efficient_capsnet_STSL100_epochs_no_extra_layer.h5"
+model_STSL = keras.models.load_model(model_path)
 
 # creates basic flask application
 app = Flask(__name__)
-# flask secret key for sessions to share request information; can be random but needs to be consistent across sessions
+
+# flask secret key for sessions to share request information;
+# can be random but needs to be consistent across sessions
 # for multithreading in case a Y signs comes in
 app.secret_key = os.urandom(24)
 # cross-Origin Resource Sharing enabled for all routes
@@ -46,10 +56,13 @@ def decorator_receive_json(executor_threads: ThreadPoolExecutor) -> Callable:
     :param executor_threads: ThreadPoolExecutor instance used for managing threads.
     :return: decorator function which injects executor_threads into the decorated function.
     """
+
     def decorator(func):
         def wrapper():
             return func(executor_threads=executor_threads)
+
         return wrapper
+
     return decorator
 
 
@@ -207,7 +220,7 @@ def get_template() -> Response:
 @app.route('/save-sample', methods=['POST'])
 def save_sample() -> Response:
     """
-    Receives image data from the frontend and stores it in the "Dataset" folder
+    Receives image data from the frontend and stores it in the "Dataset" folder.
     """
     # checks if the 'Filename' header is provided
     filename: str = request.headers.get('Filename')
@@ -230,6 +243,78 @@ def save_sample() -> Response:
     return Response("Image saved successfully", status=200)
 
 
+@app.route('/recogniser_function_ML', methods=['POST'])
+def recogniser_function_ml() -> Response:
+    """
+    Receives gesture screenshot, feeds it into model, and returns classification.
+    """
+    # extract image
+    user_gesture = request.data
+    if not user_gesture:
+        return Response("No png received", status=400)
+
+    # preprocess image
+    user_gesture_preprocessed = preprocess_image(user_gesture)
+
+    # predict label with model
+    y_pred = model_STSL.predict(user_gesture_preprocessed)[0]
+
+    # convert prediction into meaningful label
+    label = extract_label(y_pred[0])
+
+    # return output
+    response_message = f"Sign {label} recognised"
+    return Response(response_message, status=200)
+
+
+def preprocess_image(image_data: bytes) -> np.ndarray:
+    """
+    Preprocesses the given image data: Converts it to grayscale, resizes to 128x128, converts to a numpy array,
+    normalizes pixel values to [0, 1].
+
+    :params image_data (bytes): The raw image data.
+    :return: np.ndarray: The preprocessed image in numpy array format.
+    """
+
+    # decode the image and convert to grayscale
+    image: Image.Image = Image.open(io.BytesIO(image_data)).convert('L')
+
+    # resize the image to 128x128
+    image = image.resize((128, 128))
+
+    # convert to numpy array
+    image_array: np.ndarray = np.array(image)
+
+    # normalise the pixel values to [0, 1]
+    image_array = image_array / 255.0
+
+    return image_array
+
+
+def extract_label(y_pred: np.ndarray, label_mapping: Dict[str, int] = None) -> str:
+    """
+    Extracts the label corresponding to the highest prediction value.
+
+    :param y_pred: The prediction array from the model.
+    :param label_mapping: Dictionary containing mapping of labels to their respective integers.
+    :return: The predicted label as a string.
+    """
+    # if no label mapping is provided, use the default one
+    if label_mapping is None:
+        label_mapping = {'CH': 0, 'G': 1, 'H': 2, 'J': 3, 'LL': 4, 'Ñ': 5, 'RR': 6, 'V': 7, 'W': 8, 'Z': 9, 'Y': 10}
+
+    # reverse the label_mapping dictionary for easy lookup
+    reverse_label_mapping = {v: k for k, v in label_mapping.items()}
+
+    # get the index of the maximum prediction value
+    predicted_class_index = np.argmax(y_pred)
+
+    # fetch the label from the reverse mapping
+    predicted_label = reverse_label_mapping[predicted_class_index]
+
+    return predicted_label
+
+
 if __name__ == '__main__':
-    # makes web server listen on port 5000 and makes it externally visible by binding it to 0.0.0.0
+    # make web server listen on port 5000 and makes it externally visible by binding it to 0.0.0.0
     app.run(host='0.0.0.0', port=5000)
