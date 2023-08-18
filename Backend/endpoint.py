@@ -23,6 +23,8 @@ import numpy as np
 import io
 from tensorflow import keras
 from ML.utils.layers import *
+from typing import Optional
+
 
 # define custom objects for loading keras model
 custom_objects = {
@@ -253,7 +255,7 @@ def save_sample() -> Response:
     return Response("Image saved successfully", status=200)
 
 
-@app.route('/recogniser_function_ML', methods=['POST'])
+@app.route('/detect-gesture-ml', methods=['POST'])
 def recogniser_function_ml() -> Response:
     """
     Receives gesture screenshot, feeds it into model, and returns classification.
@@ -265,15 +267,21 @@ def recogniser_function_ml() -> Response:
 
     # preprocess image
     user_gesture_preprocessed = preprocess_image(user_gesture)
+    user_gesture_preprocessed = np.expand_dims(user_gesture_preprocessed, axis=0)
 
     # predict label with model
-    y_pred = model_STSL.predict(user_gesture_preprocessed)[0]
+    y_pred = model_STSL.predict(user_gesture_preprocessed)
+
+    print(y_pred)
 
     # convert prediction into meaningful label
     label = extract_label(y_pred[0])
 
     # return output
-    response_message = f"Sign {label} recognised"
+    if label:
+        response_message = f"Sign {label} recognised"
+    else:
+        response_message = f"No sign recognised"
     return Response(response_message, status=200)
 
 
@@ -298,16 +306,19 @@ def preprocess_image(image_data: bytes) -> np.ndarray:
     # normalise the pixel values to [0, 1]
     image_array = image_array / 255.0
 
+    # add the channel dimension
+    image_array = image_array[..., None]
+
     return image_array
 
 
-def extract_label(y_pred: np.ndarray, label_mapping: Dict[str, int] = None) -> str:
+def extract_label(y_pred: np.ndarray, label_mapping: Dict[str, int] = None) -> Optional[str]:
     """
     Extracts the label corresponding to the highest prediction value.
 
     :param y_pred: The prediction array from the model.
     :param label_mapping: Dictionary containing mapping of labels to their respective integers.
-    :return: The predicted label as a string.
+    :return: The predicted label as a string or None.
     """
     # if no label mapping is provided, use the default one
     if label_mapping is None:
@@ -316,8 +327,14 @@ def extract_label(y_pred: np.ndarray, label_mapping: Dict[str, int] = None) -> s
     # reverse the label_mapping dictionary for easy lookup
     reverse_label_mapping = {v: k for k, v in label_mapping.items()}
 
+    # if the max prediction value is below 0.9, return None
+    max_probability = np.max(y_pred[0])
+    if max_probability < 0.9:
+        return None
+
     # get the index of the maximum prediction value
-    predicted_class_index = np.argmax(y_pred)
+    class_probabilities = y_pred[0]
+    predicted_class_index = np.argmax(class_probabilities)
 
     # fetch the label from the reverse mapping
     predicted_label = reverse_label_mapping[predicted_class_index]
