@@ -18,6 +18,7 @@ from sign_y.sign_y import is_sign_y
 from sign_z.sign_z import is_sign_z_cubic, is_sign_z_quartic
 from sign_ñ.sign_ñ import is_sign_ñ_two_curves, is_sign_ñ_single_curve
 from concurrent.futures import ThreadPoolExecutor
+import matplotlib.pyplot as plt
 from PIL import Image
 import numpy as np
 import io
@@ -270,9 +271,14 @@ def recogniser_function_ml() -> Response:
     user_gesture_preprocessed = np.expand_dims(user_gesture_preprocessed, axis=0)
 
     # predict label with model
-    y_pred = model_STSL.predict(user_gesture_preprocessed)
+    y_pred, img_reconstructed = model_STSL.predict(user_gesture_preprocessed)
 
-    print(y_pred)
+    # plot and save the reconstructed image
+    plt.imshow(img_reconstructed[0].reshape(128, 128), cmap='gray')
+    plt.axis('off')  # turn off the axis
+    plt.savefig('reconstructed_image.png', bbox_inches='tight', pad_inches=0)
+
+    # print(y_pred)
 
     # convert prediction into meaningful label
     label = extract_label(y_pred[0])
@@ -329,6 +335,7 @@ def extract_label(y_pred: np.ndarray, label_mapping: Dict[str, int] = None) -> O
 
     # if the max prediction value is below 0.9, return None
     max_probability = np.max(y_pred[0])
+    print(max_probability)
     if max_probability < 0.9:
         return None
 
