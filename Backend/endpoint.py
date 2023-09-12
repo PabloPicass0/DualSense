@@ -45,7 +45,7 @@ app = Flask(__name__)
 
 # flask secret key for sessions to share request information;
 # can be random but needs to be consistent across sessions
-# for multithreading in case a Y signs comes in
+# for multithreading in case a Y sign comes in
 app.secret_key = os.urandom(24)
 # cross-Origin Resource Sharing enabled for all routes
 CORS(app)
@@ -88,9 +88,11 @@ def receive_json(executor_threads=None) -> Tuple[Response, int]:
     :rtype: tuple where first object is flask jsonify response object, second is HTTP status code
     :return: two objects: first object is flask jsonify response object, second is HTTP status code
     """
+
     # declare use of global variable
     global first_stroke_result
     global second_stroke_result
+
     # gets header/indicator for sign
     sign: string = request.headers.get('Sign')
     # gets JSON file
@@ -102,11 +104,15 @@ def receive_json(executor_threads=None) -> Tuple[Response, int]:
         return jsonify({"message": "No JSON received"}), 400
 
     # saves touch data into JSON file into backend
-    with open('Templates/data.json', 'w') as file:
-        json.dump(data, file)
+    # with open('Templates/data.json', 'w') as file:
+    #     json.dump(data, file)
 
     # gives json into recogniser
+    # starts time measurement recognition
+    start_time_param_recognition = time.time()  # capture start time recognition
     response: Tuple[Response, int] = recogniser_function(sign, data)
+    end_time_param_recognition = time.time()
+    print(f'Time param recognition: {end_time_param_recognition - start_time_param_recognition}')
 
     # if the sign is incorrect, return the response right away
     if response[0].json.get("message") == "Sign not correct":
@@ -266,22 +272,31 @@ def recogniser_function_ml() -> Response:
     if not user_gesture:
         return Response("No png received", status=400)
 
+    # starts time measurement
+    start_time_ml_recognition = time.time()  # capture start time
+
     # preprocess image
     user_gesture_preprocessed = preprocess_image(user_gesture)
     user_gesture_preprocessed = np.expand_dims(user_gesture_preprocessed, axis=0)
 
     # predict label with model
     y_pred, img_reconstructed = model_STSL.predict(user_gesture_preprocessed)
+    # ends time measurement
+    end_time_ml_recognition = time.time()  # capture end time
+    print(f'Time ml recognition: {end_time_ml_recognition - start_time_ml_recognition}')
 
     # plot and save the reconstructed image
     plt.imshow(img_reconstructed[0].reshape(128, 128), cmap='gray')
     plt.axis('off')  # turn off the axis
     plt.savefig('reconstructed_image.png', bbox_inches='tight', pad_inches=0)
 
-    # print(y_pred)
+    # print whole prediction array for debugging
+    print(y_pred)
 
     # convert prediction into meaningful label
-    label = extract_label(y_pred[0])
+    label = extract_label(y_pred)
+
+    print(f"label extracted: {label}")
 
     # return output
     if label:
@@ -334,14 +349,15 @@ def extract_label(y_pred: np.ndarray, label_mapping: Dict[str, int] = None) -> O
     reverse_label_mapping = {v: k for k, v in label_mapping.items()}
 
     # if the max prediction value is below 0.9, return None
-    max_probability = np.max(y_pred[0])
-    print(max_probability)
+    max_probability = np.max(y_pred)
     if max_probability < 0.9:
         return None
 
     # get the index of the maximum prediction value
-    class_probabilities = y_pred[0]
+    class_probabilities = y_pred
     predicted_class_index = np.argmax(class_probabilities)
+
+    print(f'With probability: {max_probability}')
 
     # fetch the label from the reverse mapping
     predicted_label = reverse_label_mapping[predicted_class_index]

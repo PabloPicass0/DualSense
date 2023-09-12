@@ -52,29 +52,30 @@ def compare_sequences_fdtw(seq1: np.ndarray, seq2: np.ndarray) -> float:
     :param seq2: The second sequence. It is a numpy array.
     :return: The Dynamic Time Warping distance between the sequences as a float.
     """
-    start_time = time.time()  # capture start time
+    # start_time = time.time()  # capture start time
     distance, _ = fastdtw(seq1, seq2, dist=euclidean)
-    end_time = time.time()  # capture end time
-    print(f"The operation took {end_time - start_time} seconds.")
+    # end_time = time.time()  # capture end time
+    # print(f"FastDTW takes {end_time - start_time} seconds.")
 
     return distance
 
 
-def compare_sequences_dtw(seq1: np.ndarray, seq2: np.ndarray) -> float:
-    """
-    Compares two sequences (Bézier curves) using Dynamic Time Warping.
-
-    :param seq1: The first sequence. It is a numpy array.
-    :param seq2: The second sequence. It is a numpy array.
-    :return: The Dynamic Time Warping distance between the sequences as a float.
-    """
-    start_time = time.time()  # capture start time
-    alignment = dtw(seq1, seq2, dist=euclidean)
-    end_time = time.time() # capture end time
-    print(f"The operation took {end_time - start_time} seconds.")
-    distance = alignment[0]  # accessing the first element of the tuple
-
-    return distance
+# function below not working
+# def compare_sequences_dtw(seq1: np.ndarray, seq2: np.ndarray) -> float:
+#     """
+#     Compares two sequences (Bézier curves) using Dynamic Time Warping.
+#
+#     :param seq1: The first sequence. It is a numpy array.
+#     :param seq2: The second sequence. It is a numpy array.
+#     :return: The Dynamic Time Warping distance between the sequences as a float.
+#     """
+#     start_time = time.time()  # capture start time
+#     alignment = dtw(seq1, seq2)
+#     end_time = time.time() # capture end time
+#     print(f"The operation took {end_time - start_time} seconds.")
+#     distance = alignment[0]  # accessing the first element of the tuple
+#
+#     return distance
 
 
 def euclidean_distance(point1: List[float], point2: List[float]) -> float:

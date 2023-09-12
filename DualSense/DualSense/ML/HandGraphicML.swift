@@ -83,6 +83,9 @@ struct HandGraphicML: View {
     // Function to send image to backend
     func sendSampleToBackend(sign: String) {
         
+        // Records the start time to measure time taken for ML approach
+        let startTime = Date()
+        
         // Creates view with touch dots on white background
         let dotsView = DotsView(touchPoints: touchPoints)
         if let image = snapshot(of: dotsView) {
@@ -92,7 +95,7 @@ struct HandGraphicML: View {
             let imageData = image.pngData()
             
             // Creates URL request
-            var request = URLRequest(url: URL(string: "http://146.169.150.228:5000/detect-gesture-ml")!)
+            var request = URLRequest(url: URL(string: "http://146.169.156.31:5000/detect-gesture-ml")!)
             request.httpMethod = "POST"
             // Sets HTTP header with information about sign (for backend to select recogniser)
             request.setValue(sign, forHTTPHeaderField: "Sign")
@@ -104,6 +107,14 @@ struct HandGraphicML: View {
             // Sends request using URLSession and handles repsonse
             URLSession.shared.dataTask(with: request) { data, response, error in
                 DispatchQueue.main.async {  // Ensure updates happen on the main thread.
+                    
+                    // Records the end time
+                    let endTime = Date()
+                    // Calculates the elapsed time
+                    let elapsedTime = endTime.timeIntervalSince(startTime)
+                    // Prints or otherwise use the elapsed time
+                    print("Elapsed Time ML: \(elapsedTime) seconds")
+                    
                     if let error = error {
                         print("Error: \(error)")
                         serverResponse = "Error: \(error.localizedDescription)"

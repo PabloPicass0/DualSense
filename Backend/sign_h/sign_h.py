@@ -38,7 +38,8 @@ def fit_bezier_for_h():
     np.save(file_path_b, bezier)
 
     # plots curves
-    plt.plot(bezier[:, 0], bezier[:, 1], color='blue')  # curve1 # plt.scatter([P0_curve1[0],
+    plt.scatter([x[0] for x in locations], [x[1] for x in locations], color='red', s=5)
+    plt.plot(bezier[:, 0], bezier[:, 1], color='green')  # curve1 # plt.scatter([P0_curve1[0],
 
     plt.show()
 
@@ -80,7 +81,8 @@ def is_sign_h(timestamps: List[float], locations: List[List[float]]) -> bool:
 
     return True
 
-# # Code below already executed to fit template
+
+# Code below already executed to fit template
 # if __name__ == '__main__':
 #     # already executed to save templates
 #     fit_bezier_for_h()

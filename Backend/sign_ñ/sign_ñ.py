@@ -46,21 +46,24 @@ def fit_bezier_for_ñ_two_curves():
 
     # Code below plots fitted Bézier curves; comment 'matplotlib.use('Agg')' to run
     # plots the first Bézier curve
-    plt.figure(figsize=(6, 6))
-    plt.plot(bezier1_curve_np[:, 0], bezier1_curve_np[:, 1], label='Bezier 1')
-    plt.scatter(bezier1_curve_np[:, 0], bezier1_curve_np[:, 1], s=10)
+    # plt.figure(figsize=(6, 6))
+    plt.plot(bezier1_curve_np[:, 0], bezier1_curve_np[:, 1], color='green')
+    # plt.scatter(bezier1_curve_np[:, 0], bezier1_curve_np[:, 1], s=10)
 
     # plots the second Bézier curve
-    plt.plot(bezier2_curve_np[:, 0], bezier2_curve_np[:, 1], label='Bezier 2')
-    plt.scatter(bezier2_curve_np[:, 0], bezier2_curve_np[:, 1], s=10)
+    plt.plot(bezier2_curve_np[:, 0], bezier2_curve_np[:, 1], color='green')
+    # plt.scatter(bezier2_curve_np[:, 0], bezier2_curve_np[:, 1], s=10)
 
-    # setting up the title and labels
-    plt.title('Bezier Curves')
-    plt.xlabel('X Coordinate')
-    plt.ylabel('Y Coordinate')
+    # plots touch locations
+    plt.scatter([x[0] for x in locations], [x[1] for x in locations], color='red', s=5)
 
-    # displays the legend
-    plt.legend()
+    # # setting up the title and labels
+    # plt.title('Bezier Curves')
+    # plt.xlabel('X Coordinate')
+    # plt.ylabel('Y Coordinate')
+
+    # # displays the legend
+    # plt.legend()
 
     # shows the plot
     plt.show()
@@ -115,18 +118,16 @@ def is_sign_ñ_two_curves(timestamps: List[float], locations: List[List[float]])
     # creates a new figure
     plt.figure()
     # plots the templates
-    plt.plot(bezier1_upper_curve_template[:, 0], bezier1_upper_curve_template[:, 1], label='Bezier 1 Template',
-             linestyle='dashed')
-    plt.plot(bezier2_lower_curve_template[:, 0], bezier2_lower_curve_template[:, 1], label='Bezier 2 Template',
-             linestyle='dashed')
+    plt.plot(bezier1_upper_curve_template[:, 0], bezier1_upper_curve_template[:, 1], color='green')
+    plt.plot(bezier2_lower_curve_template[:, 0], bezier2_lower_curve_template[:, 1], color='green')
     # plots user curves
-    plt.plot(user_curve_1_b[:, 0], user_curve_1_b[:, 1], label='User Bezier 1')
-    plt.plot(user_curve_2_b[:, 0], user_curve_2_b[:, 1], label='User Bezier 2')
+    plt.plot(user_curve_1_b[:, 0], user_curve_1_b[:, 1], color='red', linestyle='dashed')
+    plt.plot(user_curve_2_b[:, 0], user_curve_2_b[:, 1], color='red', linestyle='dashed')
     # adds a legend
-    plt.legend()
+    # plt.legend()
     # saves the plot
     current_dir = os.path.dirname(os.path.abspath(__file__))
-    filename = os.path.join(current_dir, 'output_figure.png')
+    filename = os.path.join(current_dir, 'output_figure_two.png')
     plt.savefig(filename)
     # closes the figure to free up memory
     plt.close()
@@ -181,17 +182,26 @@ def fit_bezier_for_ñ_single_curve():
 
     # Code below plots fitted Bézier curves
     # plots Bézier curve
-    plt.figure(figsize=(6, 6))
-    plt.plot(bezier_curve_np[:, 0], bezier_curve_np[:, 1], label='Bezier 1')
-    plt.scatter(bezier_curve_np[:, 0], bezier_curve_np[:, 1], s=10)
+    # plt.figure(figsize=(6, 6))
+    plt.plot(bezier_curve_np[:, 0], bezier_curve_np[:, 1], color='green')
+    # plt.scatter(bezier_curve_np[:, 0], bezier_curve_np[:, 1], s=10)
 
-    # setting up the title and labels
-    plt.title('Bezier Curves')
-    plt.xlabel('X Coordinate')
-    plt.ylabel('Y Coordinate')
+    # # setting up the title and labels
+    # plt.title('Bezier Curves')
+    # plt.xlabel('X Coordinate')
+    # plt.ylabel('Y Coordinate')
 
     # displays the legend
-    plt.legend()
+    # plt.legend()
+
+    # plot touch curve
+    # splits touch locations into individual curves
+    # curve1, curve2 = split_touch_locations_two_curves('Ñ', locations)
+    # curve1 = np.array(curve1)
+    # curve2 = np.array(curve2)
+    # plt.plot(curve1[:, 0], curve1[:, 1], color='red')
+    # plt.plot(curve2[:, 0], curve2[:, 1], color='red')
+    plt.scatter([x[0] for x in locations], [x[1] for x in locations], color='red', s=5)
 
     # shows the plot
     plt.show()
@@ -240,13 +250,12 @@ def is_sign_ñ_single_curve(timestamps: List[float], locations: List[List[float]
     # creates a new figure
     plt.figure()
     # plots the template
-    plt.plot(bezier_curve_single_template[:, 0], bezier_curve_single_template[:, 1], label='Bezier 1 Template',
-             linestyle='dashed')
+    plt.plot(bezier_curve_single_template[:, 0], bezier_curve_single_template[:, 1], color='green')
     # plots user curves
-    plt.plot(user_curve_b[:, 0], user_curve_b[:, 1], label='User Bezier')
+    plt.plot(user_curve_b[:, 0], user_curve_b[:, 1], color='red', linestyle='dashed')
 
-    # adds a legend
-    plt.legend()
+    # # adds a legend
+    # plt.legend()
     # saves the plot
     current_dir = os.path.dirname(os.path.abspath(__file__))
     filename = os.path.join(current_dir, 'output_figure_single.png')
@@ -284,9 +293,10 @@ def is_sign_ñ_single_curve(timestamps: List[float], locations: List[List[float]
 
     return True
 
+
 # # Code below already executed to fit template
 # if __name__ == '__main__':
 #     # fits two curves
-#     # fit_bezier_for_ñ_single_curve()
+#     fit_bezier_for_ñ_two_curves()
 #     # fits one curve
-#     fit_bezier_for_ñ_single_curve()
+#     # fit_bezier_for_ñ_single_curve()

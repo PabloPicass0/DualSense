@@ -9,7 +9,7 @@ from scipy.spatial.distance import euclidean
 from extraction import extract_timestamps_and_locations, split_touch_locations_three_curves
 from parameterisation import fit_quartic_bezier_control_points, return_quartic_bezier_curve, \
     generate_two_quartic_beziers_control_points, return_two_quartic_bezier_curves
-from recognition import timestamp_duration_valid, compare_sequences_fdtw, compare_sequences_dtw
+from recognition import timestamp_duration_valid, compare_sequences_fdtw # compare_sequences_dtw
 
 
 def fit_three_beziers_for_w():
@@ -46,23 +46,26 @@ def fit_three_beziers_for_w():
     bezier3_curve_np = np.array(bezier3_curve)
 
     # plots the first Bézier curve
-    plt.figure(figsize=(6, 6))
-    plt.plot(bezier1_curve_np[:, 0], bezier1_curve_np[:, 1], label='Bezier 1')
-    plt.scatter(bezier1_curve_np[:, 0], bezier1_curve_np[:, 1], s=10)
+    # plt.figure(figsize=(6, 6))
+    plt.plot(bezier1_curve_np[:, 0], bezier1_curve_np[:, 1], color='green')
+    # plt.scatter(bezier1_curve_np[:, 0], bezier1_curve_np[:, 1], s=10)
     # plots the second Bézier curve
-    plt.plot(bezier2_curve_np[:, 0], bezier2_curve_np[:, 1], label='Bezier 2')
-    plt.scatter(bezier2_curve_np[:, 0], bezier2_curve_np[:, 1], s=10)
+    plt.plot(bezier2_curve_np[:, 0], bezier2_curve_np[:, 1], color='green')
+    # plt.scatter(bezier2_curve_np[:, 0], bezier2_curve_np[:, 1], s=10)
     # plots the third Bézier curve
-    plt.plot(bezier3_curve_np[:, 0], bezier3_curve_np[:, 1], label='Bezier 2')
-    plt.scatter(bezier3_curve_np[:, 0], bezier3_curve_np[:, 1], s=10)
+    plt.plot(bezier3_curve_np[:, 0], bezier3_curve_np[:, 1], color='green')
+    # plt.scatter(bezier3_curve_np[:, 0], bezier3_curve_np[:, 1], s=10)
 
     # setting up the title and labels
-    plt.title('Bezier Curves')
-    plt.xlabel('X Coordinate')
-    plt.ylabel('Y Coordinate')
+    # plt.title('Bezier Curves')
+    # plt.xlabel('X Coordinate')
+    # plt.ylabel('Y Coordinate')
 
     # displays the legend
-    plt.legend()
+    # plt.legend()
+
+    # plots touch curves
+    plt.scatter([x[0] for x in locations], [x[1] for x in locations], color='red', s=5)
 
     # shows the plot
     plt.show()
@@ -229,29 +232,29 @@ def is_sign_w_three_curves(timestamps: List[float], locations: List[List[float]]
     file_path_b3 = os.path.join(current_dir, 'bezier3_curve_template.npy')
     bezier3_curve_template = np.load(file_path_b3)
 
-    # The code below saves a figure to see how the user curves compare to the templates
-    # Needs to uncomment agg at the top of the file
-    # creates a new figure
-    plt.figure()
-    # plots the templates
-    plt.plot(bezier1_curve_template[:, 0], bezier1_curve_template[:, 1], label='Bezier 1 Template',
-             linestyle='dashed')
-    plt.plot(bezier2_curve_template[:, 0], bezier2_curve_template[:, 1], label='Bezier 2 Template',
-             linestyle='dashed')
-    plt.plot(bezier3_curve_template[:, 0], bezier3_curve_template[:, 1], label='Bezier 3 Template',
-             linestyle='dashed')
-    # plots user curves
-    plt.plot(user1_curve_bezier[:, 0], user1_curve_bezier[:, 1], label='User Bezier 1')
-    plt.plot(user2_curve_bezier[:, 0], user2_curve_bezier[:, 1], label='User Bezier 2')
-    plt.plot(user3_curve_bezier[:, 0], user3_curve_bezier[:, 1], label='User Bezier 3')
-    # adds a legend
-    plt.legend()
-    # saves the plot
-    current_dir = os.path.dirname(os.path.abspath(__file__))
-    filename = os.path.join(current_dir, 'output_figure_three_curves.png')
-    plt.savefig(filename)
-    # closes the figure to free up memory
-    plt.close()
+    # # The code below saves a figure to see how the user curves compare to the templates
+    # # Needs to uncomment agg at the top of the file
+    # # creates a new figure
+    # plt.figure()
+    # # plots the templates
+    # plt.plot(bezier1_curve_template[:, 0], bezier1_curve_template[:, 1], label='Bezier 1 Template',
+    #          linestyle='dashed')
+    # plt.plot(bezier2_curve_template[:, 0], bezier2_curve_template[:, 1], label='Bezier 2 Template',
+    #          linestyle='dashed')
+    # plt.plot(bezier3_curve_template[:, 0], bezier3_curve_template[:, 1], label='Bezier 3 Template',
+    #          linestyle='dashed')
+    # # plots user curves
+    # plt.plot(user1_curve_bezier[:, 0], user1_curve_bezier[:, 1], label='User Bezier 1')
+    # plt.plot(user2_curve_bezier[:, 0], user2_curve_bezier[:, 1], label='User Bezier 2')
+    # plt.plot(user3_curve_bezier[:, 0], user3_curve_bezier[:, 1], label='User Bezier 3')
+    # # adds a legend
+    # plt.legend()
+    # # saves the plot
+    # current_dir = os.path.dirname(os.path.abspath(__file__))
+    # filename = os.path.join(current_dir, 'output_figure_three_curves.png')
+    # plt.savefig(filename)
+    # # closes the figure to free up memory
+    # plt.close()
 
     # matches curves
     template_curves = [bezier1_curve_template, bezier2_curve_template, bezier3_curve_template]
@@ -277,7 +280,7 @@ def is_sign_w_three_curves(timestamps: List[float], locations: List[List[float]]
     # compares user curves to templates
     for i in range(3):
         assigned_template = template_curves[assignments[i]]
-        distance_template = compare_sequences_dtw(user_curves[i], assigned_template)
+        distance_template = compare_sequences_fdtw(user_curves[i], assigned_template)
         # prints the distance to the respective template
         print(f"distance{assignments[i] + 1}_template: {distance_template}")
         if distance_template > 5000:

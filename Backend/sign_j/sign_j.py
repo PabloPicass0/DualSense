@@ -36,10 +36,11 @@ def fit_bezier_for_j():
 
     # saves the template for future use
     file_path_b = os.path.join(current_dir, 'bezier_curve_template.npy')
-    np.save(file_path_b, curve_points_np)
+    np.save(file_path_b, curve_points_np)  #
 
     # plots curves
-    plt.plot(curve_points_np[:, 0], curve_points_np[:, 1], color='blue')
+    plt.scatter([x[0] for x in locations], [x[1] for x in locations], color='red', s=5)
+    plt.plot(curve_points_np[:, 0], curve_points_np[:, 1], color='green')
 
     plt.show()
 
@@ -85,6 +86,7 @@ def is_sign_j(timestamps: List[float], locations: List[List[float]]) -> bool:
 
     return True
 
-# # Code below already executed to fit template
+
+# Code below already executed to fit template
 # if __name__ == '__main__':
 #     fit_bezier_for_j()

@@ -34,7 +34,8 @@ def fit_bezier_for_y():
     np.save(file_path_b, bezier)
 
     # plots curves
-    plt.plot(bezier[:, 0], bezier[:, 1], color='blue')  # curve1 # plt.scatter([P0_curve1[0],
+    plt.scatter([x[0] for x in locations], [x[1] for x in locations], color='red', s=5)
+    plt.plot(bezier[:, 0], bezier[:, 1], color='green')  # curve1 # plt.scatter([P0_curve1[0],
 
     plt.show()
 
@@ -69,10 +70,11 @@ def is_sign_y(timestamps: List[float], locations: List[List[float]]) -> bool:
 
     print(f"distance_template: {distance_template}")
 
-    if distance_template > 3000.0:
+    if distance_template > 5000.0:
         return False
 
     return True
+
 
 # # Code below already executed to fit template
 # if __name__ == '__main__':

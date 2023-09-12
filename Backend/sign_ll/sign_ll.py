@@ -11,6 +11,7 @@ from parameterisation import generate_two_quartic_beziers_control_points, return
 from recognition import timestamp_duration_valid, compare_sequences_fdtw
 from extraction import split_touch_locations_two_curves
 
+
 matplotlib.use('Agg')
 
 
@@ -44,21 +45,26 @@ def fit_bezier_for_ll():
     bezier2_curve_np = np.array(bezier2_curve)
 
     # plots the first Bézier curve
-    plt.figure(figsize=(6, 6))
-    plt.plot(bezier1_curve_np[:, 0], bezier1_curve_np[:, 1], label='Bezier 1')
-    plt.scatter(bezier1_curve_np[:, 0], bezier1_curve_np[:, 1], s=10)
+    # plt.figure(figsize=(6, 6))
+    # plt.plot(bezier1_curve_np[:, 0], bezier1_curve_np[:, 1], label='Bezier 1')
+    # plt.scatter(bezier1_curve_np[:, 0], bezier1_curve_np[:, 1], s=10)
+    plt.plot(bezier1_curve_np[:, 0], bezier1_curve_np[:, 1], color='green')
 
     # plots the second Bézier curve
-    plt.plot(bezier2_curve_np[:, 0], bezier2_curve_np[:, 1], label='Bezier 2')
-    plt.scatter(bezier2_curve_np[:, 0], bezier2_curve_np[:, 1], s=10)
+    # plt.plot(bezier2_curve_np[:, 0], bezier2_curve_np[:, 1], label='Bezier 2')
+    # plt.scatter(bezier2_curve_np[:, 0], bezier2_curve_np[:, 1], s=10)
+    plt.plot(bezier2_curve_np[:, 0], bezier2_curve_np[:, 1], color='green')
+
+    # plots touch locations
+    plt.scatter([x[0] for x in locations], [x[1] for x in locations], color='red', s=5)
 
     # setting up the title and labels
-    plt.title('Bezier Curves')
-    plt.xlabel('X Coordinate')
-    plt.ylabel('Y Coordinate')
+    # plt.title('Bezier Curves')
+    # plt.xlabel('X Coordinate')
+    # plt.ylabel('Y Coordinate')
 
     # displays the legend
-    plt.legend()
+    # plt.legend()
 
     # shows the plot
     plt.show()
@@ -144,7 +150,7 @@ def is_sign_ll(timestamps: List[float], locations: List[List[float]]) -> bool:
     print(f"distance1_template: {distance1_template}")
     print(f"distance2_template: {distance2_template}")
 
-    if distance1_template > 6000.0 or distance2_template > 6000.0:
+    if distance1_template > 7000.0 or distance2_template > 7000.0:
         return False
 
     return True

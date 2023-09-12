@@ -41,21 +41,24 @@ def fit_bezier_for_v():
     bezier2_curve_np = np.array(bezier2_curve)
 
     # plots the first Bézier curve
-    plt.figure(figsize=(6, 6))
-    plt.plot(bezier1_curve_np[:, 0], bezier1_curve_np[:, 1], label='Bezier 1')
-    plt.scatter(bezier1_curve_np[:, 0], bezier1_curve_np[:, 1], s=10)
+    # plt.figure(figsize=(6, 6))
+    plt.plot(bezier1_curve_np[:, 0], bezier1_curve_np[:, 1], color='green')
+    # plt.scatter(bezier1_curve_np[:, 0], bezier1_curve_np[:, 1], s=10)
 
     # plots the second Bézier curve
-    plt.plot(bezier2_curve_np[:, 0], bezier2_curve_np[:, 1], label='Bezier 2')
-    plt.scatter(bezier2_curve_np[:, 0], bezier2_curve_np[:, 1], s=10)
+    plt.plot(bezier2_curve_np[:, 0], bezier2_curve_np[:, 1], color='green')
+    # plt.scatter(bezier2_curve_np[:, 0], bezier2_curve_np[:, 1], s=10)
 
     # setting up the title and labels
-    plt.title('Bezier Curves')
-    plt.xlabel('X Coordinate')
-    plt.ylabel('Y Coordinate')
+    # plt.title('Bezier Curves')
+    # plt.xlabel('X Coordinate')
+    # plt.ylabel('Y Coordinate')
 
     # displays the legend
-    plt.legend()
+    # plt.legend()
+
+    # plot touch curves
+    plt.scatter([x[0] for x in locations], [x[1] for x in locations], color='red', s=5)
 
     # shows the plot
     plt.show()
@@ -146,6 +149,7 @@ def is_sign_v(timestamps: List[float], locations: List[List[float]]) -> bool:
         return False
 
     return True
+
 
 # # Code below already executed to fit template
 # if __name__ == '__main__':

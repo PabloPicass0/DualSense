@@ -29,5 +29,6 @@ struct SignViewML: View {
                 Spacer()
             }
         }
+        .defersSystemGestures(on: .all)
     }
 }

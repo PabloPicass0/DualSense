@@ -89,14 +89,12 @@ class DrawingRecogniser: UIGestureRecognizer {
         guard isDrawing else {return}
         appendTouchData(touches: touches)
         touchDelegate?.touchPointsUpdated(touchPoints.map { $0 })
-//        touchPoints.removeAll()
     }
     
     override func touchesCancelled(_ touches: Set<UITouch>, with event: UIEvent) {
         guard isDrawing else { return }
         appendTouchData(touches: touches)
         touchDelegate?.touchPointsUpdated(touchPoints.map { $0 })
-//        touchPoints.removeAll()
     }
     
     // Stores touch data in file in array

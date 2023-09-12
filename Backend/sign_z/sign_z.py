@@ -8,7 +8,7 @@ from matplotlib import pyplot as plt
 
 from extraction import extract_timestamps_and_locations
 from parameterisation import return_cubic_bezier, fit_quartic_bezier_control_points, return_quartic_bezier_curve
-from recognition import compare_sequences_fdtw, timestamp_duration_valid, compare_sequences_dtw
+from recognition import compare_sequences_fdtw, timestamp_duration_valid  # compare_sequences_dtw
 
 matplotlib.use('Agg')
 
@@ -50,7 +50,8 @@ def fit_bezier_for_z_cubic():
     np.save(file_path_b, curve_points_np)
 
     # plots curves
-    plt.plot(curve_points_np[:, 0], curve_points_np[:, 1], color='blue')
+    plt.scatter([x[0] for x in locations], [x[1] for x in locations], color='red', s=5)
+    plt.plot(curve_points_np[:, 0], curve_points_np[:, 1], color='green')
 
     plt.show()
 
@@ -147,7 +148,7 @@ def is_sign_z_cubic(timestamps: List[float], locations: List[List[float]]) -> bo
     plt.close()
 
     # calculates distance using DTW
-    distance_template = compare_sequences_dtw(curve_points_user, bezier_curve_template)
+    distance_template = compare_sequences_fdtw(curve_points_user, bezier_curve_template)
 
     # debugging
     print(f"distance_template: {distance_template}")
@@ -189,24 +190,24 @@ def is_sign_z_quartic(timestamps: List[float], locations: List[List[float]]) -> 
     file_path_b = os.path.join(current_dir, 'bezier_curve_template_quartic.npy')
     bezier_curve_template_quartic = np.load(file_path_b)
 
-    # The code below saves a figure to see how the user curves compare to the templates
-    # Needs to uncomment agg at the top of the file
-    # creates a new figure
-    plt.figure()
-    # plots the template
-    plt.plot(bezier_curve_template_quartic[:, 0], bezier_curve_template_quartic[:, 1], label='Bezier 1 Template',
-             linestyle='dashed')
-    # plots user curves
-    plt.plot(user_curve_b[:, 0], user_curve_b[:, 1], label='User Bezier')
-
-    # adds a legend
-    plt.legend()
-    # saves the plot
-    current_dir = os.path.dirname(os.path.abspath(__file__))
-    filename = os.path.join(current_dir, 'output_figure_single.png')
-    plt.savefig(filename)
-    # closes the figure to free up memory
-    plt.close()
+    # # The code below saves a figure to see how the user curves compare to the templates
+    # # Needs to uncomment agg at the top of the file
+    # # creates a new figure
+    # plt.figure()
+    # # plots the template
+    # plt.plot(bezier_curve_template_quartic[:, 0], bezier_curve_template_quartic[:, 1], label='Bezier 1 Template',
+    #          linestyle='dashed')
+    # # plots user curves
+    # plt.plot(user_curve_b[:, 0], user_curve_b[:, 1], label='User Bezier')
+    #
+    # # adds a legend
+    # plt.legend()
+    # # saves the plot
+    # current_dir = os.path.dirname(os.path.abspath(__file__))
+    # filename = os.path.join(current_dir, 'output_figure_single.png')
+    # plt.savefig(filename)
+    # # closes the figure to free up memory
+    # plt.close()
 
     # calculates DTW distance
     distance_template = compare_sequences_fdtw(user_curve_b, bezier_curve_template_quartic)
@@ -218,7 +219,8 @@ def is_sign_z_quartic(timestamps: List[float], locations: List[List[float]]) -> 
 
     return True
 
+
 # # Code below already executed to fit template
 # if __name__ == '__main__':
-#     # fit_bezier_for_z_cubic()
+#     fit_bezier_for_z_cubic()
 #     # fit_bezier_for_z_quartic()

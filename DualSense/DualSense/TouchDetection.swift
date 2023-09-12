@@ -64,7 +64,7 @@ class TouchRecognizer: UIGestureRecognizer {
     override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent) {
         guard isRecording else { return }
         appendTouchData(touches: touches)
-        touchDelegate?.touchPointsUpdated(touchDataArray.map { $0.location })
+         touchDelegate?.touchPointsUpdated(touchDataArray.map { $0.location })
     }
     
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent) {
@@ -77,7 +77,7 @@ class TouchRecognizer: UIGestureRecognizer {
     override func touchesCancelled(_ touches: Set<UITouch>, with event: UIEvent) {
         guard isRecording else { return }
         appendTouchData(touches: touches)
-        touchDelegate?.touchPointsUpdated(touchDataArray.map { $0.location })
+         touchDelegate?.touchPointsUpdated(touchDataArray.map { $0.location })
         safeAndClearArray()
     }
     
@@ -93,11 +93,12 @@ class TouchRecognizer: UIGestureRecognizer {
         }
     }
     
+    
     // Safes touch data array to a JSON in document directory or sends it to backend; clears array for next gesture
     private func safeAndClearArray() {
         // Safes array to JSON file
         let encoder = JSONEncoder()
-        guard let jsonData = try? encoder.encode(touchDataArray) else {
+         guard let jsonData = try? encoder.encode(touchDataArray) else {
             print("Failed to encode gesture data")
             return
         }
@@ -125,8 +126,12 @@ class TouchRecognizer: UIGestureRecognizer {
     
     // Sends data to backend if flag isRecognising is set
     private func sendToBackend(jsonData: Data, sign: String) {
+        
+        // Starts measuring the time
+        let startTime = Date()
+        
         // Creates a URL request with a specific URL string, including IP address --> may needs to be updated
-        var request = URLRequest(url: URL(string: "http://146.169.150.228:5000/receive_json")!)
+        var request = URLRequest(url: URL(string:"http://192.168.1.76:5000/receive_json")!)
         // Specifies the HTTP method for the request as POST
         request.httpMethod = "POST"
         // Sets HTTP header with information about sign (for backend to select recogniser)
@@ -138,6 +143,14 @@ class TouchRecognizer: UIGestureRecognizer {
 
         // Create a URLSession data task with the request
         let task = URLSession.shared.dataTask(with: request) { data, response, error in
+            
+            // Records the end time
+            let endTime = Date()
+            // Calculates the elapsed time
+            let elapsedTime = endTime.timeIntervalSince(startTime)
+            // Prints or otherwise use the elapsed time
+            print("Elapsed Time parametric: \(elapsedTime) seconds")
+            
             if let error = error {
                 print("Error occurred: \(error)")
             }
