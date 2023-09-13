@@ -3,10 +3,10 @@ from tensorflow import Tensor
 from typing import Tuple
 import numpy as np
 
-def pre_process(images: np.ndarray, labels: np.ndarray, num_classes: int = 11) -> Tuple[np.ndarray, np.ndarray]:
 
+def pre_process(images: np.ndarray, labels: np.ndarray, num_classes: int = 11) -> Tuple[np.ndarray, np.ndarray]:
     # mapping of characters to integers, e.g., if 'J' corresponds to the class 10
-    label_mapping = {'CH': 0, 'G': 1, 'H': 2, 'J': 3, 'LL': 4, 'Ñ': 5, 'RR': 6, 'V': 7, 'W': 8, 'Z':9, 'Y': 10}
+    label_mapping = {'CH': 0, 'G': 1, 'H': 2, 'J': 3, 'LL': 4, 'Ñ': 5, 'RR': 6, 'V': 7, 'W': 8, 'Z': 9, 'Y': 10}
 
     # converts string labels to integers
     integer_labels = [label_mapping[label] for label in labels]
@@ -24,7 +24,8 @@ def generator(image: Tensor, label: Tensor) -> Tuple[Tuple[Tensor, Tensor], Tupl
     return (image, label), (label, image)
 
 
-def generate_tf_data(X_train: np.ndarray, y_train: np.ndarray, X_val: np.ndarray, y_val: np.ndarray, X_test: np.ndarray, y_test: np.ndarray, batch_size: int) -> Tuple[tf.data.Dataset, tf.data.Dataset, tf.data.Dataset]:
+def generate_tf_data(X_train: np.ndarray, y_train: np.ndarray, X_val: np.ndarray, y_val: np.ndarray, X_test: np.ndarray,
+                     y_test: np.ndarray, batch_size: int) -> Tuple[tf.data.Dataset, tf.data.Dataset, tf.data.Dataset]:
     # prepares training data
     dataset_train = tf.data.Dataset.from_tensor_slices((X_train, y_train))
     dataset_train = dataset_train.shuffle(buffer_size=len(X_train))
@@ -47,6 +48,5 @@ def generate_tf_data(X_train: np.ndarray, y_train: np.ndarray, X_val: np.ndarray
     dataset_test = dataset_test.map(generator, num_parallel_calls=tf.data.AUTOTUNE)
     dataset_test = dataset_test.batch(batch_size)
     dataset_test = dataset_test.prefetch(tf.data.AUTOTUNE)
-    
-    return dataset_train, dataset_val, dataset_test
 
+    return dataset_train, dataset_val, dataset_test

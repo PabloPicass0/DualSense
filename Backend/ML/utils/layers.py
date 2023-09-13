@@ -1,6 +1,4 @@
-import numpy as np
 import tensorflow as tf
-
 
 
 class Squash(tf.keras.layers.Layer):
@@ -25,8 +23,8 @@ class Squash(tf.keras.layers.Layer):
         self.eps = eps
 
     def call(self, s):
-        n = tf.norm(s,axis=-1,keepdims=True)
-        return (1 - 1/(tf.math.exp(n)+self.eps))*(s/(n+self.eps))
+        n = tf.norm(s, axis=-1, keepdims=True)
+        return (1 - 1 / (tf.math.exp(n) + self.eps)) * (s / (n + self.eps))
 
     def get_config(self):
         base_config = super().get_config()
@@ -34,8 +32,6 @@ class Squash(tf.keras.layers.Layer):
 
     def compute_output_shape(self, input_shape):
         return input_shape
-
-
 
 
 class PrimaryCaps(tf.keras.layers.Layer):
@@ -62,6 +58,7 @@ class PrimaryCaps(tf.keras.layers.Layer):
     call(inputs)
         compute the primary capsule layer
     """
+
     def __init__(self, F, K, N, D, s=1, **kwargs):
         super(PrimaryCaps, self).__init__(**kwargs)
         self.F = F
@@ -71,19 +68,18 @@ class PrimaryCaps(tf.keras.layers.Layer):
         self.s = s
 
     # each input channel convolved with own corresponding filter; to lean channel-specific features    
-    def build(self, input_shape):    
+    def build(self, input_shape):
         self.DW_Conv2D = tf.keras.layers.Conv2D(self.F, self.K, self.s,
-                                             activation='linear', groups=self.F, padding='valid')
+                                                activation='linear', groups=self.F, padding='valid')
 
         self.built = True
-    
-    def call(self, inputs):      
-        x = self.DW_Conv2D(inputs)      
+
+    def call(self, inputs):
+        x = self.DW_Conv2D(inputs)
         x = tf.keras.layers.Reshape((self.N, self.D))(x)
         x = Squash()(x)
-        
+
         return x
-    
 
 
 class FCCaps(tf.keras.layers.Layer):
@@ -107,31 +103,32 @@ class FCCaps(tf.keras.layers.Layer):
     call(inputs)
         compute the primary capsule layer
     """
+
     def __init__(self, N, D, kernel_initializer='he_normal', **kwargs):
         super(FCCaps, self).__init__(**kwargs)
         self.N = N
         self.D = D
         self.kernel_initializer = tf.keras.initializers.get(kernel_initializer)
-        
+
     def build(self, input_shape):
         input_N = input_shape[-2]
         input_D = input_shape[-1]
 
-        self.W = self.add_weight(shape=[self.N, input_N, input_D, self.D],initializer=self.kernel_initializer,name='W')
-        self.b = self.add_weight(shape=[self.N, input_N,1], initializer=tf.zeros_initializer(), name='b')
+        self.W = self.add_weight(shape=[self.N, input_N, input_D, self.D], initializer=self.kernel_initializer,
+                                 name='W')
+        self.b = self.add_weight(shape=[self.N, input_N, 1], initializer=tf.zeros_initializer(), name='b')
         self.built = True
-    
+
     def call(self, inputs, training=None):
-        
-        u = tf.einsum('...ji,kjiz->...kjz',inputs,self.W)    # u shape=(None,N,H*W*input_N,D)
-             
-        c = tf.einsum('...ij,...kj->...i', u, u)[...,None]        # b shape=(None,N,H*W*input_N,1) -> (None,j,i,1)
-        c = c/tf.sqrt(tf.cast(self.D, tf.float32))
-        c = tf.nn.softmax(c, axis=1)                             # c shape=(None,N,H*W*input_N,1) -> (None,j,i,1)
+        u = tf.einsum('...ji,kjiz->...kjz', inputs, self.W)  # u shape=(None,N,H*W*input_N,D)
+
+        c = tf.einsum('...ij,...kj->...i', u, u)[..., None]  # b shape=(None,N,H*W*input_N,1) -> (None,j,i,1)
+        c = c / tf.sqrt(tf.cast(self.D, tf.float32))
+        c = tf.nn.softmax(c, axis=1)  # c shape=(None,N,H*W*input_N,1) -> (None,j,i,1)
         c = c + self.b
-        s = tf.reduce_sum(tf.multiply(u, c),axis=-2)             # s shape=(None,N,D)
-        v = Squash()(s)       # v shape=(None,N,D)
-        
+        s = tf.reduce_sum(tf.multiply(u, c), axis=-2)  # s shape=(None,N,D)
+        v = Squash()(s)  # v shape=(None,N,D)
+
         return v
 
     def compute_output_shape(self, input_shape):
@@ -144,7 +141,6 @@ class FCCaps(tf.keras.layers.Layer):
         }
         base_config = super(FCCaps, self).get_config()
         return dict(list(base_config.items()) + list(config.items()))
-
 
 
 class Length(tf.keras.layers.Layer):
@@ -177,7 +173,6 @@ class Length(tf.keras.layers.Layer):
         return config
 
 
-
 class Mask(tf.keras.layers.Layer):
     """
     Mask operation described in 'Dynamic routinig between capsules'.
@@ -190,17 +185,20 @@ class Mask(tf.keras.layers.Layer):
         mask a capsule layer
         set double_mask for multimnist dataset
     """
+
     def call(self, inputs, double_mask=None, **kwargs):
         if type(inputs) is list:
             if double_mask:
                 inputs, mask1, mask2 = inputs
             else:
                 inputs, mask = inputs
-        else:  
+        else:
             x = tf.sqrt(tf.reduce_sum(tf.square(inputs), -1))
             if double_mask:
-                mask1 = tf.keras.backend.one_hot(tf.argsort(x,direction='DESCENDING',axis=-1)[...,0],num_classes=x.get_shape().as_list()[1])
-                mask2 = tf.keras.backend.one_hot(tf.argsort(x,direction='DESCENDING',axis=-1)[...,1],num_classes=x.get_shape().as_list()[1])
+                mask1 = tf.keras.backend.one_hot(tf.argsort(x, direction='DESCENDING', axis=-1)[..., 0],
+                                                 num_classes=x.get_shape().as_list()[1])
+                mask2 = tf.keras.backend.one_hot(tf.argsort(x, direction='DESCENDING', axis=-1)[..., 1],
+                                                 num_classes=x.get_shape().as_list()[1])
             else:
                 mask = tf.keras.backend.one_hot(indices=tf.argmax(x, 1), num_classes=x.get_shape().as_list()[1])
 
@@ -213,7 +211,7 @@ class Mask(tf.keras.layers.Layer):
             return masked
 
     def compute_output_shape(self, input_shape):
-        if type(input_shape[0]) is tuple:  
+        if type(input_shape[0]) is tuple:
             return tuple([None, input_shape[0][1] * input_shape[0][2]])
         else:  # generation step
             return tuple([None, input_shape[1] * input_shape[2]])
@@ -221,4 +219,3 @@ class Mask(tf.keras.layers.Layer):
     def get_config(self):
         config = super(Mask, self).get_config()
         return config
-    

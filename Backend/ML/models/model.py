@@ -8,8 +8,6 @@ import json
 import seaborn as sns
 from sklearn.metrics import classification_report, confusion_matrix
 import matplotlib.pyplot as plt
-import pandas as pd
-from utils.visualisation import plotWrongImages
 
 
 class Model(object):

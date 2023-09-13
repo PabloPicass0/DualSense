@@ -7,8 +7,6 @@ from sklearn.model_selection import train_test_split
 from utils.pre_process_STSL import pre_process
 from utils.pre_process_STSL import generate_tf_data
 from typing import Tuple, List
-from collections import Counter
-
 
 
 class Dataset(object):
@@ -41,12 +39,11 @@ class Dataset(object):
         with open(self.config_path) as json_data_file:
             self.config = json.load(json_data_file)
 
-
-    def load_images_and_labels(self, dataset_path: str = 'Dataset_formatted', 
-                           val_size: float = 0.1, test_size: float = 0.1, 
-                           random_seed: int = 42) -> Tuple[Tuple[List[np.ndarray], List[int]], 
-                                                           Tuple[List[np.ndarray], List[int]], 
-                                                           Tuple[List[np.ndarray], List[int]]]:
+    def load_images_and_labels(self, dataset_path: str = 'Dataset_formatted',
+                               val_size: float = 0.1, test_size: float = 0.1,
+                               random_seed: int = 42) -> Tuple[Tuple[List[np.ndarray], List[int]],
+    Tuple[List[np.ndarray], List[int]],
+    Tuple[List[np.ndarray], List[int]]]:
 
         images = []
         labels = []
@@ -70,16 +67,17 @@ class Dataset(object):
 
         # splits data into training and a temp set
         X_temp, X_test, y_temp, y_test = train_test_split(images, labels, test_size=test_size, random_state=random_seed)
-    
+
         # splits temp set into training and validation sets
-        X_train, X_val, y_train, y_val = train_test_split(X_temp, y_temp, test_size=val_size / (1 - test_size), random_state=random_seed)
+        X_train, X_val, y_train, y_val = train_test_split(X_temp, y_temp, test_size=val_size / (1 - test_size),
+                                                          random_state=random_seed)
 
         return (X_train, y_train), (X_val, y_val), (X_test, y_test)
 
-    
     def get_dataset(self):
         # loads images and labels
-        (self.X_train, self.y_train), (self.X_val, self.y_val), (self.X_test, self.y_test) = self.load_images_and_labels()
+        (self.X_train, self.y_train), (self.X_val, self.y_val), (
+        self.X_test, self.y_test) = self.load_images_and_labels()
         # prepares the data
         self.X_train, self.y_train = pre_process(self.X_train, self.y_train)
         self.X_val, self.y_val = pre_process(self.X_val, self.y_val)
@@ -89,11 +87,11 @@ class Dataset(object):
         print()
 
     def get_tf_data(self) -> Tuple[tf.data.Dataset, tf.data.Dataset, tf.data.Dataset]:
-    # creates TensorFlow datasets for training, validation, and testing data
-        dataset_train, dataset_val, dataset_test = generate_tf_data(self.X_train, self.y_train, self.X_val, self.y_val, self.X_test, self.y_test, self.config['batch_size'])
+        # creates TensorFlow datasets for training, validation, and testing data
+        dataset_train, dataset_val, dataset_test = generate_tf_data(self.X_train, self.y_train, self.X_val, self.y_val,
+                                                                    self.X_test, self.y_test, self.config['batch_size'])
 
         return dataset_train, dataset_val, dataset_test
-    
 
     def print_ds_info(self):
         # print shapes
@@ -106,12 +104,12 @@ class Dataset(object):
         print(f"y_test: {self.y_test.shape}")
         print()
         print()
-        
+
         # collecting class distributions
         print("Class distribution:")
         datasets = {'train': self.y_train, 'val': self.y_val, 'test': self.y_test}
         distributions = {name: np.sum(dataset, axis=0) for name, dataset in datasets.items()}
-        
+
         # printing class distributions as a table
         headers = ["Class"] + list(distributions.keys())
         table = [headers]
@@ -120,10 +118,10 @@ class Dataset(object):
             for dataset_name in distributions.keys():
                 row.append(str(int(distributions[dataset_name][class_index])))
             table.append(row)
-        
+
         # printing the table
         col_widths = [max(len(row[i]) for row in table) for i in range(len(table[0]))]
         row_format = " | ".join("{:<" + str(width) + "}" for width in col_widths)
-        
+
         for row in table:
             print(row_format.format(*row))

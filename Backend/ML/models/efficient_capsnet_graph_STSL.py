@@ -16,16 +16,12 @@ def efficient_capsnet_graph(input_shape):
     
     x = tf.keras.layers.Conv2D(32,5,activation="relu", padding='valid', kernel_initializer='he_normal')(inputs)
     x = tf.keras.layers.BatchNormalization()(x)
-    # print("Shape of x after first Conv2D:", x.shape)
     x = tf.keras.layers.Conv2D(64,3,2, activation='relu', padding='valid', kernel_initializer='he_normal')(x)
     x = tf.keras.layers.BatchNormalization()(x)
-    # print("Shape of x after second Conv2D:", x.shape)
     x = tf.keras.layers.Conv2D(64,3,2, activation='relu', padding='valid', kernel_initializer='he_normal')(x)   
     x = tf.keras.layers.BatchNormalization()(x)
-    # print("Shape of x after third Conv2D:", x.shape)
     x = tf.keras.layers.Conv2D(128,3,2, activation='relu', padding='valid', kernel_initializer='he_normal')(x)   
     x = tf.keras.layers.BatchNormalization()(x)
-    # print("Shape of x before PrimaryCaps:", x.shape)
     x = PrimaryCaps(128, 14, 16, 8)(x)
     
     digit_caps = FCCaps(11,16)(x)
