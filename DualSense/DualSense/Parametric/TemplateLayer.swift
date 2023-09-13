@@ -59,7 +59,7 @@ struct TemplateLayer: View {
     // Declares the function getTemplateFromBackend with parameters: sign and a completion closure that takes an array of CGPoints as input
     func getTemplateFromBackend(sign: String, completion: @escaping ([CGPoint]) -> Void) {
         // Defines the URL endpoint where we're making the request
-        let url = "http://192.168.1.76:5000/get-template" 
+        let url = "http://192.168.1.76:5000/get-template"  // -------> Make sure url is correct
 
         // Defines the parameters for the request as a dictionary with the sign variable
         let parameters: [String: Any] = ["sign": sign]

@@ -24,6 +24,7 @@ from Parametric.sign_ch.sign_ch import is_sign_ch
 from extraction import extract_timestamps_and_locations
 from PIL import Image
 import io
+import numpy as np
 
 # creates basic flask application
 app = Flask(__name__)
@@ -264,8 +265,14 @@ def recogniser_function_ml() -> Response:
     # predict label with model
     y_pred, img_reconstructed = model_STSL.predict(user_gesture_preprocessed)
 
+    # prints prediction
+    print(y_pred[0])
+
     # convert prediction into meaningful label
     label = extract_label(y_pred)
+
+    # prints predicted label
+    print(f'Prediction: {label} with {max(y_pred[0])}')
 
     # return output
     if label:

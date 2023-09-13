@@ -10,11 +10,8 @@ import SwiftUI
 // Creates view with hand template for gesture performance
 struct HandGraphic: View {
     
-    // Needed to pass into the TouchRecogniser; if true, touch data is recorded; toggled by button
+    // Needed to pass into the TouchRecogniser; if true, touch data is recorded (drawn); toggled by button
     @Binding var isRecording: Bool
-    
-    // if true, data detected is sent to backend instead of being stored on device
-    var isRecognising: Bool
     
     // The server response for informing the user about the success/failure of its performed sign
     @Binding var serverResponse: String
@@ -37,7 +34,7 @@ struct HandGraphic: View {
                     .padding(.bottom, 100)
                 
                 // Touch View layer on top of hand image
-                TouchDetectionLayer(isRecording: $isRecording, isRecognising: isRecognising, sign: sign, serverResponse: $serverResponse ,touchDelegate: self)
+                TouchDetectionLayer(isRecording: $isRecording, sign: sign, serverResponse: $serverResponse ,touchDelegate: self)
                 
                 // Colours touch locations of user on view
                 ForEach(touchPoints.indices, id: \.self) { index in

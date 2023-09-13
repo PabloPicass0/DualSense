@@ -114,7 +114,7 @@ struct SampleView: View {
             // Converts image to transmittable data
             let imageData = image.pngData()
             
-            // Creates URL request
+            // Creates URL request -------> Make sure url is correct
             var request = URLRequest(url: URL(string: "http://192.168.1.76:5000/save-sample")!)
             request.httpMethod = "POST"
             // Sets HTTP header with information about sign (for backend to select recogniser)

@@ -24,7 +24,6 @@
 		F9B746032A38DDA000A31413 /* TouchDetection.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9B746022A38DDA000A31413 /* TouchDetection.swift */; };
 		F9E909E62A7EA3B4002E95EF /* DrawButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9E909E52A7EA3B4002E95EF /* DrawButton.swift */; };
 		F9E98E522A40CF29004561D7 /* TouchDetectionLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9E98E512A40CF29004561D7 /* TouchDetectionLayer.swift */; };
-		F9E98E542A40D098004561D7 /* RecordButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9E98E532A40D098004561D7 /* RecordButton.swift */; };
 		F9E98E562A40D1D4004561D7 /* HandGraphic.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9E98E552A40D1D4004561D7 /* HandGraphic.swift */; };
 		F9EB40022A7D5A5C00DF2D31 /* SampleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9EB40012A7D5A5C00DF2D31 /* SampleView.swift */; };
 		F9EB40052A7D719500DF2D31 /* DrawingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9EB40042A7D719500DF2D31 /* DrawingView.swift */; };
@@ -68,7 +67,6 @@
 		F9B746022A38DDA000A31413 /* TouchDetection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TouchDetection.swift; sourceTree = "<group>"; };
 		F9E909E52A7EA3B4002E95EF /* DrawButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrawButton.swift; sourceTree = "<group>"; };
 		F9E98E512A40CF29004561D7 /* TouchDetectionLayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TouchDetectionLayer.swift; sourceTree = "<group>"; };
-		F9E98E532A40D098004561D7 /* RecordButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordButton.swift; sourceTree = "<group>"; };
 		F9E98E552A40D1D4004561D7 /* HandGraphic.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HandGraphic.swift; sourceTree = "<group>"; };
 		F9EB40012A7D5A5C00DF2D31 /* SampleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SampleView.swift; sourceTree = "<group>"; };
 		F9EB40042A7D719500DF2D31 /* DrawingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrawingView.swift; sourceTree = "<group>"; };
@@ -124,19 +122,13 @@
 		F9B745D32A38B56100A31413 /* DualSense */ = {
 			isa = PBXGroup;
 			children = (
+				F9FD6D292AB1E33200DD64EF /* Parametric */,
 				F9EB40032A7D6C6500DF2D31 /* ML */,
 				F9B745D42A38B56100A31413 /* DualSenseApp.swift */,
 				F9355B492A49A0B700F573AA /* MenuView.swift */,
 				F9B745D62A38B56100A31413 /* ContentView.swift */,
 				F9B745D82A38B56200A31413 /* Assets.xcassets */,
 				F9B745DA2A38B56200A31413 /* Preview Content */,
-				F9E98E552A40D1D4004561D7 /* HandGraphic.swift */,
-				F9B746022A38DDA000A31413 /* TouchDetection.swift */,
-				F9E98E532A40D098004561D7 /* RecordButton.swift */,
-				F9E98E512A40CF29004561D7 /* TouchDetectionLayer.swift */,
-				F9355B542A49CDC900F573AA /* DetectButton.swift */,
-				F957102B2A55B70900A73948 /* TemplateLayer.swift */,
-				F92617F42A6D904400C7C0A7 /* SignView.swift */,
 			);
 			path = DualSense;
 			sourceTree = "<group>";
@@ -177,6 +169,19 @@
 				F92F880D2A8E6DB400891D97 /* SignViewML.swift */,
 			);
 			path = ML;
+			sourceTree = "<group>";
+		};
+		F9FD6D292AB1E33200DD64EF /* Parametric */ = {
+			isa = PBXGroup;
+			children = (
+				F9E98E552A40D1D4004561D7 /* HandGraphic.swift */,
+				F9B746022A38DDA000A31413 /* TouchDetection.swift */,
+				F9E98E512A40CF29004561D7 /* TouchDetectionLayer.swift */,
+				F9355B542A49CDC900F573AA /* DetectButton.swift */,
+				F957102B2A55B70900A73948 /* TemplateLayer.swift */,
+				F92617F42A6D904400C7C0A7 /* SignView.swift */,
+			);
+			path = Parametric;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -320,7 +325,6 @@
 				F9355B4A2A49A0B700F573AA /* MenuView.swift in Sources */,
 				F9EE63B92A7FC0F100270B7E /* DotsView.swift in Sources */,
 				F9E98E522A40CF29004561D7 /* TouchDetectionLayer.swift in Sources */,
-				F9E98E542A40D098004561D7 /* RecordButton.swift in Sources */,
 				F9B746032A38DDA000A31413 /* TouchDetection.swift in Sources */,
 				F9EB40022A7D5A5C00DF2D31 /* SampleView.swift in Sources */,
 				F9EB40052A7D719500DF2D31 /* DrawingView.swift in Sources */,

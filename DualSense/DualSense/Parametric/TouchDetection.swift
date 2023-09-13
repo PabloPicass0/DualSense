@@ -25,9 +25,6 @@ class TouchRecognizer: UIGestureRecognizer {
     // Stores gestures only if true
     var isRecording: Bool
         
-    // Sends to backend only if true
-    var isRecognising: Bool
-        
     // Indicator for backend to select recogniser
     let sign: String
     
@@ -41,9 +38,8 @@ class TouchRecognizer: UIGestureRecognizer {
     var touchDelegate: TouchRecognizerDelegate?
         
     // Custom initializer
-    init(target: Any?, action: Selector?, isRecording: Bool, isRecognising: Bool, sign: String, serverResponseHandler: @escaping (String) -> Void) {
+    init(target: Any?, action: Selector?, isRecording: Bool, sign: String, serverResponseHandler: @escaping (String) -> Void) {
         self.isRecording = isRecording
-        self.isRecognising = isRecognising
         self.sign = sign
         self.serverResponseHandler = serverResponseHandler
         super.init(target: target, action: action)
@@ -98,39 +94,25 @@ class TouchRecognizer: UIGestureRecognizer {
     private func safeAndClearArray() {
         // Safes array to JSON file
         let encoder = JSONEncoder()
-         guard let jsonData = try? encoder.encode(touchDataArray) else {
+        guard let jsonData = try? encoder.encode(touchDataArray) else {
             print("Failed to encode gesture data")
             return
         }
-
-        if isRecognising {
-            // Send JSON data to backend
-            sendToBackend(jsonData: jsonData, sign: sign)
-        } else {
-            // Write JSON data to file
-            if let path = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first {
-                let filePath = path.appendingPathComponent("TouchData.json")
-                do {
-                    try jsonData.write(to: filePath)
-                    // For debugging and seeing where the files end up
-                    print("File Path: \(filePath)")
-                } catch {
-                    print("An error occurred while writing to file: \(error)")
-                }
-            }
-        }
+        
+        // sends captured data to the backend
+        sendToBackend(jsonData: jsonData, sign: sign)
 
         // Clears array for next gesture
         touchDataArray.removeAll()
     }
     
-    // Sends data to backend if flag isRecognising is set
+    // Sends data to backend
     private func sendToBackend(jsonData: Data, sign: String) {
         
         // Starts measuring the time
         let startTime = Date()
         
-        // Creates a URL request with a specific URL string, including IP address --> may needs to be updated
+        // Creates a URL request with a specific URL string, including IP address -------> Make sure url is correct
         var request = URLRequest(url: URL(string:"http://192.168.1.76:5000/receive_json")!)
         // Specifies the HTTP method for the request as POST
         request.httpMethod = "POST"

@@ -1,29 +1,20 @@
 # Introduction
 
-This is a template for getting started with iOS development using GitLab and [fastlane](https://fastlane.tools/).
+This is the repository to the report "Exploratory Study on Complex Gesture Recognition for an iPad-based Tactile Sign Language Tutoring System" that is submitted in partial fulfillment of the  requirements for the MSc degree in Computing of Imperial College London.
 
-# Virtual environment
-Whenever working on the project, activate the virtual environment. 
-Install packages using pip and add then to the requirement.txt file.
 
-- Activate: source env/bin/activate
-- Deactivate: deactivate
+# What's contained in this project
 
-# Reference links
+The repository is structured into front end (DualSense) and back end (Backend).
 
-- [GitLab CI Documentation](https://docs.gitlab.com/ee/ci/)
-- [Blog post: Android publishing with iOS and fastlane](https://about.gitlab.com/2019/03/06/ios-publishing-with-gitlab-and-fastlane/)
+## DualSense
+ 
 
-# Getting started
+## Backend
 
-You'll need a working MacOS development environment with XCode 10 to use this
-template. You can find instructions to get up and running on the Apple [XCode website](https://developer.apple.com/xcode/).
-
-If you want to use GitLab CI with your own MacOS runners (a requirement since we
-do not currently yet offer shared MacOS runners - follow [infrastructure#5294](https://gitlab.com/gitlab-com/gl-infra/infrastructure/issues/5294) for
-updates on that front) please read through the blog post above which will walk 
-you through everything you need to get up and running.
-
-## What's contained in this project
-
-This template contains a simple Food Tracker App based off of the [Start Developing iOS Apps (Swift) Lessons](https://developer.apple.com/library/archive/referencelibrary/GettingStarted/DevelopiOSAppsSwift/index.html). Where necessary the template has been upgraded to use Swift 4. The app displays a list of meals consisting of a name, rating, and photo. Users are able to add or edit a meal by navigating to a detail screen. The app also includes a lightweight solution for basic data persistence.
+The back end is written in python and consists out of a flask application designed to catch and respond to front end requests. The directory contains a few individual python files as well as 
+two subdirectories. The individual python files consist out of the endpoint script that contains all the code related to the flask application and "extraction", "parameterisation", and 
+"recognition", which provide functions to fit and match Bezier curves. The subdirectories are "ML" and "Parametric". The latter contains a subdirectory for each sign with the code to fit 
+the respective curve(s), the raw data that was used to fit the curve(s), and the curve template(s) itself. The former contains all the code for the machine learning approach, including the 
+saved model and dataset. Please note that code related to the model architecture heavily builds on https://github.com/EscVM/Efficient-CapsNet/blob/main/README.md. This is also declared in a 
+NOTICE file within the directory.

@@ -14,9 +14,6 @@ struct TouchDetectionLayer: UIViewRepresentable {
     // Binding property for the recording state; @Binding makes it reference the source of truth
     @Binding var isRecording: Bool
     
-    // if true, data is sent to backend
-    var isRecognising: Bool
-    
     // Recognition string for backend to select appropriate recogniser
     var sign: String
     
@@ -52,14 +49,13 @@ struct TouchDetectionLayer: UIViewRepresentable {
         // Creates a UIView instance as constant (assigned variable cannot be changed)
         let view = UIView()
         
-        // Enable multiple touches; does not make a difference as UIGestureRecognizer get all touches regardless
+//        // Enable multiple touches; does not make a difference as UIGestureRecognizer get all touches regardless
 //        view.isMultipleTouchEnabled = true
             
         // Creates a TouchRecognizer using the initializer and adds it to the view
         let touchRecognizer = TouchRecognizer(target: context.coordinator,
                                               action: #selector(Coordinator.touchDetected),
                                               isRecording: isRecording,
-                                              isRecognising: isRecognising,
                                               sign: sign) { response in
             self.serverResponse = response
         }

@@ -11,19 +11,17 @@ import SwiftUI
 struct SignView: View {
     @State private var isRecording = false
     @State private var serverResponse: String = ""
-    private var isRecognising: Bool
     private var sign: String
     
     init(sign: String, isRecognising: Bool = true) {
         self.sign = sign
-        self.isRecognising = isRecognising
     }
     
     var body: some View {
         ZStack {
             VStack {
                 Spacer()
-                HandGraphic(isRecording: $isRecording, isRecognising: isRecognising, serverResponse: $serverResponse, sign: sign)
+                HandGraphic(isRecording: $isRecording, serverResponse: $serverResponse, sign: sign)
             }
             VStack {
                 Text(serverResponse)
