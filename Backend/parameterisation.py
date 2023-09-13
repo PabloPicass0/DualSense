@@ -1,5 +1,8 @@
-from typing import List, Tuple
+"""
+Functions to fit Bezier curves.
+"""
 
+from typing import List, Tuple
 import numpy as np
 from scipy.optimize import minimize
 

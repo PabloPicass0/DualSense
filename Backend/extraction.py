@@ -4,9 +4,7 @@ Functions to extract data and features from JSON files.
 import json
 import os
 from typing import List, Dict, Tuple, Union
-
 import numpy as np
-
 from recognition import euclidean_distance
 
 
@@ -172,6 +170,3 @@ if __name__ == '__main__':
     # extracts numpy template (Bézier curves) into json file for frontend
     numpy_to_json('sign_y', 'bezier_curve_template.npy')
 
-# extracts touch location coordinates into json files
-# make sure to update the filename before use to not override other files
-# read_and_store_locations_to_json('.', 'data.json', 'ñ.json')

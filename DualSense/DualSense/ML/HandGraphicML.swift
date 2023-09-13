@@ -95,7 +95,7 @@ struct HandGraphicML: View {
             let imageData = image.pngData()
             
             // Creates URL request
-            var request = URLRequest(url: URL(string: "http://146.169.156.31:5000/detect-gesture-ml")!)
+            var request = URLRequest(url: URL(string: "http://192.168.1.76:5000/detect-gesture-ml")!)
             request.httpMethod = "POST"
             // Sets HTTP header with information about sign (for backend to select recogniser)
             request.setValue(sign, forHTTPHeaderField: "Sign")
