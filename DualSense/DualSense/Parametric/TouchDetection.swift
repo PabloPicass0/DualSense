@@ -113,7 +113,7 @@ class TouchRecognizer: UIGestureRecognizer {
         let startTime = Date()
         
         // Creates a URL request with a specific URL string, including IP address -------> Make sure url is correct
-        var request = URLRequest(url: URL(string:"http://192.168.1.76:5000/receive_json")!)
+        var request = URLRequest(url: URL(string: baseURL)!)
         // Specifies the HTTP method for the request as POST
         request.httpMethod = "POST"
         // Sets HTTP header with information about sign (for backend to select recogniser)
