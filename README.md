@@ -19,6 +19,6 @@ The back end is implemented in python and consists out of a flask application de
 ## Run the application
 
 1. Run the endpoint
-2. Ensure the frontend targets the correct IP address (Within Parametric check files "TouchDetection" and "TemplateLayer"; within ML check "HandGraphicML" and "SampleView"; the latter only if you plan to collect image samples.)
+2. Ensure the frontend targets the correct IP address (update the baseURL variable in GlobalConstants.swift)
 3. Run the build within Xcode --> Xcode provides a Content View to test the application without an iPad
 4. Enjoy!
